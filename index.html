@@ -34,6 +34,8 @@
     --accent-soft: #dbeafe;
     --accent-text: #1e40af;
     --success: #10b981;
+    --missed: #ef4444;
+    --missed-soft: #fee2e2;
     --shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
   [data-theme="minimal-dark"] {
@@ -49,6 +51,8 @@
     --accent-soft: #1e3a8a40;
     --accent-text: #93c5fd;
     --success: #34d399;
+    --missed: #f87171;
+    --missed-soft: #7f1d1d40;
     --shadow: 0 1px 2px rgba(0,0,0,0.4);
   }
 
@@ -849,7 +853,7 @@
   .day-checkbox:hover {
     border-color: var(--accent);
   }
-  .day-checkbox.checked {
+  .day-checkbox.done {
     background: var(--success);
     border-color: var(--success);
   }
@@ -857,9 +861,7 @@
     width: 10px;
     height: 10px;
     color: white;
-    display: none;
   }
-  .day-checkbox.checked svg { display: block; }
 
   .back-to-today {
     background: none;
@@ -934,6 +936,138 @@
     font-size: 13px;
     color: var(--text);
     line-height: 1.6;
+  }
+
+  /* Missed status — red X on checkbox + name styling */
+  .day-checkbox.missed {
+    background: var(--missed);
+    border-color: var(--missed);
+  }
+  .day-session-name.missed {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--missed);
+    text-decoration-thickness: 1px;
+  }
+  .day-box.missed {
+    opacity: 0.75;
+  }
+  .day-box.missed.selected { opacity: 1; }
+  .day-checkbox .check-svg, .day-checkbox .x-svg { display: none; }
+  .day-checkbox.done .check-svg { display: block; }
+  .day-checkbox.missed .x-svg { display: block; }
+  .today-section-pill.missed { background: var(--missed); }
+
+  /* Discipline selector — three big buttons at top of Paces tab */
+  .discipline-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .discipline-tab {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 16px 8px;
+    border-radius: var(--radius-card);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: all var(--transition);
+    font-family: inherit;
+    box-shadow: var(--shadow);
+  }
+  .discipline-tab svg {
+    width: 22px;
+    height: 22px;
+  }
+  .discipline-tab:hover {
+    background: var(--bg-subtle);
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .discipline-tab.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* Pace conversion calculator */
+  .pace-calc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .pace-calc-input label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .pace-calc-input input {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", monospace;
+    text-align: center;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: var(--radius-button);
+    transition: border-color var(--transition);
+  }
+  .pace-calc-input input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  /* Pace conversion table */
+  .pace-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .pace-table th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+  }
+  .pace-table th + th, .pace-table td + td { text-align: right; }
+  .pace-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", monospace;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .pace-table tbody tr { transition: background var(--transition); }
+  .pace-table tbody tr:hover { background: var(--bg-subtle); }
+  .pace-table tr:last-child td { border-bottom: none; }
+  .pace-table tr.zone-easy td:first-child { color: var(--accent); font-weight: 700; }
+  .pace-table tr.zone-threshold td:first-child { color: var(--accent); font-weight: 700; }
+  .pace-table .zone-tag {
+    display: inline-block;
+    font-family: var(--font-stack);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   /* Session selector tabs (multi-session days) */
@@ -1367,9 +1501,10 @@
           <div class="sidebar-card">
             <div class="sidebar-title">Week summary</div>
             <div class="sidebar-progress">
-              <span class="sidebar-progress-value" id="progressDone">1</span>
-              <span class="sidebar-progress-of">of <span id="progressTotal">9</span> sessions done</span>
+              <span class="sidebar-progress-value" id="progressDone">0</span>
+              <span class="sidebar-progress-of">of <span id="progressTotal">9</span> done</span>
             </div>
+            <div id="progressMissed" style="display: none; font-size: 12px; color: var(--missed); margin-bottom: 12px; font-weight: 600;"></div>
             <div class="sidebar-stats">
               <div class="sidebar-stat">
                 <div class="sidebar-stat-value" id="statRun">—</div>
@@ -1394,46 +1529,12 @@
             </div>
           </div>
 
-          <div class="sidebar-card">
-            <div class="sidebar-title">Pace zones</div>
-
-            <div class="pace-section">
-              <div class="pace-section-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="m5 22 5-9 4 3 4-8 4 2"/></svg>
-                Run · per km
-              </div>
-              <div class="pace-rows">
-                <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">4:45–5:15</span><span class="pace-hr">HR &lt;145</span></div>
-                <div class="pace-row"><span class="pace-zone">Long run</span><span class="pace-value">4:40–5:00</span><span class="pace-hr">145–155</span></div>
-                <div class="pace-row"><span class="pace-zone">Marathon</span><span class="pace-value">4:15–4:25</span><span class="pace-hr">155–165</span></div>
-                <div class="pace-row"><span class="pace-zone">Threshold</span><span class="pace-value">3:55–4:05</span><span class="pace-hr">165–172</span></div>
-                <div class="pace-row"><span class="pace-zone">VO2</span><span class="pace-value">3:30–3:40</span><span class="pace-hr">172+</span></div>
-              </div>
-            </div>
-
-            <div class="pace-section">
-              <div class="pace-section-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>
-                Bike · RPE / HR
-              </div>
-              <div class="pace-rows">
-                <div class="pace-row"><span class="pace-zone">Easy Z2</span><span class="pace-value">RPE 3–4</span><span class="pace-hr">130–145</span></div>
-                <div class="pace-row"><span class="pace-zone">Sweet spot</span><span class="pace-value">RPE 6–7</span><span class="pace-hr">140–155</span></div>
-                <div class="pace-row"><span class="pace-zone">Threshold</span><span class="pace-value">RPE 7–8</span><span class="pace-hr">155–165</span></div>
-              </div>
-            </div>
-
-            <div class="pace-section">
-              <div class="pace-section-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2M2 18s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2M2 6s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2"/></svg>
-                Swim · per 100m
-              </div>
-              <div class="pace-rows">
-                <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">2:05–2:15</span><span class="pace-hr">Warm-up</span></div>
-                <div class="pace-row"><span class="pace-zone">Steady</span><span class="pace-value">1:45–1:50</span><span class="pace-hr">Main sets</span></div>
-                <div class="pace-row"><span class="pace-zone">Speed</span><span class="pace-value">1:40–1:45</span><span class="pace-hr">Reps</span></div>
-              </div>
-            </div>
+          <div class="sidebar-card" style="text-align: center;">
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Pace zones moved to their own page</div>
+            <button class="btn btn-secondary" onclick="showView('paces')" style="width: 100%;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:6px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Open pace zones &amp; calculator
+            </button>
           </div>
 
         </aside>
@@ -1540,6 +1641,106 @@
     <div style="height: 20px;"></div>
   </div>
 
+  <!-- ============ PACES VIEW (discipline-tabbed) ============ -->
+  <div class="view" id="view-paces">
+    <div class="page-title">Paces</div>
+    <div class="page-sub">Training zones and conversions</div>
+
+    <div class="discipline-selector">
+      <button class="discipline-tab active" data-discipline="run" onclick="setDiscipline('run')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="m5 22 5-9 4 3 4-8 4 2"/></svg>
+        Run
+      </button>
+      <button class="discipline-tab" data-discipline="bike" onclick="setDiscipline('bike')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>
+        Bike
+      </button>
+      <button class="discipline-tab" data-discipline="swim" onclick="setDiscipline('swim')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2M2 18s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2M2 6s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2"/></svg>
+        Swim
+      </button>
+    </div>
+
+    <!-- RUN: zones, calculator, conversion table -->
+    <div class="discipline-content" id="discipline-run">
+      <div class="form-group">
+        <div class="form-label" style="margin-bottom: 10px;">Your run pace zones · per km</div>
+        <div class="pace-rows">
+          <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">4:45–5:15</span><span class="pace-hr">HR &lt;145</span></div>
+          <div class="pace-row"><span class="pace-zone">Long run</span><span class="pace-value">4:40–5:00</span><span class="pace-hr">145–155</span></div>
+          <div class="pace-row"><span class="pace-zone">Marathon</span><span class="pace-value">4:15–4:25</span><span class="pace-hr">155–165</span></div>
+          <div class="pace-row"><span class="pace-zone">Threshold</span><span class="pace-value">3:55–4:05</span><span class="pace-hr">165–172</span></div>
+          <div class="pace-row"><span class="pace-zone">VO2</span><span class="pace-value">3:30–3:40</span><span class="pace-hr">172+</span></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label" style="margin-bottom: 10px;">Conversion calculator</div>
+        <div class="pace-calc-row">
+          <div class="pace-calc-input">
+            <label>Min / km</label>
+            <input type="text" id="paceMinKm" placeholder="5:00" oninput="updateFromMinKm(this.value)">
+          </div>
+          <div class="pace-calc-input">
+            <label>km/h</label>
+            <input type="text" id="paceKph" placeholder="12.0" oninput="updateFromKph(this.value)">
+          </div>
+          <div class="pace-calc-input">
+            <label>mph</label>
+            <input type="text" id="paceMph" placeholder="7.5" oninput="updateFromMph(this.value)">
+          </div>
+        </div>
+        <div style="font-size: 11px; color: var(--text-faint); margin-top: 10px; text-align: center;">
+          Pace format: <strong>5:30</strong> or <strong>5.5</strong>. Speed: decimal.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label" style="margin-bottom: 10px;">Conversion table · tap a row to load</div>
+        <table class="pace-table">
+          <thead>
+            <tr><th>Min / km</th><th>km/h</th><th>mph</th></tr>
+          </thead>
+          <tbody id="paceTableBody">
+            <!-- populated by JS — 5-second increments -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BIKE: zones only -->
+    <div class="discipline-content" id="discipline-bike" style="display:none;">
+      <div class="form-group">
+        <div class="form-label" style="margin-bottom: 10px;">Your bike pace zones · RPE / HR</div>
+        <div class="pace-rows">
+          <div class="pace-row"><span class="pace-zone">Easy Z2</span><span class="pace-value">RPE 3–4</span><span class="pace-hr">HR 130–145</span></div>
+          <div class="pace-row"><span class="pace-zone">Sweet spot</span><span class="pace-value">RPE 6–7</span><span class="pace-hr">HR 140–155</span></div>
+          <div class="pace-row"><span class="pace-zone">Threshold</span><span class="pace-value">RPE 7–8</span><span class="pace-hr">HR 155–165</span></div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.5;">
+          Bike paces are RPE-based for now (no power meter on file). Add a power meter and I can prescribe in watts/FTP.
+        </div>
+      </div>
+    </div>
+
+    <!-- SWIM: zones only -->
+    <div class="discipline-content" id="discipline-swim" style="display:none;">
+      <div class="form-group">
+        <div class="form-label" style="margin-bottom: 10px;">Your swim pace zones · per 100m</div>
+        <div class="pace-rows">
+          <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">2:05–2:15</span><span class="pace-hr">Warm-up</span></div>
+          <div class="pace-row"><span class="pace-zone">Steady aerobic</span><span class="pace-value">1:45–1:50</span><span class="pace-hr">Main sets</span></div>
+          <div class="pace-row"><span class="pace-zone">Speed</span><span class="pace-value">1:40–1:45</span><span class="pace-hr">Speed reps</span></div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.5;">
+          Based on your 1:45/100m sustained pace in Week 1's main set. Targets will keep updating as you build.
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 20px;"></div>
+  </div>
+
 </div>
 
 <!-- BOTTOM NAV -->
@@ -1547,6 +1748,10 @@
   <button class="nav-btn active" data-view="plan" onclick="showView('plan')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     Plan
+  </button>
+  <button class="nav-btn" data-view="paces" onclick="showView('paces')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Paces
   </button>
   <button class="nav-btn" data-view="checkin" onclick="showView('checkin')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="11" y2="11"/></svg>
@@ -1609,7 +1814,15 @@
   // ============================================
   const style = 'minimal'; // locked
   let mode = localStorage.getItem('coach-mode') || 'light';
-  let sessionsDone = JSON.parse(localStorage.getItem(k('sessionsdone')) || '[]');
+  // sessionStatus: { 'mon.0': 'done', 'fri.0': 'missed', ... }. Missing key = not yet tracked.
+  let sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || 'null');
+  if (sessionStatus === null) {
+    // Migrate from old done-only array
+    const oldDone = JSON.parse(localStorage.getItem(k('sessionsdone')) || '[]');
+    sessionStatus = {};
+    oldDone.forEach(key => { sessionStatus[key] = 'done'; });
+    localStorage.setItem(k('sessionstatus'), JSON.stringify(sessionStatus));
+  }
   let sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
   let checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
   let currentSessionId = null;
@@ -1636,23 +1849,34 @@
   let week = currentPlan.days;
 
   // ============================================
-  // HELPERS — done state
+  // HELPERS — session status (done / missed / null)
   // ============================================
+  function getSessionStatus(dayId, idx) {
+    return sessionStatus[`${dayId}.${idx}`] || null;
+  }
   function isSessionDone(dayId, idx) {
-    return sessionsDone.includes(`${dayId}.${idx}`);
+    return getSessionStatus(dayId, idx) === 'done';
+  }
+  function isSessionMissed(dayId, idx) {
+    return getSessionStatus(dayId, idx) === 'missed';
   }
   function isDayDone(dayId) {
     const d = week.find(x => x.id === dayId);
     if (!d || !d.sessions || d.sessions.length === 0) return false;
     return d.sessions.every((_, i) => isSessionDone(dayId, i));
   }
+  function isDayMissed(dayId) {
+    const d = week.find(x => x.id === dayId);
+    if (!d || !d.sessions || d.sessions.length === 0) return false;
+    return d.sessions.every((_, i) => isSessionMissed(dayId, i));
+  }
   function isDayPartial(dayId) {
     const d = week.find(x => x.id === dayId);
     if (!d || d.sessions.length <= 1) return false;
-    const ids = d.sessions.map((_, i) => `${dayId}.${i}`);
-    const someDone = ids.some(s => sessionsDone.includes(s));
-    const allDone = ids.every(s => sessionsDone.includes(s));
-    return someDone && !allDone;
+    const statuses = d.sessions.map((_, i) => getSessionStatus(dayId, i));
+    const someSet = statuses.some(s => s !== null);
+    const allSame = statuses.every(s => s === statuses[0]);
+    return someSet && !allSame;
   }
   function totalSessions() {
     return week.reduce((sum, d) => sum + d.sessions.length, 0);
@@ -1664,27 +1888,41 @@
     }));
     return count;
   }
+  function totalSessionsMissed() {
+    let count = 0;
+    week.forEach(d => d.sessions.forEach((_, i) => {
+      if (isSessionMissed(d.id, i)) count++;
+    }));
+    return count;
+  }
+  function persistStatus() {
+    localStorage.setItem(k('sessionstatus'), JSON.stringify(sessionStatus));
+  }
 
   // ============================================
   // RENDER — week grid (small cards with per-session checkboxes)
   // ============================================
   function renderDayBox(d) {
     const dayDone = isDayDone(d.id);
+    const dayMissed = isDayMissed(d.id);
     const isToday = d.id === todayId;
     const isSelected = d.id === activeDayId;
     const sessionsHtml = d.sessions.map((s, i) => {
-      const checked = isSessionDone(d.id, i);
+      const status = getSessionStatus(d.id, i);
+      const cbClass = status === 'done' ? 'done' : status === 'missed' ? 'missed' : '';
+      const nameClass = status === 'done' ? 'checked' : status === 'missed' ? 'missed' : '';
       return `
         <div class="day-session-row">
-          <span class="day-session-name${checked ? ' checked' : ''}">${s.name}</span>
-          <button class="day-checkbox${checked ? ' checked' : ''}" onclick="event.stopPropagation(); toggleSessionDone('${d.id}', ${i});" aria-label="Mark ${s.name} ${checked ? 'not done' : 'complete'}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+          <span class="day-session-name ${nameClass}">${s.name}</span>
+          <button class="day-checkbox ${cbClass}" onclick="event.stopPropagation(); cycleSessionStatus('${d.id}', ${i});" aria-label="Cycle status (done / missed / clear)">
+            <svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+            <svg class="x-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
       `;
     }).join('');
     return `
-      <div class="day-box ${dayDone ? 'done' : ''} ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''} ${d.rest ? 'rest' : ''}" onclick="cardClick('${d.id}')">
+      <div class="day-box ${dayDone ? 'done' : ''} ${dayMissed ? 'missed' : ''} ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''} ${d.rest ? 'rest' : ''}" onclick="cardClick('${d.id}')">
         <div class="day-box-day-label">${d.day}</div>
         <div class="day-box-sessions">${sessionsHtml}</div>
       </div>
@@ -1705,10 +1943,13 @@
     const log = sessionLog[d.id];
 
     // Pill (day-level)
+    const dayMissed = isDayMissed(d.id);
     let pillHtml = '';
     if (isToday && dayDone) pillHtml = '<span class="today-section-pill done">Today · Done</span>';
+    else if (isToday && dayMissed) pillHtml = '<span class="today-section-pill missed">Today · Missed</span>';
     else if (isToday) pillHtml = '<span class="today-section-pill">Today</span>';
     else if (dayDone) pillHtml = '<span class="today-section-pill done">Done</span>';
+    else if (dayMissed) pillHtml = '<span class="today-section-pill missed">Missed</span>';
 
     const backBtn = !isToday
       ? `<button class="back-to-today" onclick="setActiveDay('${todayId}')">← Today</button>`
@@ -1738,9 +1979,14 @@
       : '<div class="preview-section-content" style="color: var(--text-faint);">No specific pace targets.</div>';
 
     const wholeDayBtn = d.sessions.length > 1
-      ? `<button class="btn btn-secondary" style="width: 100%; margin-top: 8px;" onclick="markDayComplete('${d.id}')">
-          ${dayDone ? 'Mark whole day not done' : 'Mark whole day complete'}
-        </button>`
+      ? `<div style="display: flex; gap: 8px; margin-top: 8px;">
+           <button class="btn btn-secondary" style="flex: 1;" onclick="markDayComplete('${d.id}')">
+             ${dayDone ? 'Whole day not done' : 'Whole day complete'}
+           </button>
+           <button class="btn btn-secondary" style="flex: 1;" onclick="markDayMissed('${d.id}')">
+             ${dayMissed ? 'Whole day not missed' : 'Whole day missed'}
+           </button>
+         </div>`
       : '';
 
     document.getElementById('todaySection').innerHTML = `
@@ -1791,12 +2037,16 @@
       </div>
 
       <div class="today-section-actions">
-        <button class="btn btn-primary" onclick="toggleSessionDone('${d.id}', ${activeSessionIdx})">
+        <button class="btn btn-primary" onclick="setSessionStatus('${d.id}', ${activeSessionIdx}, ${sessionDone ? 'null' : "'done'"})">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>
-          ${sessionDone ? 'Mark this session not done' : 'Mark this session complete'}
+          ${sessionDone ? 'Mark not done' : 'Mark complete'}
         </button>
-        <button class="btn btn-secondary" onclick="openLogModal()">Log + notes</button>
+        <button class="btn btn-secondary" onclick="setSessionStatus('${d.id}', ${activeSessionIdx}, ${isSessionMissed(d.id, activeSessionIdx) ? 'null' : "'missed'"})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          ${isSessionMissed(d.id, activeSessionIdx) ? 'Clear missed' : 'Mark missed'}
+        </button>
       </div>
+      <button class="btn btn-secondary" style="width: 100%; margin-top: 8px;" onclick="openLogModal()">Log + notes</button>
       ${wholeDayBtn}
       ${logSummary}
     `;
@@ -1807,6 +2057,14 @@
     renderActiveDay();
     document.getElementById('progressDone').textContent = totalSessionsDone();
     document.getElementById('progressTotal').textContent = totalSessions();
+    const missed = totalSessionsMissed();
+    const missedEl = document.getElementById('progressMissed');
+    if (missed > 0) {
+      missedEl.textContent = `${missed} missed`;
+      missedEl.style.display = 'block';
+    } else {
+      missedEl.style.display = 'none';
+    }
   }
 
   // ============================================
@@ -1996,34 +2254,57 @@
     window.scrollTo(0, 0);
   }
 
-  function toggleSessionDone(dayId, idx) {
+  function setSessionStatus(dayId, idx, status) {
     const key = `${dayId}.${idx}`;
-    if (sessionsDone.includes(key)) {
-      sessionsDone = sessionsDone.filter(s => s !== key);
+    if (status === null) {
+      delete sessionStatus[key];
     } else {
-      sessionsDone.push(key);
+      sessionStatus[key] = status;
     }
-    localStorage.setItem(k('sessionsdone'), JSON.stringify(sessionsDone));
+    persistStatus();
     renderWeek();
     if (currentSessionId === dayId) renderSessionDetail();
+  }
+
+  function cycleSessionStatus(dayId, idx) {
+    // Cycle through: blank → done → missed → blank
+    const current = getSessionStatus(dayId, idx);
+    if (current === null) setSessionStatus(dayId, idx, 'done');
+    else if (current === 'done') setSessionStatus(dayId, idx, 'missed');
+    else setSessionStatus(dayId, idx, null);
+  }
+
+  // Kept under old name as alias for any existing onclick handlers.
+  function toggleSessionDone(dayId, idx) {
+    cycleSessionStatus(dayId, idx);
   }
 
   function markDayComplete(dayId) {
     const d = week.find(x => x.id === dayId);
     if (!d) return;
     if (isDayDone(dayId)) {
-      // Toggle: mark all sessions for this day as not done
-      sessionsDone = sessionsDone.filter(s => !s.startsWith(dayId + '.'));
+      d.sessions.forEach((_, i) => delete sessionStatus[`${dayId}.${i}`]);
       toast("Day marked not done");
     } else {
-      // Mark all sessions for this day as done
-      d.sessions.forEach((_, i) => {
-        const key = `${dayId}.${i}`;
-        if (!sessionsDone.includes(key)) sessionsDone.push(key);
-      });
+      d.sessions.forEach((_, i) => { sessionStatus[`${dayId}.${i}`] = 'done'; });
       toast("Day marked complete");
     }
-    localStorage.setItem(k('sessionsdone'), JSON.stringify(sessionsDone));
+    persistStatus();
+    renderWeek();
+    if (currentSessionId === dayId) renderSessionDetail();
+  }
+
+  function markDayMissed(dayId) {
+    const d = week.find(x => x.id === dayId);
+    if (!d) return;
+    if (isDayMissed(dayId)) {
+      d.sessions.forEach((_, i) => delete sessionStatus[`${dayId}.${i}`]);
+      toast("Cleared missed status");
+    } else {
+      d.sessions.forEach((_, i) => { sessionStatus[`${dayId}.${i}`] = 'missed'; });
+      toast("Day marked missed");
+    }
+    persistStatus();
     renderWeek();
     if (currentSessionId === dayId) renderSessionDetail();
   }
@@ -2035,16 +2316,13 @@
     localStorage.setItem(k('sessionlog'), JSON.stringify(sessionLog));
     if (!isDayDone(id)) {
       const d = week.find(x => x.id === id);
-      d.sessions.forEach((_, i) => {
-        const key = `${id}.${i}`;
-        if (!sessionsDone.includes(key)) sessionsDone.push(key);
-      });
-      localStorage.setItem(k('sessionsdone'), JSON.stringify(sessionsDone));
+      d.sessions.forEach((_, i) => { sessionStatus[`${id}.${i}`] = 'done'; });
+      persistStatus();
       toast("Session logged and day marked complete");
     } else {
       toast("Log updated");
     }
-    activeDayId = id; // preview reflects the day we just logged
+    activeDayId = id;
     renderWeek();
     showView('plan');
   }
@@ -2153,8 +2431,14 @@
     currentPlan = window.COACH_PLANS.weeks[idx];
     todayId = currentPlan.todayId;
     week = currentPlan.days;
-    // Reload state from this week's storage keys
-    sessionsDone = JSON.parse(localStorage.getItem(k('sessionsdone')) || '[]');
+    // Reload state from this week's storage keys (with migration)
+    sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || 'null');
+    if (sessionStatus === null) {
+      const oldDone = JSON.parse(localStorage.getItem(k('sessionsdone')) || '[]');
+      sessionStatus = {};
+      oldDone.forEach(key => { sessionStatus[key] = 'done'; });
+      persistStatus();
+    }
     sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
     checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
     // Reset preview selection
@@ -2195,11 +2479,8 @@
     sessionLog[d.id] = { rpe, notes, completedAt: new Date().toISOString() };
     localStorage.setItem(k('sessionlog'), JSON.stringify(sessionLog));
     if (!isDayDone(d.id)) {
-      d.sessions.forEach((_, i) => {
-        const key = `${d.id}.${i}`;
-        if (!sessionsDone.includes(key)) sessionsDone.push(key);
-      });
-      localStorage.setItem(k('sessionsdone'), JSON.stringify(sessionsDone));
+      d.sessions.forEach((_, i) => { sessionStatus[`${d.id}.${i}`] = 'done'; });
+      persistStatus();
       toast("Logged and marked complete");
     } else {
       toast("Log updated");
@@ -2224,6 +2505,103 @@
   }
 
   // ============================================
+  // PACE CONVERSION CALCULATOR
+  // ============================================
+  function parsePace(str) {
+    if (str === null || str === undefined) return null;
+    const s = String(str).trim();
+    if (!s) return null;
+    if (s.includes(':')) {
+      const parts = s.split(':');
+      const min = parseFloat(parts[0]);
+      const sec = parseFloat(parts[1] || 0);
+      if (isNaN(min)) return null;
+      return min + (isNaN(sec) ? 0 : sec) / 60;
+    }
+    const n = parseFloat(s);
+    return isNaN(n) ? null : n;
+  }
+
+  function formatPace(minPerKm) {
+    if (!minPerKm || !isFinite(minPerKm) || minPerKm <= 0) return '';
+    const min = Math.floor(minPerKm);
+    const sec = Math.round((minPerKm - min) * 60);
+    if (sec === 60) return `${min + 1}:00`;
+    return `${min}:${sec.toString().padStart(2, '0')}`;
+  }
+
+  const MI_PER_KM = 0.621371;
+
+  function updateFromMinKm(value) {
+    const minKm = parsePace(value);
+    if (!minKm || minKm <= 0) return;
+    const kph = 60 / minKm;
+    document.getElementById('paceKph').value = kph.toFixed(1);
+    document.getElementById('paceMph').value = (kph * MI_PER_KM).toFixed(1);
+  }
+
+  function updateFromKph(value) {
+    const kph = parseFloat(value);
+    if (!kph || kph <= 0) return;
+    document.getElementById('paceMinKm').value = formatPace(60 / kph);
+    document.getElementById('paceMph').value = (kph * MI_PER_KM).toFixed(1);
+  }
+
+  function updateFromMph(value) {
+    const mph = parseFloat(value);
+    if (!mph || mph <= 0) return;
+    const kph = mph / MI_PER_KM;
+    document.getElementById('paceMinKm').value = formatPace(60 / kph);
+    document.getElementById('paceKph').value = kph.toFixed(1);
+  }
+
+  function loadPace(minKmText) {
+    document.getElementById('paceMinKm').value = minKmText;
+    updateFromMinKm(minKmText);
+  }
+
+  function renderPaceTable() {
+    // 3:00 to 7:00 per km in 5-second steps (49 rows)
+    const rows = [];
+    // Tagged zones for quick recognition
+    const zoneTags = {
+      '3:30': 'VO2',
+      '3:55': 'Threshold',
+      '4:00': 'Threshold',
+      '4:05': 'Threshold',
+      '4:15': 'Marathon',
+      '4:25': 'Marathon',
+      '4:40': 'Long run',
+      '5:00': 'Long run',
+      '5:15': 'Easy'
+    };
+    for (let totalSec = 180; totalSec <= 420; totalSec += 5) {
+      const minKm = totalSec / 60;
+      const pace = formatPace(minKm);
+      const kph = (60 / minKm).toFixed(1);
+      const mph = ((60 / minKm) * MI_PER_KM).toFixed(1);
+      const tag = zoneTags[pace] ? `<span class="zone-tag">${zoneTags[pace]}</span>` : '';
+      rows.push(`<tr onclick="loadPace('${pace}')"><td>${pace}${tag}</td><td>${kph}</td><td>${mph}</td></tr>`);
+    }
+    document.getElementById('paceTableBody').innerHTML = rows.join('');
+  }
+
+  // ============================================
+  // PACES — discipline switching
+  // ============================================
+  let activeDiscipline = localStorage.getItem('coach-discipline') || 'run';
+  function setDiscipline(d) {
+    activeDiscipline = d;
+    localStorage.setItem('coach-discipline', d);
+    document.querySelectorAll('.discipline-tab').forEach(b => {
+      b.classList.toggle('active', b.dataset.discipline === d);
+    });
+    document.querySelectorAll('.discipline-content').forEach(c => {
+      c.style.display = c.id === 'discipline-' + d ? '' : 'none';
+    });
+  }
+
+  // ============================================
   // RENDER — plan header (title, stats, focus)
   // ============================================
   function renderPlanHeader() {
@@ -2241,6 +2619,8 @@
   applyTheme();
   renderPlanHeader();
   renderWeek();
+  renderPaceTable();
+  setDiscipline(activeDiscipline);
 </script>
 </body>
 </html>
