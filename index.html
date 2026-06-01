@@ -1613,8 +1613,8 @@
   let sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
   let checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
   let currentSessionId = null;
-  const todayId = currentPlan.todayId;
-  let activeDayId = todayId; // which day's session is shown in the preview pane
+  let todayId = currentPlan.todayId; // null for archived/past weeks
+  let activeDayId = todayId || currentPlan.days[0].id; // fallback to first day if no "today"
   let activeSessionIdx = 0; // for multi-session days: which session is selected
   const dayNames = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
 
@@ -1631,9 +1631,9 @@
   };
 
   // ============================================
-  // WEEK DATA
+  // WEEK DATA (loaded from plans.js)
   // ============================================
-  const week = currentPlan.days;
+  let week = currentPlan.days;
 
   // ============================================
   // HELPERS — done state
@@ -2134,7 +2134,35 @@
   }
 
   function weekNav(direction) {
-    toast("Multi-week navigation comes in Stage 2");
+    let newIdx = currentWeekIdx;
+    if (direction === 'prev') newIdx--;
+    else if (direction === 'next') newIdx++;
+    if (newIdx < 0) {
+      toast("No earlier weeks");
+      return;
+    }
+    if (newIdx >= window.COACH_PLANS.weeks.length) {
+      toast("No later weeks yet — written when ready");
+      return;
+    }
+    loadWeek(newIdx);
+  }
+
+  function loadWeek(idx) {
+    currentWeekIdx = idx;
+    currentPlan = window.COACH_PLANS.weeks[idx];
+    todayId = currentPlan.todayId;
+    week = currentPlan.days;
+    // Reload state from this week's storage keys
+    sessionsDone = JSON.parse(localStorage.getItem(k('sessionsdone')) || '[]');
+    sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
+    checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
+    // Reset preview selection
+    activeDayId = todayId || currentPlan.days[0].id;
+    activeSessionIdx = 0;
+    // Re-render everything
+    renderPlanHeader();
+    renderWeek();
   }
 
   // ============================================

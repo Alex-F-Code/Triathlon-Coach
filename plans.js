@@ -14,6 +14,379 @@ window.COACH_PLANS = {
   weeks: [
 
     // ================================================================
+    // WEEK 1 — Foundation (18–24 May 2026)
+    // ================================================================
+    {
+      id: 'w01',
+      number: 1,
+      title: 'Foundation',
+      dateRange: '18–24 May',
+      year: 2026,
+      todayId: null, // historical week — no "today" highlight
+      archived: true,
+      stats: {
+        runKm: '~31 km',
+        bikeKm: '~100 km',
+        swimM: '~1800m',
+        totalHours: '~6:30'
+      },
+      focusHtml: 'Foundation week of the block. First quality stimuli across all three disciplines. Restructured mid-week: football replaced Mon run quality, Saturday long run gained a threshold finish.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '18 May',
+          name: 'Football + Upper S&C', meta: '60 + 50 min',
+          sessions: [
+            {
+              name: 'Football (5-a-side)', meta: '60 min',
+              headline: 'Anaerobic stimulus from football — Monday quality',
+              warmUp: '5–10 min jog + dynamic mobility + 3–4 sharp accelerations building to 80–90%.',
+              mainSet: 'Play normally. Repeat sprints, change of direction, anaerobic work.',
+              focus: 'Warm up properly — change of direction without warm-up is the top injury vector.',
+              paces: ['Intermittent intensity', 'Anaerobic stimulus'],
+              considerations: [
+                'Rehydrate post-game',
+                'Eat within 60 min (carbs + protein)',
+                'Light walk to settle'
+              ],
+              importance: 'Football covers the anaerobic stimulus that Monday run intervals would otherwise provide. Structured threshold work moves to Saturday this week and going forward.'
+            },
+            {
+              name: 'Upper body S&C', meta: '45–60 min',
+              headline: 'Compound-focused upper body — same day as football',
+              warmUp: '5 min dynamic mobility before lifting.',
+              mainSet: [
+                'Bench press: 4 × 6–8',
+                'Pull-ups or lat pulldown: 4 × 6–8',
+                'Overhead press: 3 × 8',
+                'Single-arm row: 3 × 8 each side',
+                'Core: 3 sets plank variation or ab wheel'
+              ],
+              focus: 'Progressive overload — add a small load or one rep from last similar session.',
+              paces: ['Compounds: 6–8 reps', 'Rest 90s between sets'],
+              considerations: ['Lift before or after football, not during'],
+              importance: 'Upper body S&C maintains muscle mass through endurance training. Two S&C sessions per week is the minimum effective dose.'
+            }
+          ]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '19 May',
+          name: 'Easy run', meta: '8 km · 45 min',
+          sessions: [{
+            name: 'Easy run', meta: '8 km · 45 min',
+            headline: 'Aerobic stimulus + active recovery from football',
+            warmUp: 'First km deliberately slow to let HR settle.',
+            mainSet: 'Continuous 8 km at easy aerobic pace.',
+            focus: 'Conversational throughout — the most important rule of easy runs is making them easy.',
+            paces: ['4:45–5:15 /km', 'HR <145', 'RPE 3'],
+            considerations: [
+              'Drop to 6 km if legs feel rough from football',
+              'Optional 15–20 min mobility in evening',
+              'Swap for recovery swim if legs really hammered'
+            ],
+            importance: 'Easy days build aerobic base without adding fatigue. Discipline here makes Saturday quality possible.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '20 May',
+          name: 'Swim — technique + aerobic', meta: '1800m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + aerobic', meta: '1800m · 50 min',
+            headline: 'First swim of the block — technique-first focus',
+            warmUp: [
+              '200m easy freestyle',
+              '100m kick with board',
+              '100m choice, building gradually'
+            ],
+            mainSet: [
+              '2 × 50m catch-up drill with 20s rest — long stroke, one hand waits',
+              '2 × 50m fingertip drag with 20s rest — high elbow recovery',
+              '2 × 50m 6-1-6 drill with 20s rest — body position, rotation',
+              '8 × 100m steady aerobic at 1:55–2:00 with 20s rest',
+              '4 × 50m moderate, build the 2nd 25m with 20s rest',
+              '100m easy cool-down'
+            ],
+            focus: 'Body position — swim "downhill" with head low, hips up, eyes on the bottom.',
+            paces: ['Steady: 1:55–2:00 /100m', 'Easy: 2:05–2:15 /100m'],
+            considerations: ['Bring a kickboard', 'Focus on body position cue throughout'],
+            importance: 'At your level, swim gains come from technique not fitness. Drills compound — every session this block has them.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '21 May',
+          name: 'Rest', meta: 'No structured exercise', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'No structured exercise',
+            headline: 'Full rest day',
+            warmUp: '—',
+            mainSet: 'No structured exercise.',
+            focus: 'Sleep, food, hydration.',
+            paces: [],
+            considerations: ['Walking fine', 'Foam roll, light stretching, sauna OK'],
+            importance: 'Adaptation happens during recovery. Skipping rest days is the fastest route to injury or stalled progress.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '22 May',
+          name: 'Bike + Lower S&C', meta: '60 + 50 min',
+          sessions: [
+            {
+              name: 'Bike sweet spot', meta: '60 min',
+              headline: '2 × 15 min sweet spot — classic re-entry session',
+              warmUp: ['15 min easy spinning', '3 × 30s building accelerations'],
+              mainSet: [
+                '15 min at RPE 6–7 (sweet spot)',
+                '5 min easy spin recovery',
+                '15 min at RPE 6–7',
+                '10 min easy cool-down'
+              ],
+              focus: 'Sweet spot is comfortably hard — short sentences possible.',
+              paces: ['RPE 6–7', 'HR 140–155'],
+              considerations: ['Indoor trainer easier to control', 'Outdoor fine on uninterrupted route'],
+              importance: 'Sweet spot drives aerobic adaptation without trashing you. 2×15 is the classic dose.'
+            },
+            {
+              name: 'Lower body S&C', meta: '50 min',
+              headline: 'Compound-focused lower body',
+              warmUp: '5 min dynamic mobility',
+              mainSet: [
+                'Back squat or goblet squat: 4 × 6–8',
+                'Romanian deadlift: 3 × 8',
+                'Bulgarian split squat: 3 × 8 each leg',
+                'Calf raises: 3 × 12',
+                'Core: 3 sets'
+              ],
+              focus: 'Form before load.',
+              paces: ['Compounds: 6–8 reps', 'Rest 90s between sets'],
+              considerations: ['Lift AFTER the bike'],
+              importance: 'Maintains muscle mass through endurance volume.'
+            }
+          ]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '23 May',
+          name: 'Long run', meta: '14 km · 75 min',
+          sessions: [{
+            name: 'Long run with threshold finish', meta: '14 km · 75 min',
+            headline: 'Long run with 4 km threshold — restructured mid-week',
+            warmUp: 'First 1–2 km deliberately slow.',
+            mainSet: [
+              '9 km easy at 4:45–5:00 /km',
+              '4 km at 4:00–4:05 /km threshold',
+              '1 km easy cool-down'
+            ],
+            focus: 'Even effort across the threshold block — first km should feel almost too easy.',
+            paces: ['Easy: 4:45–5:00 /km', 'Threshold: 4:00–4:05 /km'],
+            considerations: ['Bail rule: 1 km in and threshold feels wrong, run easy'],
+            importance: 'Restructured mid-week from "easy long run" to add quality, since football replaced Monday intervals. Saturday becomes the primary structured run quality day.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '24 May',
+          name: 'Long bike + brick', meta: '2h + 15 min',
+          sessions: [
+            {
+              name: 'Long bike', meta: '2 hours',
+              headline: 'Z2 endurance ride at all-day pace',
+              warmUp: 'First 10 min very easy.',
+              mainSet: '2 hours at Z2 (RPE 3–4, HR 130–145).',
+              focus: 'All-day pace — finish thinking you could do another hour.',
+              paces: ['Z2 / RPE 3–4', 'HR 130–145'],
+              considerations: ['Fuel 30–60g carbs/hour'],
+              importance: 'Builds the aerobic engine that everything else stands on.'
+            },
+            {
+              name: 'Brick run', meta: '15 min',
+              headline: 'Easy run off the bike',
+              warmUp: 'Change shoes within 5 min of finishing the bike.',
+              mainSet: '15 min at 4:50–5:10 /km.',
+              focus: 'High cadence (180+ steps/min) to find run legs faster.',
+              paces: ['4:50–5:10 /km', 'Cadence 180+'],
+              considerations: ['Legs feel weird for first 5 min — normal'],
+              importance: 'Brick run trains the off-bike legs — unique skill, doesn\'t develop any other way.'
+            }
+          ]
+        }
+      ]
+    },
+
+    // ================================================================
+    // WEEK 2 — Consolidate (25–31 May 2026)
+    // ================================================================
+    {
+      id: 'w02',
+      number: 2,
+      title: 'Consolidate',
+      dateRange: '25–31 May',
+      year: 2026,
+      todayId: null, // historical week — no "today" highlight
+      archived: true,
+      stats: {
+        runKm: '~31 km',
+        bikeKm: '~100 km',
+        swimM: '~1900m',
+        totalHours: '~6:30'
+      },
+      focusHtml: 'Re-execute what got missed in Week 1. Same volumes — no notch up until you land a clean week. The two non-negotiables were <strong>Friday</strong> (bike) and <strong>Saturday</strong> (threshold). Fri missed again — confirmed structural problem.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '25 May',
+          name: 'Open water swim', meta: '45 min',
+          sessions: [{
+            name: 'Open water swim', meta: '45 min',
+            headline: 'Triathlon-specific stimulus — added as bonus',
+            warmUp: 'Easy front crawl from the shore for 5 min, gradually building tempo.',
+            mainSet: '45 min continuous open water freestyle.',
+            focus: 'Body position high in the water and sighting every 6–8 strokes.',
+            paces: ['Effort: easy to moderate', 'No specific pace targets'],
+            considerations: [
+              'Wetsuit if water below 18°C',
+              'Stay close to safety buoys',
+              'Practice bilateral breathing'
+            ],
+            importance: 'Smart triathlon-specific call. Open water is meaningfully harder than pool — sighting, chop, no walls.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '26 May',
+          name: 'Easy run', meta: '6 km · 35 min',
+          sessions: [{
+            name: 'Easy run', meta: '6 km · 35 min',
+            headline: 'Light shake-out — four days in a row, keep it easy',
+            warmUp: 'First 1 km deliberately slow.',
+            mainSet: 'Continuous 6 km at easy aerobic pace.',
+            focus: 'Conversational effort throughout.',
+            paces: ['4:50–5:10 /km', 'HR <145', 'RPE 3'],
+            considerations: [
+              'Drop to 5 km if legs feel rough from the bike block',
+              'Swap for 20 min mobility if hammered'
+            ],
+            importance: 'Easy days build aerobic base without adding fatigue. Most amateurs run easy days too hard — discipline here pays off Saturday.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '27 May',
+          name: 'Swim — technique + aerobic', meta: '1900m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + aerobic', meta: '1900m · 50 min',
+            headline: 'Updated pace targets — main set sped up after Week 1 strong session',
+            warmUp: [
+              '200m easy freestyle',
+              '100m kick with board',
+              '100m build to moderate'
+            ],
+            mainSet: [
+              '2 × 50m front sculling with 20s rest — catch position',
+              '2 × 50m single-arm freestyle with 20s rest — full pull',
+              '2 × 50m catch-up with 20s rest — long stroke',
+              '8 × 100m at 1:45–1:50 with 20s rest — steady aerobic',
+              '4 × 50m at 1:40–1:45 with 30s rest — build the 2nd 25m',
+              '200m easy cool-down'
+            ],
+            focus: 'Feel the catch — fingers point down before pulling.',
+            paces: ['Main: 1:45–1:50 /100m', 'Speed: 1:40–1:45 /100m'],
+            considerations: ['Drill focus shifts to catch + pull (sculling, single-arm)'],
+            importance: 'You held 1:45 for 8×100m off 20s — significantly faster than the 1:55–2:00 I prescribed Week 1. Targets bumped permanently.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '28 May',
+          name: 'Rest', meta: 'No structured exercise', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'No structured exercise',
+            headline: 'Full rest day',
+            warmUp: '—',
+            mainSet: 'No structured exercise.',
+            focus: 'Sleep, food, hydration.',
+            paces: [],
+            considerations: ['Walking fine', 'Foam roll, light stretching, sauna OK'],
+            importance: 'Adaptation happens during recovery. Non-negotiable.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '29 May',
+          name: 'Bike + Lower S&C', meta: '60 + 50 min (MISSED)',
+          sessions: [
+            {
+              name: 'Bike sweet spot', meta: '60 min',
+              headline: 'Sweet spot intervals — MISSED this week (no time)',
+              warmUp: ['15 min easy spinning', '3 × 30s building'],
+              mainSet: [
+                '15 min at RPE 6–7',
+                '5 min easy spin',
+                '15 min at RPE 6–7',
+                '10 min easy cool-down'
+              ],
+              focus: 'Was planned. Did not happen — second consecutive miss flagged as structural.',
+              paces: ['RPE 6–7', 'HR 140–155'],
+              considerations: ['Fallback: 30-min indoor with 2×10 sweet spot'],
+              importance: 'Two consecutive misses confirmed Friday as a structural problem. Bike intensity will move to Sunday in the post-holiday redesign.'
+            },
+            {
+              name: 'Lower body S&C', meta: '50 min',
+              headline: 'Lower S&C — MISSED this week',
+              warmUp: '5 min dynamic mobility',
+              mainSet: [
+                'Squat: 4 × 6–8',
+                'RDL: 3 × 8',
+                'Bulgarian split squat: 3 × 8 each leg',
+                'Calf raises: 3 × 12',
+                'Core: 3 sets'
+              ],
+              focus: 'Did not happen — only got one S&C session this week.',
+              paces: [],
+              considerations: ['Need to find a permanent home for this session post-holiday'],
+              importance: 'Without lower S&C, the muscle-mass retention drops to one session per week. Below minimum effective dose.'
+            }
+          ]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '30 May',
+          name: 'Long run + threshold', meta: '14 km · 75 min',
+          sessions: [{
+            name: 'Long run with threshold finish', meta: '14 km · 75 min',
+            headline: 'Replaced with easy 30 km bike + 3 km brick at 4:20',
+            warmUp: 'Was meant to be: first 1–2 km deliberately slow.',
+            mainSet: [
+              'Planned: 9 km easy at 4:45–5:00 /km',
+              'Planned: 4 km at 4:00–4:05 /km threshold',
+              'Planned: 1 km easy cool-down'
+            ],
+            focus: 'Did not happen — substituted with bike + brick.',
+            paces: ['Easy: 4:45–5:00 /km', 'Threshold: 4:00–4:05 /km'],
+            considerations: ['No structured run quality this week as a result'],
+            importance: 'Saturday was meant to be the primary run quality day. Substituting bike + brick means losing the threshold stimulus for the week.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '31 May',
+          name: 'Long bike + brick', meta: '70 km easy',
+          sessions: [
+            {
+              name: 'Long bike', meta: '~2.5 hours, 70 km',
+              headline: 'Big aerobic ride — went a bit longer than 2hr',
+              warmUp: 'First 10 min very easy.',
+              mainSet: '70 km at Z2 — solid aerobic stimulus.',
+              focus: 'All-day pace — held discipline despite duration.',
+              paces: ['Z2 / RPE 3–4', 'HR 130–145'],
+              considerations: ['Sat + Sun combined was 100 km of aerobic bike — biggest bike block of the block'],
+              importance: 'Strong aerobic stimulus on the bike. Felt strong in cycling per check-in.'
+            },
+            {
+              name: 'Brick run', meta: 'Skipped',
+              headline: 'Brick run — not done',
+              warmUp: '—',
+              mainSet: 'Skipped after long ride.',
+              focus: '—',
+              paces: [],
+              considerations: ['OWS done Monday counted as triathlon-specific stimulus instead'],
+              importance: 'Brick was the most expendable session — appropriate to drop given the long bike.'
+            }
+          ]
+        }
+      ]
+    },
+
+    // ================================================================
     // WEEK 3 — Pre-holiday compressed (1–7 June 2026)
     // ================================================================
     {
