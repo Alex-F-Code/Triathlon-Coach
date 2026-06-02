@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coach — Triathlon Training</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
 <script src="plans.js"></script>
 <style>
   /* ============================================
@@ -1359,6 +1361,90 @@
     margin-bottom: 16px;
   }
 
+  /* Auth overlay (login screen shown when not signed in) */
+  .auth-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+    transition: opacity var(--transition);
+  }
+  .auth-overlay.hidden { display: none; }
+  .auth-card {
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+  .auth-brand {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    background: var(--accent);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+  .auth-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .auth-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+  .auth-form input {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .auth-form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+  .auth-message {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: var(--radius-button);
+    background: var(--bg-subtle);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .auth-message.success {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  .auth-message.error {
+    background: var(--missed-soft);
+    color: var(--missed);
+  }
+  .auth-footnote {
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-top: 20px;
+    line-height: 1.5;
+  }
+
+  /* Logout button in header */
+  .icon-btn.signout-btn:hover {
+    color: var(--missed);
+    border-color: var(--missed);
+  }
+
   /* Log modal */
   .modal-backdrop {
     position: fixed;
@@ -1470,6 +1556,9 @@
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
         </svg>
+      </button>
+      <button class="icon-btn signout-btn" onclick="logout()" title="Sign out" aria-label="Sign out">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </button>
     </div>
   </header>
@@ -1788,6 +1877,21 @@
       <button class="btn btn-secondary" onclick="closeLogModal()">Cancel</button>
       <button class="btn btn-primary" id="modalSaveBtn" onclick="saveModalLog()">Save and mark complete</button>
     </div>
+  </div>
+</div>
+
+<!-- AUTH OVERLAY (shown when not signed in) -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-card">
+    <div class="auth-brand">C</div>
+    <div class="auth-title">Sign in to your coach</div>
+    <div class="auth-subtitle">Enter your email and we'll send a one-tap sign-in link. Your data syncs across every device you log in from.</div>
+    <form class="auth-form" id="authForm" onsubmit="event.preventDefault(); sendMagicLink();">
+      <input type="email" id="authEmail" placeholder="you@email.com" autocomplete="email" required>
+      <button type="submit" class="btn btn-primary" id="authSubmit">Send sign-in link</button>
+    </form>
+    <div class="auth-message" id="authMessage" style="display:none;"></div>
+    <div class="auth-footnote">First device sign-in might take a moment. After that, you stay logged in.</div>
   </div>
 </div>
 
@@ -2262,6 +2366,7 @@
       sessionStatus[key] = status;
     }
     persistStatus();
+    pushStatusToSupabase(currentPlan.id, dayId, idx, status);
     renderWeek();
     if (currentSessionId === dayId) renderSessionDetail();
   }
@@ -2282,7 +2387,8 @@
   function markDayComplete(dayId) {
     const d = week.find(x => x.id === dayId);
     if (!d) return;
-    if (isDayDone(dayId)) {
+    const target = isDayDone(dayId) ? null : 'done';
+    if (target === null) {
       d.sessions.forEach((_, i) => delete sessionStatus[`${dayId}.${i}`]);
       toast("Day marked not done");
     } else {
@@ -2290,6 +2396,7 @@
       toast("Day marked complete");
     }
     persistStatus();
+    d.sessions.forEach((_, i) => pushStatusToSupabase(currentPlan.id, dayId, i, target));
     renderWeek();
     if (currentSessionId === dayId) renderSessionDetail();
   }
@@ -2297,7 +2404,8 @@
   function markDayMissed(dayId) {
     const d = week.find(x => x.id === dayId);
     if (!d) return;
-    if (isDayMissed(dayId)) {
+    const target = isDayMissed(dayId) ? null : 'missed';
+    if (target === null) {
       d.sessions.forEach((_, i) => delete sessionStatus[`${dayId}.${i}`]);
       toast("Cleared missed status");
     } else {
@@ -2305,6 +2413,7 @@
       toast("Day marked missed");
     }
     persistStatus();
+    d.sessions.forEach((_, i) => pushStatusToSupabase(currentPlan.id, dayId, i, target));
     renderWeek();
     if (currentSessionId === dayId) renderSessionDetail();
   }
@@ -2314,9 +2423,13 @@
     const notes = document.getElementById('sessionNotes').value;
     sessionLog[id] = { rpe, notes, completedAt: new Date().toISOString() };
     localStorage.setItem(k('sessionlog'), JSON.stringify(sessionLog));
+    pushLogToSupabase(currentPlan.id, id, sessionLog[id]);
     if (!isDayDone(id)) {
       const d = week.find(x => x.id === id);
-      d.sessions.forEach((_, i) => { sessionStatus[`${id}.${i}`] = 'done'; });
+      d.sessions.forEach((_, i) => {
+        sessionStatus[`${id}.${i}`] = 'done';
+        pushStatusToSupabase(currentPlan.id, id, i, 'done');
+      });
       persistStatus();
       toast("Session logged and day marked complete");
     } else {
@@ -2330,6 +2443,7 @@
   function saveCheckinField(field, value) {
     checkin[field] = value;
     localStorage.setItem(k('checkin'), JSON.stringify(checkin));
+    pushCheckinToSupabase(currentPlan.id, checkin);
   }
 
   // Build the formatted check-in text (used by Send + Copy)
@@ -2341,6 +2455,7 @@
     });
     checkin.submittedAt = new Date().toISOString();
     localStorage.setItem(k('checkin'), JSON.stringify(checkin));
+    pushCheckinToSupabase(currentPlan.id, checkin);
 
     const labels = {
       overall: 'How did the week feel overall',
@@ -2478,8 +2593,12 @@
     const notes = document.getElementById('modalSessionNotes').value;
     sessionLog[d.id] = { rpe, notes, completedAt: new Date().toISOString() };
     localStorage.setItem(k('sessionlog'), JSON.stringify(sessionLog));
+    pushLogToSupabase(currentPlan.id, d.id, sessionLog[d.id]);
     if (!isDayDone(d.id)) {
-      d.sessions.forEach((_, i) => { sessionStatus[`${d.id}.${i}`] = 'done'; });
+      d.sessions.forEach((_, i) => {
+        sessionStatus[`${d.id}.${i}`] = 'done';
+        pushStatusToSupabase(currentPlan.id, d.id, i, 'done');
+      });
       persistStatus();
       toast("Logged and marked complete");
     } else {
@@ -2614,6 +2733,225 @@
   }
 
   // ============================================
+  // SUPABASE — auth + cloud sync
+  // ============================================
+  let supabaseClient = null;
+  let currentUser = null;
+
+  async function initAuth() {
+    // Local file:// testing — skip auth, use localStorage only
+    if (window.location.protocol === 'file:') {
+      document.getElementById('authOverlay').classList.add('hidden');
+      console.log('Local file mode — auth and cloud sync skipped. Use deployed URL for sync.');
+      return;
+    }
+
+    supabaseClient = window.supabase.createClient(
+      window.COACH_CONFIG.supabaseUrl,
+      window.COACH_CONFIG.supabaseAnonKey
+    );
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      currentUser = session.user;
+      document.getElementById('authOverlay').classList.add('hidden');
+      await syncFromSupabase();
+      renderWeek();
+    } else {
+      document.getElementById('authOverlay').classList.remove('hidden');
+    }
+
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        currentUser = session.user;
+        document.getElementById('authOverlay').classList.add('hidden');
+        await migrateLocalToSupabase();
+        await syncFromSupabase();
+        renderWeek();
+        toast(`Signed in as ${session.user.email}`);
+      }
+      if (event === 'SIGNED_OUT') {
+        currentUser = null;
+        document.getElementById('authOverlay').classList.remove('hidden');
+      }
+    });
+  }
+
+  async function sendMagicLink() {
+    if (!supabaseClient) return;
+    const email = document.getElementById('authEmail').value.trim();
+    const msg = document.getElementById('authMessage');
+    const btn = document.getElementById('authSubmit');
+    msg.style.display = 'block';
+    msg.className = 'auth-message';
+    msg.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const { error } = await supabaseClient.auth.signInWithOtp({
+      email: email,
+      options: { emailRedirectTo: window.location.origin + window.location.pathname }
+    });
+
+    btn.disabled = false;
+    if (error) {
+      msg.className = 'auth-message error';
+      msg.textContent = `Couldn't send: ${error.message}`;
+    } else {
+      msg.className = 'auth-message success';
+      msg.innerHTML = `Check your inbox for <strong>${email}</strong>. Click the link in the email to sign in. You can close this tab once you've clicked it.`;
+    }
+  }
+
+  async function logout() {
+    if (!supabaseClient) return;
+    if (!confirm('Sign out? Your data stays in the cloud — re-signing in on this device will fetch it back.')) return;
+    await supabaseClient.auth.signOut();
+    toast('Signed out');
+  }
+
+  async function syncFromSupabase() {
+    if (!currentUser || !supabaseClient) return;
+    const uid = currentUser.id;
+
+    try {
+      const [statusRes, logRes, checkinRes] = await Promise.all([
+        supabaseClient.from('session_statuses').select('*').eq('user_id', uid),
+        supabaseClient.from('session_logs').select('*').eq('user_id', uid),
+        supabaseClient.from('checkins').select('*').eq('user_id', uid)
+      ]);
+
+      const statuses = statusRes.data || [];
+      const logs = logRes.data || [];
+      const checkins = checkinRes.data || [];
+
+      window.COACH_PLANS.weeks.forEach(plan => {
+        const statusObj = {};
+        statuses.filter(r => r.week_id === plan.id).forEach(r => {
+          statusObj[`${r.day_id}.${r.session_idx}`] = r.status;
+        });
+        localStorage.setItem(`coach-${plan.id}-sessionstatus`, JSON.stringify(statusObj));
+
+        const logObj = {};
+        logs.filter(r => r.week_id === plan.id).forEach(r => {
+          logObj[r.day_id] = { rpe: r.rpe, notes: r.notes || '', completedAt: r.logged_at };
+        });
+        localStorage.setItem(`coach-${plan.id}-sessionlog`, JSON.stringify(logObj));
+
+        const ci = checkins.find(r => r.week_id === plan.id);
+        if (ci) {
+          const data = {
+            overall: ci.overall || '',
+            niggles: ci.niggles || '',
+            context: ci.context || '',
+            girlfriend: ci.girlfriend || '',
+            other: ci.other || '',
+            submittedAt: ci.submitted_at
+          };
+          localStorage.setItem(`coach-${plan.id}-checkin`, JSON.stringify(data));
+        }
+      });
+
+      // Reload current week's state from refreshed localStorage
+      if (currentPlan) {
+        sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || '{}');
+        sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
+        checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
+      }
+    } catch (e) {
+      console.warn('Supabase sync failed', e);
+      toast('Cloud sync failed — using local data');
+    }
+  }
+
+  async function pushStatusToSupabase(weekId, dayId, idx, status) {
+    if (!currentUser || !supabaseClient) return;
+    try {
+      if (status === null) {
+        await supabaseClient.from('session_statuses').delete().match({
+          user_id: currentUser.id,
+          week_id: weekId,
+          day_id: dayId,
+          session_idx: idx
+        });
+      } else {
+        await supabaseClient.from('session_statuses').upsert({
+          user_id: currentUser.id,
+          week_id: weekId,
+          day_id: dayId,
+          session_idx: idx,
+          status: status
+        }, { onConflict: 'user_id,week_id,day_id,session_idx' });
+      }
+    } catch (e) {
+      console.warn('Supabase status sync failed', e);
+    }
+  }
+
+  async function pushLogToSupabase(weekId, dayId, logData) {
+    if (!currentUser || !supabaseClient) return;
+    try {
+      await supabaseClient.from('session_logs').upsert({
+        user_id: currentUser.id,
+        week_id: weekId,
+        day_id: dayId,
+        rpe: logData.rpe,
+        notes: logData.notes || ''
+      }, { onConflict: 'user_id,week_id,day_id' });
+    } catch (e) {
+      console.warn('Supabase log sync failed', e);
+    }
+  }
+
+  async function pushCheckinToSupabase(weekId, c) {
+    if (!currentUser || !supabaseClient) return;
+    try {
+      await supabaseClient.from('checkins').upsert({
+        user_id: currentUser.id,
+        week_id: weekId,
+        overall: c.overall || null,
+        niggles: c.niggles || null,
+        context: c.context || null,
+        girlfriend: c.girlfriend || null,
+        other: c.other || null
+      }, { onConflict: 'user_id,week_id' });
+    } catch (e) {
+      console.warn('Supabase checkin sync failed', e);
+    }
+  }
+
+  async function migrateLocalToSupabase() {
+    if (!currentUser || !supabaseClient) return;
+    if (localStorage.getItem('coach-migrated-to-supabase')) return;
+
+    let migrated = 0;
+    for (const plan of window.COACH_PLANS.weeks) {
+      const wid = plan.id;
+      const status = JSON.parse(localStorage.getItem(`coach-${wid}-sessionstatus`) || '{}');
+      const log = JSON.parse(localStorage.getItem(`coach-${wid}-sessionlog`) || '{}');
+      const ci = JSON.parse(localStorage.getItem(`coach-${wid}-checkin`) || '{}');
+
+      for (const [key, statusValue] of Object.entries(status)) {
+        const [dayId, idxStr] = key.split('.');
+        await pushStatusToSupabase(wid, dayId, parseInt(idxStr, 10), statusValue);
+        migrated++;
+      }
+      for (const [dayId, logData] of Object.entries(log)) {
+        if (logData && (logData.rpe || logData.notes)) {
+          await pushLogToSupabase(wid, dayId, logData);
+          migrated++;
+        }
+      }
+      if (Object.keys(ci).some(k => k !== 'submittedAt' && ci[k])) {
+        await pushCheckinToSupabase(wid, ci);
+        migrated++;
+      }
+    }
+
+    localStorage.setItem('coach-migrated-to-supabase', '1');
+    if (migrated > 0) toast(`Synced ${migrated} item${migrated === 1 ? '' : 's'} from this device to the cloud`);
+  }
+
+  // ============================================
   // INIT
   // ============================================
   applyTheme();
@@ -2621,6 +2959,7 @@
   renderWeek();
   renderPaceTable();
   setDiscipline(activeDiscipline);
+  initAuth();
 </script>
 </body>
 </html>
