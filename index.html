@@ -1893,9 +1893,9 @@
     <div class="auth-message" id="authMessage" style="display:none;"></div>
 
     <div id="authOtpSection" style="display:none; margin-top: 14px;">
-      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Or enter the 6-digit code from the email:</div>
+      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Or enter the code from the email:</div>
       <form class="auth-form" onsubmit="event.preventDefault(); verifyOtpCode();">
-        <input type="text" id="authOtp" placeholder="123456" inputmode="numeric" maxlength="6" style="text-align: center; font-family: ui-monospace, monospace; letter-spacing: 0.3em; font-size: 18px;">
+        <input type="text" id="authOtp" placeholder="Enter code" inputmode="numeric" maxlength="10" autocomplete="one-time-code" style="text-align: center; font-family: ui-monospace, monospace; letter-spacing: 0.2em; font-size: 18px;">
         <button type="submit" class="btn btn-primary">Sign in with code</button>
       </form>
     </div>
@@ -2807,7 +2807,7 @@
       msg.textContent = `Couldn't send: ${error.message}`;
     } else {
       msg.className = 'auth-message success';
-      msg.innerHTML = `Check your inbox for <strong>${email}</strong>. Tap the link in the email (signs you in here), or enter the 6-digit code from the email below.`;
+      msg.innerHTML = `Check your inbox for <strong>${email}</strong>. Tap the link in the email (signs you in here), or enter the code from the email below.`;
       document.getElementById('authOtpSection').style.display = 'block';
     }
   }
@@ -2820,7 +2820,7 @@
     if (!email || !token) {
       msg.style.display = 'block';
       msg.className = 'auth-message error';
-      msg.textContent = 'Need both email and 6-digit code.';
+      msg.textContent = 'Need both email and code.';
       return;
     }
     msg.style.display = 'block';
