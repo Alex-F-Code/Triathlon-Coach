@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="plans.js"></script>
+<script src="library.js"></script>
 <style>
   /* ============================================
      THEME SYSTEM — three styles × light/dark
@@ -1516,6 +1517,134 @@
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
+  /* Library cards */
+  .library-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .library-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .library-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .library-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .library-card-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .library-card-expand {
+    color: var(--text-faint);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: transform var(--transition);
+  }
+  .library-card.expanded .library-card-expand {
+    transform: rotate(90deg);
+  }
+  .library-card-body {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .library-card.expanded .library-card-body { display: block; }
+  .library-card-body ul {
+    padding-left: 18px;
+    margin: 6px 0 12px;
+  }
+  .library-card-body li { margin: 3px 0; }
+  .library-card-body .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 700;
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+  .library-section {
+    margin-bottom: 18px;
+  }
+  .library-section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 700;
+    margin: 4px 0 8px;
+  }
+  .library-stretch-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .library-stretch-row:last-child { border-bottom: none; }
+  .library-stretch-name { flex: 1; color: var(--text); }
+  .library-stretch-duration {
+    color: var(--text-muted);
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+  }
+
+  /* Stretch timer modal */
+  .timer-modal { max-width: 420px; }
+  .timer-stretch-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    margin: 16px 0 8px;
+    line-height: 1.25;
+  }
+  .timer-countdown {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: var(--accent);
+    font-family: ui-monospace, monospace;
+    margin: 16px 0;
+    line-height: 1;
+  }
+  .timer-cue {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 18px;
+    min-height: 42px;
+  }
+  .timer-progress-bar {
+    height: 6px;
+    background: var(--bg-subtle);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .timer-progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0;
+    transition: width 1s linear;
+  }
+
   /* Toast */
   .toast {
     position: fixed;
@@ -1830,6 +1959,39 @@
     <div style="height: 20px;"></div>
   </div>
 
+  <!-- ============ LIBRARY VIEW ============ -->
+  <div class="view" id="view-library">
+    <div class="page-title">Library</div>
+    <div class="page-sub">Drills, exercises, and stretching routines</div>
+
+    <div class="discipline-selector">
+      <button class="discipline-tab active" data-libcat="stretches" onclick="setLibraryCat('stretches')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 22v-5l-3-3"/><path d="M16 13l-3 4"/><path d="M9 12L6 9l3-2 5 1 2 3"/></svg>
+        Stretches
+      </button>
+      <button class="discipline-tab" data-libcat="drills" onclick="setLibraryCat('drills')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="m5 22 5-9 4 3 4-8 4 2"/></svg>
+        Drills
+      </button>
+      <button class="discipline-tab" data-libcat="strength" onclick="setLibraryCat('strength')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="6" y2="18"/><line x1="18" y1="6" x2="18" y2="18"/><line x1="3" y1="9" x2="3" y2="15"/><line x1="21" y1="9" x2="21" y2="15"/><line x1="6" y1="12" x2="18" y2="12"/></svg>
+        S&amp;C
+      </button>
+    </div>
+
+    <div class="library-content" id="library-stretches">
+      <!-- Populated by JS -->
+    </div>
+    <div class="library-content" id="library-drills" style="display:none;">
+      <!-- Populated by JS -->
+    </div>
+    <div class="library-content" id="library-strength" style="display:none;">
+      <!-- Populated by JS -->
+    </div>
+
+    <div style="height: 20px;"></div>
+  </div>
+
 </div>
 
 <!-- BOTTOM NAV -->
@@ -1842,13 +2004,13 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     Paces
   </button>
+  <button class="nav-btn" data-view="library" onclick="showView('library')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Library
+  </button>
   <button class="nav-btn" data-view="checkin" onclick="showView('checkin')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="11" y2="11"/></svg>
     Check-in
-  </button>
-  <button class="nav-btn" data-view="email" onclick="showView('email')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    Email
   </button>
 </nav>
 
@@ -1876,6 +2038,33 @@
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeLogModal()">Cancel</button>
       <button class="btn btn-primary" id="modalSaveBtn" onclick="saveModalLog()">Save and mark complete</button>
+    </div>
+  </div>
+</div>
+
+<!-- STRETCH TIMER MODAL -->
+<div class="modal-backdrop" id="timerModalBackdrop">
+  <div class="modal timer-modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="timerRoutineName">Routine</div>
+        <div class="modal-subtitle" id="timerProgress">Stretch 1 of 10</div>
+      </div>
+      <button class="modal-close" onclick="closeTimer()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" style="text-align: center;">
+      <div class="timer-stretch-name" id="timerStretchName">—</div>
+      <div class="timer-countdown" id="timerCountdown">0:30</div>
+      <div class="timer-cue" id="timerCue">—</div>
+      <div class="timer-progress-bar">
+        <div class="timer-progress-fill" id="timerProgressFill"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="timerPauseBtn" onclick="toggleTimerPause()">Pause</button>
+      <button class="btn btn-primary" onclick="skipStretch()">Next ›</button>
     </div>
   </div>
 </div>
@@ -2742,6 +2931,215 @@
   }
 
   // ============================================
+  // LIBRARY — drills, exercises, stretches
+  // ============================================
+  let activeLibraryCat = 'stretches';
+
+  function setLibraryCat(cat) {
+    activeLibraryCat = cat;
+    document.querySelectorAll('.discipline-tab[data-libcat]').forEach(b => {
+      b.classList.toggle('active', b.dataset.libcat === cat);
+    });
+    document.querySelectorAll('.library-content').forEach(c => {
+      c.style.display = c.id === 'library-' + cat ? '' : 'none';
+    });
+  }
+
+  function toggleLibraryCard(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('expanded');
+  }
+
+  function renderLibrary() {
+    renderStretches();
+    renderDrills();
+    renderStrength();
+  }
+
+  function renderStretches() {
+    const html = window.COACH_LIBRARY.stretches.map(r => `
+      <div class="library-card" id="stretch-card-${r.id}">
+        <div class="library-card-header" onclick="toggleLibraryCard('stretch-card-${r.id}')">
+          <div style="flex:1; min-width:0;">
+            <div class="library-card-title">${r.name}</div>
+            <div class="library-card-meta">${r.duration} · ${r.stretches.length} stretches</div>
+          </div>
+          <svg class="library-card-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="library-card-body">
+          <div style="color: var(--text-muted); margin-bottom: 12px;">${r.description}</div>
+          ${r.stretches.map(s => `
+            <div class="library-stretch-row">
+              <div class="library-stretch-name">${s.name}</div>
+              <div class="library-stretch-duration">${s.duration}s</div>
+            </div>
+          `).join('')}
+          <button class="btn btn-primary" style="width: 100%; margin-top: 16px;" onclick="event.stopPropagation(); startRoutine('${r.id}');">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="margin-right:6px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Start routine
+          </button>
+        </div>
+      </div>
+    `).join('');
+    document.getElementById('library-stretches').innerHTML = html;
+  }
+
+  function renderDrills() {
+    const swim = window.COACH_LIBRARY.drills.swim.map(drillCard).join('');
+    const run = window.COACH_LIBRARY.drills.run.map(drillCard).join('');
+    document.getElementById('library-drills').innerHTML = `
+      <div class="library-section">
+        <div class="library-section-title">Swim drills</div>
+        ${swim}
+      </div>
+      <div class="library-section">
+        <div class="library-section-title">Run drills</div>
+        ${run}
+      </div>
+    `;
+  }
+
+  function drillCard(d) {
+    const id = 'drill-' + d.name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+    return `
+      <div class="library-card" id="${id}">
+        <div class="library-card-header" onclick="toggleLibraryCard('${id}')">
+          <div style="flex:1; min-width:0;">
+            <div class="library-card-title">${d.name}</div>
+            <div class="library-card-meta">${d.description}</div>
+          </div>
+          <svg class="library-card-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="library-card-body">
+          <div class="label">Form cues</div>
+          <ul>${d.cues.map(c => `<li>${c}</li>`).join('')}</ul>
+          <div class="label">When to use</div>
+          <div>${d.whenToUse}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderStrength() {
+    const compound = window.COACH_LIBRARY.strength.compound.map(exerciseCard).join('');
+    const accessory = window.COACH_LIBRARY.strength.accessory.map(exerciseCard).join('');
+    const core = window.COACH_LIBRARY.strength.core.map(exerciseCard).join('');
+    document.getElementById('library-strength').innerHTML = `
+      <div class="library-section">
+        <div class="library-section-title">Compound lifts</div>
+        ${compound}
+      </div>
+      <div class="library-section">
+        <div class="library-section-title">Accessory</div>
+        ${accessory}
+      </div>
+      <div class="library-section">
+        <div class="library-section-title">Core</div>
+        ${core}
+      </div>
+    `;
+  }
+
+  function exerciseCard(e) {
+    const id = 'exercise-' + e.name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+    return `
+      <div class="library-card" id="${id}">
+        <div class="library-card-header" onclick="toggleLibraryCard('${id}')">
+          <div style="flex:1; min-width:0;">
+            <div class="library-card-title">${e.name}</div>
+            <div class="library-card-meta">${e.sets}</div>
+          </div>
+          <svg class="library-card-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="library-card-body">
+          <div style="color: var(--text-muted); margin-bottom: 8px;">${e.description}</div>
+          <div class="label">Form cues</div>
+          <ul>${e.cues.map(c => `<li>${c}</li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+  }
+
+  // ============================================
+  // STRETCH TIMER
+  // ============================================
+  let timerState = null;
+
+  function startRoutine(routineId) {
+    const routine = window.COACH_LIBRARY.stretches.find(r => r.id === routineId);
+    if (!routine) return;
+    timerState = {
+      routine: routine,
+      currentIdx: 0,
+      timeRemaining: routine.stretches[0].duration,
+      isPaused: false,
+      intervalId: null
+    };
+    document.getElementById('timerRoutineName').textContent = routine.name;
+    document.getElementById('timerPauseBtn').textContent = 'Pause';
+    document.getElementById('timerModalBackdrop').classList.add('show');
+    updateTimerDisplay();
+    startTimerInterval();
+  }
+
+  function startTimerInterval() {
+    if (!timerState) return;
+    if (timerState.intervalId) clearInterval(timerState.intervalId);
+    timerState.intervalId = setInterval(() => {
+      if (!timerState || timerState.isPaused) return;
+      timerState.timeRemaining--;
+      if (timerState.timeRemaining <= 0) {
+        nextStretch();
+      } else {
+        updateTimerDisplay();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    if (!timerState) return;
+    const stretches = timerState.routine.stretches;
+    const current = stretches[timerState.currentIdx];
+    document.getElementById('timerStretchName').textContent = current.name;
+    document.getElementById('timerCue').textContent = current.cues || '';
+    const mins = Math.floor(timerState.timeRemaining / 60);
+    const secs = timerState.timeRemaining % 60;
+    document.getElementById('timerCountdown').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+    document.getElementById('timerProgress').textContent = `Stretch ${timerState.currentIdx + 1} of ${stretches.length}`;
+    const elapsed = current.duration - timerState.timeRemaining;
+    const pct = Math.max(0, Math.min(100, (elapsed / current.duration) * 100));
+    document.getElementById('timerProgressFill').style.width = pct + '%';
+  }
+
+  function nextStretch() {
+    if (!timerState) return;
+    const stretches = timerState.routine.stretches;
+    timerState.currentIdx++;
+    if (timerState.currentIdx >= stretches.length) {
+      const name = timerState.routine.name;
+      closeTimer();
+      toast(`${name} complete`);
+      return;
+    }
+    timerState.timeRemaining = stretches[timerState.currentIdx].duration;
+    updateTimerDisplay();
+  }
+
+  function skipStretch() { nextStretch(); }
+
+  function toggleTimerPause() {
+    if (!timerState) return;
+    timerState.isPaused = !timerState.isPaused;
+    document.getElementById('timerPauseBtn').textContent = timerState.isPaused ? 'Resume' : 'Pause';
+  }
+
+  function closeTimer() {
+    if (timerState && timerState.intervalId) clearInterval(timerState.intervalId);
+    timerState = null;
+    document.getElementById('timerModalBackdrop').classList.remove('show');
+  }
+
+  // ============================================
   // SUPABASE — auth + cloud sync
   // ============================================
   let supabaseClient = null;
@@ -2997,7 +3395,15 @@
   renderWeek();
   renderPaceTable();
   setDiscipline(activeDiscipline);
+  renderLibrary();
   initAuth();
+
+  // Escape key closes timer modal too
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('timerModalBackdrop').classList.contains('show')) {
+      closeTimer();
+    }
+  });
 </script>
 </body>
 </html>
