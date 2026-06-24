@@ -395,7 +395,7 @@ window.COACH_PLANS = {
       title: 'Pre-holiday compressed',
       dateRange: '1–7 June',
       year: 2026,
-      todayId: 'mon',
+      todayId: null,
       stats: {
         runKm: '~28 km',
         bikeKm: '0 km',
@@ -566,17 +566,168 @@ window.COACH_PLANS = {
           }]
         }
       ]
-    }
+    },
 
     // ================================================================
-    // FUTURE WEEKS — add new entries here
+    // WEEK 4 — Re-entry (22–28 June 2026)
     // ================================================================
-    // {
-    //   id: 'w04',
-    //   number: 4,
-    //   title: 'Re-entry',
-    //   ...
-    // }
+    {
+      id: 'w04',
+      number: 4,
+      title: 'Re-entry',
+      dateRange: '22–28 June',
+      year: 2026,
+      todayId: 'wed',
+      stats: {
+        runKm: '~12 km',
+        bikeKm: '~45 km',
+        swimM: '0m',
+        totalHours: '~4:00'
+      },
+      focusHtml: 'First week back after a 2.5 week pause. <strong>No quality, no swim.</strong> Wed home S&amp;C wakes the body up, Fri easy run + Sat light option + Sun long Z2 bike rebuilds aerobic minutes. Volume ~60% of pre-holiday baseline. Week 5 returns to normal structure with the Friday redesign baked in.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '22 Jun',
+          name: 'Travel / rest', meta: 'No training', rest: true,
+          sessions: [{
+            name: 'Travel / rest', meta: 'Holiday end',
+            headline: 'Tail end of holiday — no training expected',
+            warmUp: '—',
+            mainSet: 'Rest day. Movement only if it fits — walking, packing, travel.',
+            focus: 'Sleep, hydrate, eat properly.',
+            paces: [],
+            considerations: [
+              'Travel days are their own load',
+              'No guilt about doing nothing today'
+            ],
+            importance: "Returning home is its own stress. No training here is the smart call — protects the energy for the rest of the week."
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '23 Jun',
+          name: 'Optional easy movement', meta: '20–30 min if wanted', rest: true,
+          sessions: [{
+            name: 'Optional movement', meta: '20–30 min',
+            headline: 'Optional light reset — no real training stimulus',
+            warmUp: '—',
+            mainSet: '20–30 min easy walk, light yoga, or mobility routine. Pick whatever fits.',
+            focus: 'Movement only. Skip without guilt if travel-tired.',
+            paces: ['RPE 1–2'],
+            considerations: [
+              'Walking, foam roll, mobility all count',
+              'No real stimulus expected — just blow off the rust',
+              'Skip entirely if knackered'
+            ],
+            importance: "Two weeks off plus travel is a real load. Optional easy movement is a hand on the wheel, not a session."
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '24 Jun',
+          name: 'Home S&C — bodyweight', meta: '30 min · home',
+          sessions: [{
+            name: 'Home S&C — bodyweight', meta: '30 min · home',
+            headline: 'First session back — gentle full-body movement, no impact',
+            warmUp: '5 min: arm circles, leg swings, hip openers, walk on the spot — wake the joints up before loading them.',
+            mainSet: [
+              '3 rounds (no equipment needed, 60s rest between rounds):',
+              '12 bodyweight squats — slow, controlled, knees track over toes',
+              '8 push-ups — knees or full, whichever lets you keep form',
+              '10 reverse lunges (5 each leg) — step back, drop straight down',
+              '8 single-leg RDLs each leg — slow, balance-focused (hand on wall is fine)',
+              '30s plank hold — ribs down, glutes squeezed'
+            ],
+            focus: 'Move well. This is technique re-entry, not a workout to push hard.',
+            paces: ['RPE 4–5', 'Form > speed'],
+            considerations: [
+              'No equipment needed — living room, hotel, anywhere works',
+              'Drop to 2 rounds if shoulders or legs feel stiff after the first',
+              'Single-leg RDLs: use a chair or wall for balance — no shame',
+              'This is the first session back — gentle is the point, not the compromise'
+            ],
+            importance: "Two weeks off detunes more than people expect. Bodyweight S&C wakes the neuromuscular system without taxing the cardiovascular engine. Sets up cleaner running later in the week — running into Friday with cold legs is asking for a niggle."
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '25 Jun',
+          name: 'Rest', meta: 'Usual rest day', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Thursday rest day stays a rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Walking and casual movement fine.',
+            focus: 'Sleep, hydration, food.',
+            paces: [],
+            considerations: [
+              'Optional 20 min mobility or foam roll if you fancy it',
+              'Don\'t use the time off to do an extra session — rest is the training today'
+            ],
+            importance: "Rest day stays a rest day even after time off. Protects the building stimulus across Fri/Sat/Sun — three light sessions back to back need a fresh start."
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '26 Jun',
+          name: 'Easy run — re-entry', meta: '5–6 km · 30 min',
+          sessions: [{
+            name: 'Easy run — re-entry', meta: '5–6 km · 30 min',
+            headline: 'First run back — conversational only, no targets',
+            warmUp: '1 km deliberately slow — let HR settle and let the legs find their rhythm.',
+            mainSet: '5–6 km continuous at easy pace, conversational throughout.',
+            focus: "Pace will feel weird after 2.5 weeks off — that's normal. Effort is the metric, not pace.",
+            paces: ['5:00–5:30 /km', 'HR <150', 'RPE 3–4'],
+            considerations: [
+              'Pace likely 10–20 sec/km slower than pre-holiday — expected and fine',
+              'Drop to 4 km if legs feel sluggish — finish wanting more',
+              'Morning run is great — sets the day and beats the heat',
+              'Bail rule: if anything actively hurts (not just tight), walk it home'
+            ],
+            importance: "First run back is diagnostic, not training. The point is to see how the legs respond — sharp pain is a sign recovery isn't done. Easy aerobic minutes are the safest way to nudge fitness back without risking a niggle."
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '27 Jun',
+          name: 'Light aerobic — choose your option', meta: '40–60 min',
+          sessions: [{
+            name: 'Light aerobic — pick the option that fits', meta: '40–60 min',
+            headline: 'Light aerobic day — flexible, no quality',
+            warmUp: '—',
+            mainSet: [
+              'Option A: Easy 7–8 km run, conversational pace (~40 min)',
+              'Option B: 60 min walk or hike + 20 min upper-body home work (push-ups, dips off a chair, pike push-ups, bird-dog)',
+              'Option C: Rest if Fri\'s run felt rougher than expected'
+            ],
+            focus: "Aerobic movement, not training. Don't add any intensity — no strides, no tempo, no Strava segments.",
+            paces: ['Run: 5:00–5:30 /km', 'RPE 3–4'],
+            considerations: [
+              "Save the engine for Sunday's long bike",
+              'No quality work this week — Saturday usually carries threshold, this week it doesn\'t',
+              'If Friday\'s run revealed tightness, rest today — don\'t double down',
+              'Eat properly Sat night — Sunday\'s bike needs fuel'
+            ],
+            importance: "Saturday usually carries the week's threshold work. Skipping that this week is deliberate — re-entry weeks shouldn't include quality. Easy minutes here protect Sunday's long bike from being half-fuelled."
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '28 Jun',
+          name: 'Long bike — Z2', meta: '1:30–2:00 · ~45 km',
+          sessions: [{
+            name: 'Long bike — Z2 only', meta: '1:30–2:00 · ~45 km',
+            headline: 'Long Z2 ride to rebuild aerobic base — no intensity',
+            warmUp: '10–15 min easy spinning, gradually building to Z2.',
+            mainSet: '1:15–1:45 at steady Z2 — RPE 3–4, HR 130–145, conversational throughout.',
+            focus: "Volume at intensity is the goal — not pushing the watts. Time on the saddle compounds.",
+            paces: ['RPE 3–4', 'HR 130–145', 'Easy Z2 only'],
+            considerations: [
+              'No sweet spot, no surges, no Strava segments — Z2 only this week',
+              'Fuel: ~30g carbs/hour after the first 60 min (a bar or gel)',
+              'Drink to thirst — more in heat',
+              'If quads feel hammered from Friday, cap at 1:15 and call it done',
+              "Pure aerobic ride — re-introduces volume without intensity. Sweet spot work returns in Week 5."
+            ],
+            importance: 'Long Z2 rides are how the aerobic engine rebuilds with minimal injury risk. Cycling delivers aerobic load without impact, which is exactly what re-entry needs. Save bike intensity for Week 5 once the legs are back in rhythm — pushing watts on a re-entry ride is how niggles happen.'
+          }]
+        }
+      ]
+    }
 
   ]
 };
