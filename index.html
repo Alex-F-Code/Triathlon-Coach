@@ -2,195 +2,186 @@
 <html lang="en-GB">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Coach — Triathlon Training</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="plans.js"></script>
 <script src="library.js"></script>
+
 <style>
   /* ============================================
-     THEME SYSTEM — three styles × light/dark
+     ATHLETIC THEME — light + dark
      ============================================ */
-
   :root {
-    --radius-card: 12px;
-    --radius-button: 8px;
+    --radius-card: 14px;
+    --radius-button: 10px;
     --radius-pill: 999px;
-    --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
-    --max-width: 1100px;
-    --max-width-narrow: 480px;
-    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --transition: 200ms cubic-bezier(0.32, 0.72, 0, 1);
+    --transition-fast: 120ms ease-out;
+    --transition-slow: 380ms cubic-bezier(0.32, 0.72, 0, 1);
+    --max-width: 1180px;
+    --max-width-narrow: 520px;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-display: 'Space Grotesk', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+    /* Discipline tints — semantic */
+    --c-run: #ee5d27;
+    --c-bike: #84cc16;
+    --c-swim: #06b6d4;
+    --c-strength: #8b5cf6;
+    --c-football: #84cc16;
+    --c-rest: #94a3b8;
+    --c-mobility: #a8a29e;
   }
 
-  /* Theme: Minimal (clean, professional, blue accent) */
-  [data-theme="minimal-light"] {
-    --bg: #ffffff;
+  [data-theme="light"] {
+    --bg: #fbfaf7;
     --bg-elevated: #ffffff;
-    --bg-subtle: #f7f7f8;
-    --text: #0a0a0a;
-    --text-muted: #6b7280;
-    --text-faint: #9ca3af;
-    --border: #e5e7eb;
-    --border-strong: #d1d5db;
-    --accent: #2563eb;
-    --accent-soft: #dbeafe;
-    --accent-text: #1e40af;
-    --success: #10b981;
-    --missed: #ef4444;
-    --missed-soft: #fee2e2;
-    --shadow: 0 1px 2px rgba(0,0,0,0.04);
-  }
-  [data-theme="minimal-dark"] {
-    --bg: #0a0a0b;
-    --bg-elevated: #141416;
-    --bg-subtle: #1c1c1f;
-    --text: #f3f4f6;
-    --text-muted: #9ca3af;
-    --text-faint: #6b7280;
-    --border: #27272a;
-    --border-strong: #3f3f46;
-    --accent: #3b82f6;
-    --accent-soft: #1e3a8a40;
-    --accent-text: #93c5fd;
-    --success: #34d399;
-    --missed: #f87171;
-    --missed-soft: #7f1d1d40;
-    --shadow: 0 1px 2px rgba(0,0,0,0.4);
-  }
-
-  /* Theme: Athletic (bold, data-focused, orange accent) */
-  [data-theme="athletic-light"] {
-    --bg: #fafafa;
-    --bg-elevated: #ffffff;
-    --bg-subtle: #f4f4f5;
-    --text: #18181b;
-    --text-muted: #52525b;
-    --text-faint: #a1a1aa;
-    --border: #e4e4e7;
-    --border-strong: #d4d4d8;
-    --accent: #ea580c;
-    --accent-soft: #ffedd5;
-    --accent-text: #9a3412;
+    --bg-subtle: #f3f1ec;
+    --bg-strong: #ecebe5;
+    --text: #0f0f10;
+    --text-muted: #57534e;
+    --text-faint: #a8a29e;
+    --border: #e7e5e0;
+    --border-strong: #d6d3cb;
+    --accent: #ee5d27;
+    --accent-hover: #d94f1d;
+    --accent-soft: #ffe5d5;
+    --accent-text: #8a3614;
     --success: #16a34a;
-    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+    --success-soft: #d1f1dc;
+    --missed: #dc2626;
+    --missed-soft: #fee2e2;
+    --shadow-sm: 0 1px 2px rgba(15,15,16,0.04);
+    --shadow-md: 0 2px 6px rgba(15,15,16,0.06), 0 1px 2px rgba(15,15,16,0.04);
+    --shadow-lg: 0 10px 30px rgba(15,15,16,0.10), 0 4px 8px rgba(15,15,16,0.05);
+    --grain: 0.02;
   }
-  [data-theme="athletic-dark"] {
-    --bg: #09090b;
-    --bg-elevated: #18181b;
-    --bg-subtle: #1f1f23;
-    --text: #fafafa;
+
+  [data-theme="dark"] {
+    --bg: #0c0d0f;
+    --bg-elevated: #16181c;
+    --bg-subtle: #1e2026;
+    --bg-strong: #292c33;
+    --text: #f5f5f4;
     --text-muted: #a1a1aa;
-    --text-faint: #71717a;
-    --border: #27272a;
-    --border-strong: #3f3f46;
-    --accent: #f97316;
-    --accent-soft: #7c2d1230;
-    --accent-text: #fdba74;
+    --text-faint: #6c6c6e;
+    --border: #292c33;
+    --border-strong: #3a3e47;
+    --accent: #ff7034;
+    --accent-hover: #ff8550;
+    --accent-soft: #4a1f0e;
+    --accent-text: #ffb799;
     --success: #22c55e;
-    --shadow: 0 2px 6px rgba(0,0,0,0.5);
+    --success-soft: #14532d;
+    --missed: #f87171;
+    --missed-soft: #5b1818;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.45);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+    --grain: 0.04;
   }
 
-  /* Theme: Calm (warm, friendly, sage accent) */
-  [data-theme="calm-light"] {
-    --bg: #fdfbf6;
-    --bg-elevated: #ffffff;
-    --bg-subtle: #f5f1e8;
-    --text: #2d2d2a;
-    --text-muted: #6b6b65;
-    --text-faint: #9b9b94;
-    --border: #e8e3d6;
-    --border-strong: #d4cebe;
-    --accent: #5d7a5d;
-    --accent-soft: #d8e3d8;
-    --accent-text: #3d553d;
-    --success: #5d7a5d;
-    --shadow: 0 1px 2px rgba(60,50,30,0.05);
-  }
-  [data-theme="calm-dark"] {
-    --bg: #1f1f1c;
-    --bg-elevated: #292924;
-    --bg-subtle: #34342e;
-    --text: #ebebe7;
-    --text-muted: #a8a8a0;
-    --text-faint: #74746d;
-    --border: #3a3a33;
-    --border-strong: #4d4d44;
-    --accent: #8fa68f;
-    --accent-soft: #3d553d40;
-    --accent-text: #a8c0a8;
-    --success: #8fa68f;
-    --shadow: 0 1px 3px rgba(0,0,0,0.4);
-  }
-
-  /* ============================================
-     BASE
-     ============================================ */
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Reset */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
     background: var(--bg);
     color: var(--text);
-    font-family: var(--font-stack);
+    font-family: var(--font-ui);
     font-size: 15px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    transition: background var(--transition), color var(--transition);
+    -moz-osx-font-smoothing: grayscale;
+    transition: background var(--transition-slow), color var(--transition-slow);
+    text-rendering: optimizeLegibility;
   }
 
+  /* Subtle warm grain on light, cool on dark — gives surfaces texture */
   body {
     min-height: 100vh;
-    padding-bottom: 76px;
+    padding-bottom: 92px;
+    position: relative;
   }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 10% 0%, var(--accent-soft) 0%, transparent 40%),
+      radial-gradient(circle at 90% 100%, var(--accent-soft) 0%, transparent 30%);
+    opacity: 0.45;
+    mix-blend-mode: multiply;
+  }
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: 0.25; }
 
   .app {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 20px;
     position: relative;
+    z-index: 1;
   }
 
   /* ============================================
      HEADER
      ============================================ */
-
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0 12px;
+    padding: 22px 0 16px;
     position: sticky;
     top: 0;
-    background: var(--bg);
+    background: linear-gradient(to bottom, var(--bg) 70%, transparent);
     z-index: 10;
-    transition: background var(--transition);
+    backdrop-filter: blur(8px);
   }
 
   .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
   .brand-mark {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    background: var(--accent);
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    position: relative;
+  }
+  .brand-mark svg { width: 36px; height: 36px; display: block; }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1;
+  }
+  .brand-name {
+    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 14px;
+    font-size: 18px;
     letter-spacing: -0.5px;
   }
-
-  .brand-name {
+  .brand-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     font-weight: 600;
-    font-size: 17px;
-    letter-spacing: -0.3px;
+    margin-top: 3px;
   }
 
   .header-actions {
@@ -200,8 +191,8 @@
   }
 
   .icon-btn {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border: 1px solid var(--border);
     background: var(--bg-elevated);
     border-radius: var(--radius-button);
@@ -212,210 +203,463 @@
     color: var(--text-muted);
     transition: all var(--transition);
   }
-  .icon-btn:hover { color: var(--text); border-color: var(--border-strong); }
+  .icon-btn:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+  .icon-btn:active { transform: translateY(0); }
   .icon-btn svg { width: 16px; height: 16px; }
-
-  /* ============================================
-     THEME PICKER
-     ============================================ */
-
-  .theme-picker {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 16px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow);
-  }
-
-  .theme-picker-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  .theme-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-  }
-  .theme-row:last-child { margin-bottom: 0; }
-
-  .theme-btn {
-    flex: 1;
-    min-width: 0;
-    padding: 8px 10px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    border-radius: var(--radius-button);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all var(--transition);
-    font-family: inherit;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .theme-btn:hover { color: var(--text); }
-  .theme-btn.active {
-    background: var(--accent-soft);
-    border-color: var(--accent);
-    color: var(--accent-text);
+  .icon-btn.signout-btn:hover {
+    color: var(--missed);
+    border-color: var(--missed);
   }
 
   /* ============================================
      WEEK NAV
      ============================================ */
-
   .week-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 0 16px;
+    padding: 6px 0 18px;
+    gap: 12px;
   }
 
   .week-title {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .week-title strong {
+    color: var(--text);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+
+  .week-chev {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    font-family: inherit;
+  }
+  .week-chev:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  /* ============================================
+     PLAN COLUMNS — today hero + sidebar
+     ============================================ */
+  .plan-columns {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 18px;
+    align-items: start;
+  }
+
+  /* Non-plan views narrow */
+  #view-checkin {
+    max-width: var(--max-width-narrow);
+    margin: 0 auto;
+  }
+
+  /* ============================================
+     TODAY HERO CARD
+     ============================================ */
+  .today-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 24px 26px 22px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+    animation: cardIn 380ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .today-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+  }
+  .today-card[data-disc="run"]::before { background: var(--c-run); }
+  .today-card[data-disc="bike"]::before { background: var(--c-bike); }
+  .today-card[data-disc="swim"]::before { background: var(--c-swim); }
+  .today-card[data-disc="strength"]::before { background: var(--c-strength); }
+  .today-card[data-disc="football"]::before { background: var(--c-football); }
+  .today-card[data-disc="rest"]::before { background: var(--c-rest); }
+  .today-card[data-disc="mobility"]::before { background: var(--c-mobility); }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .today-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .today-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .pill.today { background: var(--accent); color: white; }
+  .pill.today.live::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: white;
+    animation: livePulse 1.6s ease-in-out infinite;
+  }
+  .pill.done { background: var(--success); color: white; }
+  .pill.missed { background: var(--missed); color: white; }
+  .pill.muted { background: var(--bg-subtle); color: var(--text-muted); border: 1px solid var(--border); }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+  }
+
+  .today-date {
     font-size: 13px;
     color: var(--text-muted);
     font-weight: 500;
   }
-  .week-title strong { color: var(--text); }
+  .today-date strong { color: var(--text); font-weight: 600; }
 
-  .week-chev {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 4px 8px;
-    font-size: 18px;
-  }
-
-  /* ============================================
-     STAT STRIP
-     ============================================ */
-
-  .stat-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .stat {
-    background: var(--bg-elevated);
+  .back-to-today {
+    background: var(--bg-subtle);
     border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 12px;
-    box-shadow: var(--shadow);
-  }
-  .stat-value {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-  }
-  .stat-label {
-    font-size: 11px;
     color: var(--text-muted);
-    margin-top: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: var(--radius-pill);
+    font-family: inherit;
+    font-weight: 600;
+    transition: all var(--transition);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-
-  /* ============================================
-     SESSION CARD (hero — today)
-     ============================================ */
-
-  .hero-card {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: transform var(--transition), border-color var(--transition);
-  }
-  .hero-card:hover { border-color: var(--border-strong); }
-  .hero-card:active { transform: scale(0.99); }
-
-  .hero-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-
-  .today-tag {
-    background: var(--accent);
-    color: white;
-    padding: 3px 10px;
-    border-radius: var(--radius-pill);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .hero-date {
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-
-  .hero-icon {
-    width: 44px;
-    height: 44px;
+  .back-to-today:hover {
     background: var(--accent-soft);
     color: var(--accent-text);
-    border-radius: 10px;
-    display: flex;
+    border-color: var(--accent);
+  }
+
+  .disc-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 14px;
+    color: white;
+    background: var(--accent);
+    flex-shrink: 0;
   }
-  .hero-icon svg { width: 22px; height: 22px; }
+  .disc-icon svg { width: 20px; height: 20px; }
+  .disc-icon[data-disc="run"] { background: var(--c-run); }
+  .disc-icon[data-disc="bike"] { background: var(--c-bike); }
+  .disc-icon[data-disc="swim"] { background: var(--c-swim); }
+  .disc-icon[data-disc="strength"] { background: var(--c-strength); }
+  .disc-icon[data-disc="football"] { background: var(--c-football); }
+  .disc-icon[data-disc="rest"] { background: var(--c-rest); }
+  .disc-icon[data-disc="mobility"] { background: var(--c-mobility); }
 
-  .hero-title {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-
-  .hero-sub {
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 16px;
-  }
-
-  .hero-targets {
+  /* Session selector (multi-session days) */
+  .session-selector {
     display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 6px;
+    margin: 14px 0 16px;
     flex-wrap: wrap;
   }
-
-  .target {
+  .session-tab {
     background: var(--bg-subtle);
-    padding: 8px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 13px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all var(--transition);
+    font-family: inherit;
+  }
+  .session-tab:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .session-tab.active {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+  .session-tab.done:not(.active) {
+    color: var(--success);
+    border-color: var(--success);
+  }
+  .session-tab svg { width: 11px; height: 11px; }
+
+  .today-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .today-title-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .today-title {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.05;
+    color: var(--text);
+  }
+  .today-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: -0.2px;
+  }
+
+  .today-headline {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.45;
+    margin-bottom: 18px;
+    padding-left: 12px;
+    border-left: 2px solid var(--accent);
+  }
+
+  /* MAIN SET — the hero block */
+  .main-set-block {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
     border-radius: var(--radius-button);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .main-set-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-text);
+    font-weight: 800;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .main-set-label::before {
+    content: '';
+    width: 14px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .main-set-content {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.55;
+    font-weight: 500;
+  }
+  .main-set-content ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  .main-set-content li {
+    padding: 6px 0 6px 22px;
+    position: relative;
+    border-bottom: 1px dashed var(--border);
+  }
+  .main-set-content li:last-child { border-bottom: none; }
+  .main-set-content li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 14px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Compact sub-sections grid (warm up / focus / considerations) */
+  .sub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .sub-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-button);
+    padding: 12px 14px;
+  }
+  .sub-card-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .sub-card-body {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .sub-card-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  .sub-card-body li {
+    padding-left: 12px;
+    position: relative;
+    margin: 3px 0;
+  }
+  .sub-card-body li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--text-faint);
+  }
+
+  /* Paces strip */
+  .paces-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .pace-chip {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: -0.2px;
+  }
+
+  /* Why this matters — accent footer */
+  .why-block {
+    background: var(--accent-soft);
+    border-radius: var(--radius-button);
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-block::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+  .why-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-text);
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+  .why-body {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  /* Today action bar */
+  .today-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .today-actions .btn { flex: 1; min-width: 140px; }
+  .today-row-secondary {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .today-row-secondary .btn { flex: 1; min-width: 140px; }
+
+  /* Log summary if previously logged */
+  .log-stamp {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
     font-size: 12px;
     color: var(--text-muted);
   }
-  .target strong { color: var(--text); font-weight: 600; }
-
-  .hero-actions {
-    display: flex;
-    gap: 8px;
+  .log-stamp-rpe {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--text);
+    background: var(--bg-subtle);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
   }
 
+  /* ============================================
+     BUTTONS
+     ============================================ */
   .btn {
-    padding: 11px 16px;
+    padding: 12px 18px;
     border-radius: var(--radius-button);
     font-size: 14px;
     font-weight: 600;
@@ -427,403 +671,124 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
+    letter-spacing: -0.1px;
   }
 
   .btn-primary {
     background: var(--accent);
     color: white;
-    flex: 1;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 4px 14px -2px var(--accent);
   }
-  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 8px 20px -4px var(--accent);
+  }
+  .btn-primary:active { transform: translateY(0); }
 
   .btn-secondary {
     background: var(--bg-elevated);
     color: var(--text);
     border-color: var(--border-strong);
-    flex: 1;
   }
-  .btn-secondary:hover { background: var(--bg-subtle); }
+  .btn-secondary:hover {
+    background: var(--bg-subtle);
+    border-color: var(--text-muted);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: transparent;
+    padding: 10px 14px;
+  }
+  .btn-ghost:hover {
+    background: var(--bg-subtle);
+    color: var(--text);
+  }
 
   .btn svg { width: 14px; height: 14px; }
 
   /* ============================================
-     WEEK STRIP — small day cards
+     WEEK GRID — small cards under the bar strip
      ============================================ */
-
-  .section-title {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-    font-weight: 600;
-    margin: 24px 0 10px;
-  }
-
-  .day-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .day-card {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    cursor: pointer;
-    transition: all var(--transition);
-  }
-  .day-card:hover { border-color: var(--border-strong); }
-  .day-card.done { opacity: 0.7; }
-  .day-card.today {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-  }
-
-  .day-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--bg-subtle);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    flex-shrink: 0;
-  }
-  .day-card.done .day-icon { background: var(--success); color: white; }
-  .day-icon svg { width: 18px; height: 18px; }
-
-  .day-info { flex: 1; min-width: 0; }
-  .day-info-top {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 2px;
-  }
-  .day-day {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .day-card.done .day-day::after {
-    content: " · DONE";
-    color: var(--success);
-  }
-  .day-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .day-meta {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .day-card.done .day-name { text-decoration: line-through; text-decoration-color: var(--text-faint); }
-
-  .day-chev {
-    color: var(--text-faint);
-    flex-shrink: 0;
-  }
-
-  /* ============================================
-     BOTTOM NAV
-     ============================================ */
-
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--bg-elevated);
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-around;
-    padding: 8px 8px 16px;
-    z-index: 20;
-  }
-
-  .nav-btn {
-    flex: 1;
-    background: none;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    color: var(--text-faint);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    font-size: 10px;
-    font-weight: 500;
-    font-family: inherit;
-    transition: color var(--transition);
-    max-width: 100px;
-  }
-  .nav-btn.active { color: var(--accent); }
-  .nav-btn svg { width: 20px; height: 20px; }
-
-  /* ============================================
-     VIEWS — show/hide
-     ============================================ */
-
-  .view { display: none; }
-  .view.active { display: block; }
-
-  /* Session Detail */
-  .back-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 4px 0;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: inherit;
-  }
-  .back-btn svg { width: 16px; height: 16px; }
-
-  .detail-block {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow);
-  }
-
-  .detail-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
-  .detail-block p { color: var(--text); font-size: 14px; }
-  .detail-block ul { padding-left: 18px; font-size: 14px; }
-  .detail-block li { margin: 4px 0; }
-
-  .why-text {
-    color: var(--text-muted);
-    font-size: 13px;
-    font-style: italic;
-    padding: 12px;
-    background: var(--bg-subtle);
-    border-radius: var(--radius-button);
-    border-left: 3px solid var(--accent);
-  }
-
-  /* RPE slider + notes */
-  .rpe-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 10px;
-  }
-  .rpe-value {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--accent);
-    min-width: 32px;
-    text-align: center;
-  }
-  .rpe-slider {
-    flex: 1;
-    -webkit-appearance: none;
-    appearance: none;
-    height: 6px;
-    background: var(--bg-subtle);
-    border-radius: 3px;
-    outline: none;
-  }
-  .rpe-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 22px;
-    height: 22px;
-    background: var(--accent);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .rpe-slider::-moz-range-thumb {
-    width: 22px;
-    height: 22px;
-    background: var(--accent);
-    border-radius: 50%;
-    cursor: pointer;
-    border: none;
-  }
-
-  textarea, input[type="text"], input[type="number"] {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-button);
-    background: var(--bg);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 14px;
-    resize: vertical;
-    transition: border-color var(--transition);
-  }
-  textarea:focus, input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-  textarea { min-height: 80px; }
-
-  /* Check-in form */
-  .form-group {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow);
-  }
-  .form-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: var(--text);
-  }
-  .form-hint {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-  }
-
-  /* Email preview */
-  .email-frame {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-  .email-header {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg-subtle);
-  }
-  .email-from { font-size: 13px; color: var(--text-muted); margin-bottom: 2px; }
-  .email-from strong { color: var(--text); }
-  .email-subject { font-size: 16px; font-weight: 700; margin-top: 4px; }
-  .email-body { padding: 20px 16px; font-size: 14px; line-height: 1.6; }
-  .email-body h2 { font-size: 18px; margin-bottom: 4px; }
-  .email-body h3 { font-size: 14px; font-weight: 600; margin: 16px 0 6px; color: var(--accent-text); }
-  .email-body p { color: var(--text-muted); font-size: 13px; margin-bottom: 12px; }
-  .email-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 10px 0;
-    font-size: 13px;
-  }
-  .email-table th, .email-table td {
-    text-align: left;
-    padding: 8px 6px;
-    border-bottom: 1px solid var(--border);
-  }
-  .email-table th {
-    font-size: 11px;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    letter-spacing: 0.05em;
-  }
-
-  /* ============================================
-     PLAN VIEW LAYOUT — wide screen
-     ============================================ */
-
-  .plan-view-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  /* Constrain non-plan views to narrow column */
-  #view-session, #view-checkin, #view-email {
-    max-width: var(--max-width-narrow);
-    margin: 0 auto;
-  }
-
-  /* WEEK GRID — single row of 7 compact cards */
   .week-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 6px;
+    margin-bottom: 16px;
   }
-
   .day-box {
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 10px 10px;
     cursor: pointer;
     transition: all var(--transition);
-    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    min-height: 86px;
+    gap: 6px;
+    min-height: 84px;
     text-align: left;
+    position: relative;
   }
   .day-box:hover {
     border-color: var(--border-strong);
     transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
   }
   .day-box.today {
     border-color: var(--accent);
-    border-width: 1.5px;
+    box-shadow: 0 0 0 1px var(--accent);
   }
   .day-box.selected {
     border-color: var(--accent);
-    border-width: 1.5px;
-    box-shadow: 0 0 0 3px var(--accent-soft);
+    box-shadow: 0 0 0 2px var(--accent-soft), 0 0 0 1px var(--accent);
   }
   .day-box.done { opacity: 0.75; }
-  .day-box.done.selected { opacity: 1; }
+  .day-box.done.selected, .day-box.today { opacity: 1; }
   .day-box.rest { background: var(--bg-subtle); }
 
-  .day-box-day-label {
+  .day-box-label {
     font-size: 10px;
     color: var(--text-muted);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  .day-box.today .day-box-day-label {
-    color: var(--accent);
-  }
+  .day-box.today .day-box-label { color: var(--accent); }
 
   .day-box-sessions {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     flex: 1;
   }
-
   .day-session-row {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     gap: 6px;
   }
+  .day-session-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .day-session-dot[data-disc="run"] { background: var(--c-run); }
+  .day-session-dot[data-disc="bike"] { background: var(--c-bike); }
+  .day-session-dot[data-disc="swim"] { background: var(--c-swim); }
+  .day-session-dot[data-disc="strength"] { background: var(--c-strength); }
+  .day-session-dot[data-disc="football"] { background: var(--c-football); }
+  .day-session-dot[data-disc="rest"] { background: var(--c-rest); }
+  .day-session-dot[data-disc="mobility"] { background: var(--c-mobility); }
 
   .day-session-name {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 500;
     color: var(--text);
     line-height: 1.3;
@@ -836,423 +801,142 @@
     text-decoration-color: var(--text-faint);
     color: var(--text-muted);
   }
-
-  .day-checkbox {
-    width: 16px;
-    height: 16px;
-    border: 1.5px solid var(--border-strong);
-    border-radius: 4px;
-    background: var(--bg);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-    transition: all var(--transition);
-    padding: 0;
-    font-family: inherit;
-  }
-  .day-checkbox:hover {
-    border-color: var(--accent);
-  }
-  .day-checkbox.done {
-    background: var(--success);
-    border-color: var(--success);
-  }
-  .day-checkbox svg {
-    width: 10px;
-    height: 10px;
-    color: white;
-  }
-
-  .back-to-today {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    font-size: 11px;
-    cursor: pointer;
-    padding: 3px 8px;
-    border-radius: var(--radius-pill);
-    font-family: inherit;
-    font-weight: 500;
-    transition: all var(--transition);
-    margin-left: 4px;
-  }
-  .back-to-today:hover {
-    background: var(--bg-subtle);
-    color: var(--text);
-    border-color: var(--border-strong);
-  }
-
-  .today-section-pill.done { background: var(--success); }
-  .today-section-icon.done {
-    background: var(--success);
-    color: white;
-  }
-
-  /* PREVIEW PANE SECTIONS (detailed day view) */
-  .preview-section {
-    margin-top: 18px;
-  }
-  .preview-section-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-faint);
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  .preview-section-content {
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-  .preview-section ul {
-    padding-left: 18px;
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .preview-section li { margin: 4px 0; color: var(--text); }
-
-  .preview-headline {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-style: italic;
-    line-height: 1.5;
-    margin-bottom: 4px;
-  }
-
-  .preview-importance {
-    margin-top: 20px;
-    padding: 14px 16px;
-    background: var(--accent-soft);
-    border-radius: var(--radius-button);
-    border-left: 3px solid var(--accent);
-  }
-  .preview-importance .preview-section-label {
-    color: var(--accent-text);
-    margin-bottom: 4px;
-  }
-  .preview-importance-content {
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  /* Missed status — red X on checkbox + name styling */
-  .day-checkbox.missed {
-    background: var(--missed);
-    border-color: var(--missed);
-  }
   .day-session-name.missed {
     color: var(--text-muted);
     text-decoration: line-through;
     text-decoration-color: var(--missed);
     text-decoration-thickness: 1px;
   }
-  .day-box.missed {
-    opacity: 0.75;
-  }
-  .day-box.missed.selected { opacity: 1; }
-  .day-checkbox .check-svg, .day-checkbox .x-svg { display: none; }
-  .day-checkbox.done .check-svg { display: block; }
-  .day-checkbox.missed .x-svg { display: block; }
-  .today-section-pill.missed { background: var(--missed); }
 
-  /* Discipline selector — three big buttons at top of Paces tab */
-  .discipline-selector {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  .discipline-tab {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 600;
-    padding: 16px 8px;
-    border-radius: var(--radius-card);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    transition: all var(--transition);
-    font-family: inherit;
-    box-shadow: var(--shadow);
-  }
-  .discipline-tab svg {
-    width: 22px;
-    height: 22px;
-  }
-  .discipline-tab:hover {
-    background: var(--bg-subtle);
-    color: var(--text);
-    border-color: var(--border-strong);
-  }
-  .discipline-tab.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-
-  /* Pace conversion calculator */
-  .pace-calc-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-  }
-  .pace-calc-input label {
-    display: block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-faint);
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .pace-calc-input input {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: ui-monospace, "SF Mono", "Cascadia Mono", monospace;
-    text-align: center;
-    border: 1px solid var(--border);
+  /* Checkbox — uses CSS for tick draw animation */
+  .day-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 5px;
     background: var(--bg);
-    color: var(--text);
-    border-radius: var(--radius-button);
-    transition: border-color var(--transition);
-  }
-  .pace-calc-input input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-
-  /* Pace conversion table */
-  .pace-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  .pace-table th {
-    text-align: left;
-    padding: 8px 12px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-    font-weight: 700;
-    border-bottom: 1px solid var(--border);
-  }
-  .pace-table th + th, .pace-table td + td { text-align: right; }
-  .pace-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    font-family: ui-monospace, "SF Mono", "Cascadia Mono", monospace;
-    color: var(--text);
     cursor: pointer;
-  }
-  .pace-table tbody tr { transition: background var(--transition); }
-  .pace-table tbody tr:hover { background: var(--bg-subtle); }
-  .pace-table tr:last-child td { border-bottom: none; }
-  .pace-table tr.zone-easy td:first-child { color: var(--accent); font-weight: 700; }
-  .pace-table tr.zone-threshold td:first-child { color: var(--accent); font-weight: 700; }
-  .pace-table .zone-tag {
-    display: inline-block;
-    font-family: var(--font-stack);
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-left: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* Session selector tabs (multi-session days) */
-  .session-selector {
-    display: flex;
-    gap: 6px;
-    margin: 14px 0 18px;
-    flex-wrap: wrap;
-  }
-  .session-tab {
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 8px 14px;
-    border-radius: var(--radius-button);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all var(--transition);
-    font-family: inherit;
-  }
-  .session-tab:hover {
-    background: var(--bg-elevated);
-    color: var(--text);
-    border-color: var(--border-strong);
-  }
-  .session-tab.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-  .session-tab.done:not(.active) {
-    color: var(--success);
-    border-color: var(--success);
-    background: var(--bg-elevated);
-  }
-  .session-tab.active.done {
-    background: var(--success);
-    border-color: var(--success);
-  }
-  .session-tab svg { width: 12px; height: 12px; }
-
-  /* PLAN COLUMNS — today + sidebar */
-  .plan-columns {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 16px;
-    align-items: start;
-  }
-
-  /* TODAY SECTION (large preview) */
-  .today-section {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 20px 22px;
-    box-shadow: var(--shadow);
-  }
-  .today-section-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-  .today-section-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .today-section-pill {
-    background: var(--accent);
-    color: white;
-    padding: 3px 10px;
-    border-radius: var(--radius-pill);
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .today-section-date {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-  .today-section-icons {
-    display: flex;
-    gap: 6px;
-  }
-  .today-section-icon {
-    width: 38px;
-    height: 38px;
-    background: var(--accent-soft);
-    color: var(--accent-text);
-    border-radius: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0;
+    transition: all var(--transition);
+    padding: 0;
+    font-family: inherit;
+    position: relative;
   }
-  .today-section-icon svg { width: 18px; height: 18px; }
+  .day-checkbox:hover { border-color: var(--accent); }
+  .day-checkbox svg {
+    width: 11px;
+    height: 11px;
+    color: white;
+    display: none;
+  }
+  .day-checkbox.done {
+    background: var(--success);
+    border-color: var(--success);
+  }
+  .day-checkbox.done .check-svg { display: block; animation: tick 280ms cubic-bezier(0.32, 0.72, 0, 1); }
+  .day-checkbox.missed {
+    background: var(--missed);
+    border-color: var(--missed);
+  }
+  .day-checkbox.missed .x-svg { display: block; animation: tick 220ms cubic-bezier(0.32, 0.72, 0, 1); }
 
-  .today-section-title {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.6px;
-    margin-bottom: 4px;
-    line-height: 1.15;
-  }
-  .today-section-meta {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
-  .today-section-why {
-    background: var(--bg-subtle);
-    padding: 12px 14px;
-    border-radius: var(--radius-button);
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.55;
-    margin-bottom: 14px;
-    border-left: 3px solid var(--accent);
-  }
-  .today-section-targets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-  .target-chip {
-    background: var(--bg-subtle);
-    padding: 7px 11px;
-    border-radius: var(--radius-button);
-    font-size: 12px;
-    color: var(--text);
-    font-weight: 500;
-  }
-  .today-section-actions {
-    display: flex;
-    gap: 8px;
+  @keyframes tick {
+    from { transform: scale(0.2); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    to { transform: scale(1); opacity: 1; }
   }
 
-  /* SIDEBAR */
+  /* ============================================
+     SIDEBAR
+     ============================================ */
   .plan-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+    position: sticky;
+    top: 100px;
   }
   .sidebar-card {
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: var(--radius-card);
-    padding: 16px;
-    box-shadow: var(--shadow);
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
   }
   .sidebar-title {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text);
-  }
-
-  /* Summary card */
-  .sidebar-progress {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    font-weight: 700;
     margin-bottom: 14px;
   }
-  .sidebar-progress-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: -0.8px;
+
+  /* Progress ring */
+  .progress-ring-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .progress-ring {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+  .progress-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .progress-ring-track {
+    fill: none;
+    stroke: var(--bg-subtle);
+    stroke-width: 7;
+  }
+  .progress-ring-fill {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 7;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 600ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .progress-ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
   }
-  .sidebar-progress-of {
-    font-size: 13px;
+  .progress-ring-value {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.8px;
+  }
+  .progress-ring-of {
+    font-size: 10px;
+    color: var(--text-faint);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .progress-summary-text {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.5;
     color: var(--text-muted);
   }
+  .progress-summary-text strong { color: var(--text); font-weight: 600; }
+
   .sidebar-stats {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1261,24 +945,39 @@
   }
   .sidebar-stat {
     background: var(--bg-subtle);
-    padding: 9px 10px;
+    padding: 10px 12px;
     border-radius: var(--radius-button);
+    position: relative;
+    overflow: hidden;
   }
+  .sidebar-stat::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+  }
+  .sidebar-stat[data-disc="run"]::before { background: var(--c-run); }
+  .sidebar-stat[data-disc="bike"]::before { background: var(--c-bike); }
+  .sidebar-stat[data-disc="swim"]::before { background: var(--c-swim); }
+  .sidebar-stat[data-disc="time"]::before { background: var(--text); }
+
   .sidebar-stat-value {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
   }
   .sidebar-stat-label {
-    font-size: 10px;
+    font-size: 9.5px;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     margin-top: 2px;
     font-weight: 600;
   }
+
   .sidebar-focus {
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--text);
     line-height: 1.55;
     padding-top: 12px;
@@ -1287,249 +986,345 @@
   .sidebar-focus-label {
     font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: var(--text-faint);
-    font-weight: 600;
-    margin-bottom: 4px;
+    font-weight: 700;
+    margin-bottom: 6px;
   }
   .sidebar-focus strong { color: var(--accent-text); }
 
-  /* Paces card */
-  .pace-section {
-    margin-bottom: 14px;
-  }
-  .pace-section:last-child { margin-bottom: 0; }
-  .pace-section-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-    font-weight: 600;
-    margin-bottom: 6px;
+  /* ============================================
+     EMPTY STATE
+     ============================================ */
+  .empty-banner {
+    background: linear-gradient(135deg, var(--accent-soft), transparent);
+    border: 1px dashed var(--accent);
+    border-radius: var(--radius-card);
+    padding: 18px 20px;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 14px;
   }
-  .pace-section-label svg { width: 12px; height: 12px; }
-  .pace-rows {
+  .empty-banner-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .empty-banner-icon svg { width: 18px; height: 18px; }
+  .empty-banner-text {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .empty-banner-text strong { color: var(--accent-text); font-weight: 600; }
+
+  /* ============================================
+     BOTTOM NAV
+     ============================================ */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 8px calc(16px + env(safe-area-inset-bottom));
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .nav-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--text-faint);
     display: flex;
     flex-direction: column;
-  }
-  .pace-row {
-    display: grid;
-    grid-template-columns: 90px 1fr auto;
-    gap: 8px;
     align-items: center;
-    padding: 6px 0;
-    border-bottom: 1px dashed var(--border);
-    font-size: 11px;
-  }
-  .pace-row:last-child { border-bottom: none; }
-  .pace-zone {
+    gap: 3px;
+    font-size: 10.5px;
     font-weight: 600;
-    color: var(--text);
+    font-family: inherit;
+    transition: color var(--transition);
+    max-width: 110px;
+    letter-spacing: 0.02em;
+    position: relative;
   }
-  .pace-value {
-    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", monospace;
-    color: var(--text);
-    font-size: 11px;
+  .nav-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 18px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: transform var(--transition);
   }
-  .pace-hr {
-    color: var(--text-muted);
-    font-size: 10px;
+  .nav-btn.active { color: var(--accent); }
+  .nav-btn.active::after { transform: translateX(-50%) scaleX(1); }
+  .nav-btn svg { width: 20px; height: 20px; }
+
+  /* ============================================
+     VIEWS
+     ============================================ */
+  .view {
+    display: none;
+    animation: viewIn 280ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .view.active { display: block; }
+  @keyframes viewIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .plan-columns { grid-template-columns: 1fr; }
-    .week-grid { grid-template-columns: repeat(4, 1fr); }
-  }
-  @media (max-width: 560px) {
-    .week-grid { grid-template-columns: repeat(2, 1fr); }
-    .today-section-title { font-size: 22px; }
-  }
-
-  /* Page titles */
+  /* ============================================
+     PAGE TITLES (non-plan views)
+     ============================================ */
   .page-title {
-    font-size: 24px;
+    font-family: var(--font-display);
+    font-size: 30px;
     font-weight: 700;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.8px;
     margin-bottom: 4px;
+    line-height: 1.1;
   }
   .page-sub {
     color: var(--text-muted);
     font-size: 14px;
-    margin-bottom: 16px;
+    margin-bottom: 22px;
   }
 
-  /* Auth overlay (login screen shown when not signed in) */
-  .auth-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    padding: 20px;
-    transition: opacity var(--transition);
-  }
-  .auth-overlay.hidden { display: none; }
-  .auth-card {
-    max-width: 380px;
-    width: 100%;
-    text-align: center;
-  }
-  .auth-brand {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 20px;
-    background: var(--accent);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -1px;
-  }
-  .auth-title {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 8px;
-  }
-  .auth-subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-    line-height: 1.55;
-  }
-  .auth-form input {
-    width: 100%;
-    padding: 14px;
-    font-size: 15px;
-    margin-bottom: 10px;
-  }
-  .auth-form button {
-    width: 100%;
-    padding: 14px;
-    font-size: 15px;
-  }
-  .auth-message {
-    margin-top: 16px;
-    padding: 12px;
-    border-radius: var(--radius-button);
-    background: var(--bg-subtle);
-    font-size: 13px;
-    line-height: 1.5;
-  }
-  .auth-message.success {
-    background: var(--accent-soft);
-    color: var(--accent-text);
-  }
-  .auth-message.error {
-    background: var(--missed-soft);
-    color: var(--missed);
-  }
-  .auth-footnote {
-    font-size: 11px;
-    color: var(--text-faint);
-    margin-top: 20px;
-    line-height: 1.5;
-  }
-
-  /* Logout button in header */
-  .icon-btn.signout-btn:hover {
-    color: var(--missed);
-    border-color: var(--missed);
-  }
-
-  /* Log modal */
-  .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 90;
-    padding: 20px;
-  }
-  .modal-backdrop.show { display: flex; animation: fadeIn 150ms ease-out; }
-  .modal {
-    background: var(--bg-elevated);
-    border-radius: var(--radius-card);
-    padding: 20px 22px;
-    max-width: 460px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    animation: slideUp 200ms ease-out;
-  }
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .modal-title {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    line-height: 1.2;
-  }
-  .modal-subtitle {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-  .modal-close {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 4px;
-    transition: all var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-close:hover {
-    background: var(--bg-subtle);
-    color: var(--text);
-  }
-  .modal-close svg { width: 18px; height: 18px; }
-  .modal-body { margin-bottom: 18px; }
-  .modal-body .form-label {
-    margin-bottom: 10px;
-    display: block;
-  }
-  .modal-actions {
-    display: flex;
+  /* ============================================
+     PACES VIEW
+     ============================================ */
+  .discipline-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
+    margin-bottom: 18px;
   }
-  .modal-actions .btn { flex: 1; }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* Library cards */
-  .library-content {
+  .discipline-tab {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 18px 8px;
+    border-radius: var(--radius-card);
+    cursor: pointer;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 8px;
+    transition: all var(--transition);
+    font-family: inherit;
+    box-shadow: var(--shadow-sm);
   }
+  .discipline-tab svg { width: 22px; height: 22px; }
+  .discipline-tab:hover {
+    transform: translateY(-1px);
+    border-color: var(--border-strong);
+  }
+  .discipline-tab.active {
+    color: white;
+    border-color: transparent;
+  }
+  .discipline-tab.active[data-discipline="run"], .discipline-tab.active[data-libcat="run"] { background: var(--c-run); }
+  .discipline-tab.active[data-discipline="bike"] { background: var(--c-bike); color: #0a0a0a; }
+  .discipline-tab.active[data-discipline="swim"] { background: var(--c-swim); }
+  .discipline-tab.active[data-libcat="stretches"] { background: var(--c-strength); }
+  .discipline-tab.active[data-libcat="drills"] { background: var(--c-swim); }
+  .discipline-tab.active[data-libcat="strength"] { background: var(--c-strength); }
+
+  .pace-rows { display: flex; flex-direction: column; }
+  .pace-row {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 13px;
+  }
+  .pace-row:last-child { border-bottom: none; }
+  .pace-zone { font-weight: 600; color: var(--text); }
+  .pace-value {
+    font-family: var(--font-mono);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+  }
+  .pace-hr { color: var(--text-muted); font-size: 11.5px; font-family: var(--font-mono); }
+
+  .form-group {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .form-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    margin-top: -4px;
+  }
+
+  .pace-calc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .pace-calc-input label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .pace-calc-input input {
+    width: 100%;
+    padding: 14px 10px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    text-align: center;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: var(--radius-button);
+    transition: all var(--transition);
+  }
+  .pace-calc-input input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .pace-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .pace-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+  }
+  .pace-table th + th, .pace-table td + td { text-align: right; }
+  .pace-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    color: var(--text);
+    cursor: pointer;
+  }
+  .pace-table tbody tr { transition: background var(--transition); }
+  .pace-table tbody tr:hover { background: var(--accent-soft); }
+  .pace-table tr:last-child td { border-bottom: none; }
+  .pace-table .zone-tag {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--accent-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* ============================================
+     CHECK-IN VIEW
+     ============================================ */
+  .checkin-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition);
+  }
+  .checkin-card:focus-within { border-color: var(--accent); }
+  .checkin-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .checkin-card-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  textarea, input[type="text"], input[type="email"], input[type="number"] {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-button);
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    transition: all var(--transition);
+    line-height: 1.5;
+  }
+  textarea:focus, input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  textarea { min-height: 78px; }
+
+  /* ============================================
+     LIBRARY
+     ============================================ */
+  .library-content { display: flex; flex-direction: column; gap: 12px; }
   .library-card {
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: var(--radius-card);
     padding: 16px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
   }
+  .library-card:hover { border-color: var(--border-strong); }
   .library-card-header {
     display: flex;
     align-items: flex-start;
@@ -1541,7 +1336,7 @@
     font-size: 15px;
     font-weight: 600;
     color: var(--text);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
   }
   .library-card-meta {
     font-size: 12px;
@@ -1553,9 +1348,7 @@
     margin-top: 2px;
     transition: transform var(--transition);
   }
-  .library-card.expanded .library-card-expand {
-    transform: rotate(90deg);
-  }
+  .library-card.expanded .library-card-expand { transform: rotate(90deg); }
   .library-card-body {
     display: none;
     margin-top: 14px;
@@ -1565,31 +1358,30 @@
     color: var(--text);
     line-height: 1.55;
   }
-  .library-card.expanded .library-card-body { display: block; }
-  .library-card-body ul {
-    padding-left: 18px;
-    margin: 6px 0 12px;
+  .library-card.expanded .library-card-body { display: block; animation: expandIn 220ms cubic-bezier(0.32, 0.72, 0, 1); }
+  @keyframes expandIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
+  .library-card-body ul { padding-left: 18px; margin: 6px 0 10px; }
   .library-card-body li { margin: 3px 0; }
   .library-card-body .label {
     font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: var(--text-faint);
     font-weight: 700;
     margin-top: 12px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
   }
-  .library-section {
-    margin-bottom: 18px;
-  }
+  .library-section { margin-bottom: 22px; }
   .library-section-title {
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: var(--text-faint);
     font-weight: 700;
-    margin: 4px 0 8px;
+    margin: 4px 0 10px;
   }
   .library-stretch-row {
     display: flex;
@@ -1603,27 +1395,144 @@
   .library-stretch-name { flex: 1; color: var(--text); }
   .library-stretch-duration {
     color: var(--text-muted);
-    font-family: ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 12px;
   }
 
-  /* Stretch timer modal */
-  .timer-modal { max-width: 420px; }
-  .timer-stretch-name {
-    font-size: 22px;
+  /* ============================================
+     MODALS
+     ============================================ */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,15,16,0.55);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 90;
+    padding: 20px;
+  }
+  .modal-backdrop.show { display: flex; animation: fadeIn 160ms ease-out; }
+  .modal {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 22px 24px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 240ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 20px;
     font-weight: 700;
     letter-spacing: -0.4px;
-    margin: 16px 0 8px;
-    line-height: 1.25;
+    line-height: 1.2;
+  }
+  .modal-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+  .modal-close {
+    background: var(--bg-subtle);
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-close:hover { background: var(--bg-strong); color: var(--text); }
+  .modal-close svg { width: 16px; height: 16px; }
+  .modal-body { margin-bottom: 18px; }
+  .modal-actions { display: flex; gap: 8px; }
+  .modal-actions .btn { flex: 1; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* RPE slider */
+  .rpe-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .rpe-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 40px;
+    text-align: center;
+    letter-spacing: -1px;
+  }
+  .rpe-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: var(--bg-subtle);
+    border-radius: 3px;
+    outline: none;
+    background-image: linear-gradient(to right, var(--c-swim), var(--c-bike), var(--accent), var(--missed));
+  }
+  .rpe-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px; height: 24px;
+    background: white;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+  }
+  .rpe-slider::-moz-range-thumb {
+    width: 24px; height: 24px;
+    background: white;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Stretch timer */
+  .timer-modal { max-width: 440px; }
+  .timer-stretch-name {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 14px 0 8px;
+    line-height: 1.2;
   }
   .timer-countdown {
-    font-size: 56px;
+    font-family: var(--font-display);
+    font-size: 68px;
     font-weight: 700;
-    letter-spacing: -2px;
+    letter-spacing: -3px;
     color: var(--accent);
-    font-family: ui-monospace, monospace;
-    margin: 16px 0;
+    margin: 18px 0;
     line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
   .timer-cue {
     font-size: 14px;
@@ -1645,39 +1554,174 @@
     transition: width 1s linear;
   }
 
-  /* Toast */
+  /* ============================================
+     AUTH OVERLAY
+     ============================================ */
+  .auth-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 24px;
+    transition: opacity var(--transition);
+  }
+  .auth-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, var(--accent-soft) 0%, transparent 45%),
+      radial-gradient(circle at 80% 80%, var(--accent-soft) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .auth-overlay.hidden { display: none; }
+  .auth-card {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .auth-brand {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .auth-brand svg { width: 64px; height: 64px; }
+  .auth-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    margin-bottom: 10px;
+  }
+  .auth-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+  .auth-form input {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .auth-form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+  .auth-message {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: var(--radius-button);
+    background: var(--bg-subtle);
+    font-size: 13px;
+    line-height: 1.55;
+    text-align: left;
+  }
+  .auth-message.success {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  .auth-message.error {
+    background: var(--missed-soft);
+    color: var(--missed);
+  }
+  .auth-message.warning {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+  }
+  .auth-message a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  .auth-footnote {
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-top: 20px;
+    line-height: 1.55;
+  }
+
+  /* ============================================
+     TOAST
+     ============================================ */
   .toast {
     position: fixed;
-    bottom: 90px;
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%) translateY(20px);
     background: var(--text);
     color: var(--bg);
-    padding: 10px 16px;
-    border-radius: var(--radius-button);
+    padding: 11px 18px;
+    border-radius: var(--radius-pill);
     font-size: 13px;
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
     opacity: 0;
     transition: all var(--transition);
-    z-index: 100;
+    z-index: 200;
     pointer-events: none;
+    letter-spacing: -0.1px;
   }
   .toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 960px) {
+    .plan-columns { grid-template-columns: 1fr; }
+    .plan-sidebar { position: static; }
+    .sub-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .app { padding: 0 14px; }
+    .today-card { padding: 20px 18px; }
+    .today-title { font-size: 28px; }
+    .day-box { padding: 8px; }
+    .day-session-name { font-size: 11px; }
+    .pace-row { grid-template-columns: 100px 1fr auto; gap: 8px; }
+  }
+  @media (max-width: 480px) {
+    .week-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .day-box { min-height: 70px; padding: 6px 5px; }
+    .day-box-label { font-size: 9px; }
+    .day-session-name { font-size: 10.5px; line-height: 1.25; }
+    .today-title { font-size: 24px; }
+    .page-title { font-size: 24px; }
+  }
 </style>
 </head>
-<body data-theme="minimal-light">
+<body data-theme="light">
 
 <div class="app">
 
   <!-- HEADER -->
   <header class="header">
     <div class="brand">
-      <div class="brand-mark">C</div>
-      <div class="brand-name">Coach</div>
+      <div class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="20" r="17" stroke="var(--c-swim)" stroke-width="2.5" stroke-dasharray="60 26" stroke-linecap="round" transform="rotate(-90 20 20)"/>
+          <circle cx="20" cy="20" r="11" stroke="var(--c-bike)" stroke-width="2.5" stroke-dasharray="40 18" stroke-linecap="round" transform="rotate(45 20 20)"/>
+          <circle cx="20" cy="20" r="5" fill="var(--c-run)"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">Coach</div>
+        <div class="brand-sub" id="brandSub">Loading…</div>
+      </div>
     </div>
     <div class="header-actions">
       <button class="icon-btn" onclick="toggleLightDark()" title="Toggle light/dark" aria-label="Toggle light/dark">
@@ -1692,174 +1736,136 @@
     </div>
   </header>
 
-  <!-- ============ PLAN VIEW (dashboard) ============ -->
+  <!-- ============ PLAN VIEW ============ -->
   <div class="view active" id="view-plan">
-    <div class="plan-view-content">
 
-      <div class="week-nav">
-        <button class="week-chev" onclick="weekNav('prev')" title="Previous week">‹</button>
-        <div class="week-title" id="weekTitle"></div>
-        <button class="week-chev" onclick="weekNav('next')" title="Next week">›</button>
+    <!-- Empty-state banner (shown when no current active week) -->
+    <div class="empty-banner" id="emptyBanner" style="display:none;">
+      <div class="empty-banner-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"/></svg>
       </div>
+      <div class="empty-banner-text" id="emptyBannerText">
+        <strong>No active plan this week.</strong> Send your Sunday check-in to your coach to kick off the next block.
+      </div>
+    </div>
 
-      <!-- WEEK GRID: single row of 7 compact cards -->
-      <div class="week-grid" id="weekGrid"></div>
+    <!-- Week nav (prev / title / next) -->
+    <div class="week-nav">
+      <button class="week-chev" onclick="weekNav('prev')" title="Previous week" aria-label="Previous week">‹</button>
+      <div class="week-title" id="weekTitle"></div>
+      <button class="week-chev" onclick="weekNav('next')" title="Next week" aria-label="Next week">›</button>
+    </div>
 
-      <!-- TWO-COLUMN: today section + sidebar -->
-      <div class="plan-columns">
+    <!-- WEEK GRID: per-session checkboxes -->
+    <div class="week-grid" id="weekGrid"></div>
 
-        <!-- TODAY (large preview) -->
-        <div class="today-section" id="todaySection">
-          <!-- Populated by JS -->
+    <!-- TWO-COLUMN: today hero + sidebar -->
+    <div class="plan-columns">
+
+      <!-- TODAY hero card -->
+      <div class="today-card" id="todayCard"></div>
+
+      <!-- SIDEBAR -->
+      <aside class="plan-sidebar">
+
+        <div class="sidebar-card">
+          <div class="sidebar-title">Week progress</div>
+
+          <div class="progress-ring-wrap">
+            <div class="progress-ring">
+              <svg viewBox="0 0 80 80">
+                <circle class="progress-ring-track" cx="40" cy="40" r="34"></circle>
+                <circle class="progress-ring-fill" id="progressRingFill" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6"></circle>
+              </svg>
+              <div class="progress-ring-label">
+                <div class="progress-ring-value" id="progressValue">0</div>
+                <div class="progress-ring-of">of <span id="progressTotal">0</span></div>
+              </div>
+            </div>
+            <div class="progress-summary-text" id="progressSummary">
+              <strong>0 sessions</strong> done so far this week.
+            </div>
+          </div>
+
+          <div class="sidebar-stats">
+            <div class="sidebar-stat" data-disc="run">
+              <div class="sidebar-stat-value" id="statRun">—</div>
+              <div class="sidebar-stat-label">Run</div>
+            </div>
+            <div class="sidebar-stat" data-disc="bike">
+              <div class="sidebar-stat-value" id="statBike">—</div>
+              <div class="sidebar-stat-label">Bike</div>
+            </div>
+            <div class="sidebar-stat" data-disc="swim">
+              <div class="sidebar-stat-value" id="statSwim">—</div>
+              <div class="sidebar-stat-label">Swim</div>
+            </div>
+            <div class="sidebar-stat" data-disc="time">
+              <div class="sidebar-stat-value" id="statTime">—</div>
+              <div class="sidebar-stat-label">Total time</div>
+            </div>
+          </div>
+
+          <div class="sidebar-focus">
+            <div class="sidebar-focus-label">This week's focus</div>
+            <div id="sidebarFocus"></div>
+          </div>
         </div>
 
-        <!-- SIDEBAR: summary + paces -->
-        <aside class="plan-sidebar">
-
-          <div class="sidebar-card">
-            <div class="sidebar-title">Week summary</div>
-            <div class="sidebar-progress">
-              <span class="sidebar-progress-value" id="progressDone">0</span>
-              <span class="sidebar-progress-of">of <span id="progressTotal">9</span> done</span>
-            </div>
-            <div id="progressMissed" style="display: none; font-size: 12px; color: var(--missed); margin-bottom: 12px; font-weight: 600;"></div>
-            <div class="sidebar-stats">
-              <div class="sidebar-stat">
-                <div class="sidebar-stat-value" id="statRun">—</div>
-                <div class="sidebar-stat-label">Run plan</div>
-              </div>
-              <div class="sidebar-stat">
-                <div class="sidebar-stat-value" id="statBike">—</div>
-                <div class="sidebar-stat-label">Bike plan</div>
-              </div>
-              <div class="sidebar-stat">
-                <div class="sidebar-stat-value" id="statSwim">—</div>
-                <div class="sidebar-stat-label">Swim plan</div>
-              </div>
-              <div class="sidebar-stat">
-                <div class="sidebar-stat-value" id="statTime">—</div>
-                <div class="sidebar-stat-label">Total time</div>
-              </div>
-            </div>
-            <div class="sidebar-focus">
-              <div class="sidebar-focus-label">This week's focus</div>
-              <div id="sidebarFocus"></div>
-            </div>
-          </div>
-
-          <div class="sidebar-card" style="text-align: center;">
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Pace zones moved to their own page</div>
-            <button class="btn btn-secondary" onclick="showView('paces')" style="width: 100%;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:6px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Open pace zones &amp; calculator
-            </button>
-          </div>
-
-        </aside>
-      </div>
-
+      </aside>
     </div>
-  </div>
-
-  <!-- ============ SESSION DETAIL VIEW ============ -->
-  <div class="view" id="view-session">
-    <!-- Populated by renderSessionDetail() -->
   </div>
 
   <!-- ============ CHECK-IN VIEW ============ -->
   <div class="view" id="view-checkin">
     <div class="page-title">Sunday check-in</div>
-    <div class="page-sub" id="checkinSubtitle">Answer these by Sunday 6pm — Week 3 generates afterwards</div>
+    <div class="page-sub" id="checkinSubtitle">Answers auto-save. Copy or email the whole block to your coach.</div>
 
-    <div class="form-group">
-      <label class="form-label" for="checkin-overall">How did the week feel overall?</label>
-      <div class="form-hint">Too much, about right, or too easy?</div>
+    <div class="checkin-card">
+      <div class="checkin-card-title">How did the week feel overall?</div>
+      <div class="checkin-card-hint">Too much, about right, or too easy?</div>
       <textarea id="checkin-overall" placeholder="e.g. About right but Saturday's threshold block felt harder than expected..." onblur="saveCheckinField('overall', this.value)"></textarea>
     </div>
 
-    <div class="form-group">
-      <label class="form-label" for="checkin-niggles">Any niggles or sore spots?</label>
-      <div class="form-hint">Specific tight spots, twinges, anything building?</div>
+    <div class="checkin-card">
+      <div class="checkin-card-title">Any niggles or sore spots?</div>
+      <div class="checkin-card-hint">Specific tight spots, twinges, anything building?</div>
       <textarea id="checkin-niggles" placeholder="e.g. Right calf a bit tight after Friday's bike..." onblur="saveCheckinField('niggles', this.value)"></textarea>
     </div>
 
-    <div class="form-group">
-      <label class="form-label" for="checkin-context">Life context for next week</label>
-      <div class="form-hint">Workload, travel, sleep, anything that'll affect training</div>
+    <div class="checkin-card">
+      <div class="checkin-card-title">Life context for next week</div>
+      <div class="checkin-card-hint">Workload, travel, sleep, anything that'll affect training</div>
       <textarea id="checkin-context" placeholder="e.g. Tuesday off work, big project deadline Thursday..." onblur="saveCheckinField('context', this.value)"></textarea>
     </div>
 
-    <div class="form-group">
-      <label class="form-label" for="checkin-girlfriend">Girlfriend's plans next weekend</label>
-      <div class="form-hint">What she's doing Sat/Sun, are you joining?</div>
+    <div class="checkin-card">
+      <div class="checkin-card-title">Girlfriend's plans next weekend</div>
+      <div class="checkin-card-hint">What she's doing Sat/Sun, are you joining?</div>
       <textarea id="checkin-girlfriend" placeholder="e.g. She has a 3hr Z2 ride Saturday morning — I'll join for the first 2hr..." onblur="saveCheckinField('girlfriend', this.value)"></textarea>
     </div>
 
-    <div class="form-group">
-      <label class="form-label" for="checkin-other">Anything else for the coach?</label>
-      <div class="form-hint">Race interest, equipment, questions, anything</div>
+    <div class="checkin-card">
+      <div class="checkin-card-title">Anything else for the coach?</div>
+      <div class="checkin-card-hint">Race interest, equipment, questions, anything</div>
       <textarea id="checkin-other" placeholder="Optional" onblur="saveCheckinField('other', this.value)"></textarea>
     </div>
 
-    <button class="btn btn-primary" style="width:100%; padding: 14px;" onclick="copyCheckinToClipboard()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:6px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    <button class="btn btn-primary" style="width:100%;" onclick="copyCheckinToClipboard()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
       Copy check-in for coach
     </button>
-    <button class="btn btn-secondary" style="width:100%; padding: 12px; margin-top: 8px;" onclick="sendCheckinToCoach()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:6px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <button class="btn btn-secondary" style="width:100%; margin-top: 8px;" onclick="sendCheckinToCoach()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       Email a copy to myself
     </button>
-    <div style="font-size: 11px; color: var(--text-faint); text-align: center; margin-top: 10px;">
+    <div style="font-size: 11px; color: var(--text-faint); text-align: center; margin-top: 14px;">
       Answers auto-save as you type. Copy the check-in then paste it to your coach (in chat, WhatsApp, anywhere).
     </div>
     <div style="height: 20px;"></div>
   </div>
 
-  <!-- ============ EMAIL PREVIEW VIEW ============ -->
-  <div class="view" id="view-email">
-    <div class="page-title">Sunday email preview</div>
-    <div class="page-sub">What lands in your inbox at 7pm</div>
-
-    <div class="email-frame">
-      <div class="email-header">
-        <div class="email-from"><strong>Coach</strong> &lt;coach@yourdomain.com&gt;</div>
-        <div class="email-from" style="font-size:12px;">to you · Sun 21 Jun, 19:00</div>
-        <div class="email-subject">Welcome back — Week 4 is here</div>
-      </div>
-      <div class="email-body">
-        <h2 style="color:var(--text);">Week 4 — Re-entry · 22–28 June</h2>
-        <p>Hope the holiday was good. Two structural changes for this block:</p>
-        <ul style="color:var(--text); margin: 12px 0 16px 18px; font-size:13px;">
-          <li><strong>Friday dropped as a required day</strong> — bike intensity moves into Sunday's long ride (2hr Z2 with 2 × 15 sweet spot embedded)</li>
-          <li><strong>Lower S&amp;C moves to Tuesday</strong> after the easy run — same-day same-system clustering</li>
-          <li><strong>Volume slightly reduced this week</strong> to ease back in cleanly after the pause</li>
-        </ul>
-
-        <table class="email-table">
-          <thead>
-            <tr><th>Day</th><th>Session</th><th>Time</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Mon</td><td>Football + upper S&amp;C</td><td>60+45 min</td></tr>
-            <tr><td>Tue</td><td>Easy run 7 km + lower S&amp;C</td><td>40+45 min</td></tr>
-            <tr><td>Wed</td><td>Swim 1800m</td><td>50 min</td></tr>
-            <tr><td>Thu</td><td>Rest</td><td>—</td></tr>
-            <tr><td>Fri</td><td>Optional easy 5 km — no expectations</td><td>30 min</td></tr>
-            <tr><td>Sat</td><td>Long run + 3 km tempo finish</td><td>70 min</td></tr>
-            <tr><td>Sun</td><td>Long bike with 2×15 sweet spot + 15 min brick</td><td>2:00 + 15 min</td></tr>
-          </tbody>
-        </table>
-
-        <h3>Monday — 22 June</h3>
-        <p style="color:var(--text);">Football tonight. First proper week back — keep upper S&amp;C light, focus on movement quality not load.</p>
-
-        <p style="font-size:12px; margin-top: 20px; color: var(--text-faint);">Full plan in your dashboard. Reply Sunday with the check-in.</p>
-      </div>
-    </div>
-    <div style="height: 20px;"></div>
-  </div>
-
-  <!-- ============ PACES VIEW (discipline-tabbed) ============ -->
+  <!-- ============ PACES VIEW ============ -->
   <div class="view" id="view-paces">
     <div class="page-title">Paces</div>
     <div class="page-sub">Training zones and conversions</div>
@@ -1879,10 +1885,10 @@
       </button>
     </div>
 
-    <!-- RUN: zones, calculator, conversion table -->
+    <!-- RUN -->
     <div class="discipline-content" id="discipline-run">
       <div class="form-group">
-        <div class="form-label" style="margin-bottom: 10px;">Your run pace zones · per km</div>
+        <div class="form-label">Your run pace zones · per km</div>
         <div class="pace-rows">
           <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">4:45–5:15</span><span class="pace-hr">HR &lt;145</span></div>
           <div class="pace-row"><span class="pace-zone">Long run</span><span class="pace-value">4:40–5:00</span><span class="pace-hr">145–155</span></div>
@@ -1893,7 +1899,7 @@
       </div>
 
       <div class="form-group">
-        <div class="form-label" style="margin-bottom: 10px;">Conversion calculator</div>
+        <div class="form-label">Conversion calculator</div>
         <div class="pace-calc-row">
           <div class="pace-calc-input">
             <label>Min / km</label>
@@ -1914,44 +1920,42 @@
       </div>
 
       <div class="form-group">
-        <div class="form-label" style="margin-bottom: 10px;">Conversion table · tap a row to load</div>
+        <div class="form-label">Conversion table · tap a row to load</div>
         <table class="pace-table">
           <thead>
             <tr><th>Min / km</th><th>km/h</th><th>mph</th></tr>
           </thead>
-          <tbody id="paceTableBody">
-            <!-- populated by JS — 5-second increments -->
-          </tbody>
+          <tbody id="paceTableBody"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- BIKE: zones only -->
+    <!-- BIKE -->
     <div class="discipline-content" id="discipline-bike" style="display:none;">
       <div class="form-group">
-        <div class="form-label" style="margin-bottom: 10px;">Your bike pace zones · RPE / HR</div>
+        <div class="form-label">Your bike pace zones · RPE / HR</div>
         <div class="pace-rows">
           <div class="pace-row"><span class="pace-zone">Easy Z2</span><span class="pace-value">RPE 3–4</span><span class="pace-hr">HR 130–145</span></div>
           <div class="pace-row"><span class="pace-zone">Sweet spot</span><span class="pace-value">RPE 6–7</span><span class="pace-hr">HR 140–155</span></div>
           <div class="pace-row"><span class="pace-zone">Threshold</span><span class="pace-value">RPE 7–8</span><span class="pace-hr">HR 155–165</span></div>
         </div>
-        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.5;">
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.55;">
           Bike paces are RPE-based for now (no power meter on file). Add a power meter and I can prescribe in watts/FTP.
         </div>
       </div>
     </div>
 
-    <!-- SWIM: zones only -->
+    <!-- SWIM -->
     <div class="discipline-content" id="discipline-swim" style="display:none;">
       <div class="form-group">
-        <div class="form-label" style="margin-bottom: 10px;">Your swim pace zones · per 100m</div>
+        <div class="form-label">Your swim pace zones · per 100m</div>
         <div class="pace-rows">
           <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">2:05–2:15</span><span class="pace-hr">Warm-up</span></div>
           <div class="pace-row"><span class="pace-zone">Steady aerobic</span><span class="pace-value">1:45–1:50</span><span class="pace-hr">Main sets</span></div>
           <div class="pace-row"><span class="pace-zone">Speed</span><span class="pace-value">1:40–1:45</span><span class="pace-hr">Speed reps</span></div>
         </div>
-        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.5;">
-          Based on your 1:45/100m sustained pace in Week 1's main set. Targets will keep updating as you build.
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.55;">
+          Based on your 1:45/100m sustained pace in Week 1's main set. Targets update as you build.
         </div>
       </div>
     </div>
@@ -1979,15 +1983,9 @@
       </button>
     </div>
 
-    <div class="library-content" id="library-stretches">
-      <!-- Populated by JS -->
-    </div>
-    <div class="library-content" id="library-drills" style="display:none;">
-      <!-- Populated by JS -->
-    </div>
-    <div class="library-content" id="library-strength" style="display:none;">
-      <!-- Populated by JS -->
-    </div>
+    <div class="library-content" id="library-stretches"></div>
+    <div class="library-content" id="library-drills" style="display:none;"></div>
+    <div class="library-content" id="library-strength" style="display:none;"></div>
 
     <div style="height: 20px;"></div>
   </div>
@@ -2027,13 +2025,13 @@
       </button>
     </div>
     <div class="modal-body">
-      <label class="form-label" for="modalRpeSlider">RPE (effort 1–10)</label>
+      <label class="form-label" for="modalRpeSlider">RPE — effort 1–10</label>
       <div class="rpe-row">
         <div class="rpe-value" id="modalRpeValue">5</div>
         <input type="range" class="rpe-slider" id="modalRpeSlider" min="1" max="10" value="5" oninput="document.getElementById('modalRpeValue').textContent = this.value;">
       </div>
-      <label class="form-label" for="modalSessionNotes" style="margin-top: 16px;">Notes</label>
-      <textarea id="modalSessionNotes" placeholder="How did it feel? Anything notable — sleep, weather, niggles, fuelling..." style="min-height: 100px;"></textarea>
+      <label class="form-label" for="modalSessionNotes" style="margin-top: 18px;">Notes</label>
+      <textarea id="modalSessionNotes" placeholder="How did it feel? Anything notable — sleep, weather, niggles, fuelling..." style="min-height: 110px;"></textarea>
     </div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeLogModal()">Cancel</button>
@@ -2069,10 +2067,16 @@
   </div>
 </div>
 
-<!-- AUTH OVERLAY (shown when not signed in) -->
+<!-- AUTH OVERLAY -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-card">
-    <div class="auth-brand">C</div>
+    <div class="auth-brand">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="32" cy="32" r="28" stroke="var(--c-swim)" stroke-width="3" stroke-dasharray="100 44" stroke-linecap="round" transform="rotate(-90 32 32)"/>
+        <circle cx="32" cy="32" r="18" stroke="var(--c-bike)" stroke-width="3" stroke-dasharray="68 30" stroke-linecap="round" transform="rotate(45 32 32)"/>
+        <circle cx="32" cy="32" r="8" fill="var(--c-run)"/>
+      </svg>
+    </div>
     <div class="auth-title">Sign in to your coach</div>
     <div class="auth-subtitle">Enter your email and we'll send a one-tap sign-in link. Your data syncs across every device you log in from.</div>
     <form class="auth-form" id="authForm" onsubmit="event.preventDefault(); sendMagicLink();">
@@ -2084,7 +2088,7 @@
     <div id="authOtpSection" style="display:none; margin-top: 14px;">
       <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Or enter the code from the email:</div>
       <form class="auth-form" onsubmit="event.preventDefault(); verifyOtpCode();">
-        <input type="text" id="authOtp" placeholder="Enter code" inputmode="numeric" maxlength="10" autocomplete="one-time-code" style="text-align: center; font-family: ui-monospace, monospace; letter-spacing: 0.2em; font-size: 18px;">
+        <input type="text" id="authOtp" placeholder="Enter code" inputmode="numeric" maxlength="10" autocomplete="one-time-code" style="text-align: center; font-family: var(--font-mono); letter-spacing: 0.25em; font-size: 18px;">
         <button type="submit" class="btn btn-primary">Sign in with code</button>
       </form>
     </div>
@@ -2097,29 +2101,21 @@
 
 <script>
   // ============================================
-  // LOAD PLAN FROM plans.js
+  // PLAN STATE — from plans.js
   // ============================================
-  let currentWeekIdx = window.COACH_PLANS.weeks.length - 1; // default to most recent
+  let currentWeekIdx = window.COACH_PLANS.weeks.length - 1;
   let currentPlan = window.COACH_PLANS.weeks[currentWeekIdx];
 
-  // Per-week localStorage keys so each week has its own logged state.
   function k(suffix) { return `coach-${currentPlan.id}-${suffix}`; }
 
-  // One-time migration from old non-versioned keys (if user used previous mockup version)
   if (!localStorage.getItem('coach-migrated-v2')) {
     ['coach-sessionsdone', 'coach-sessionlog', 'coach-checkin', 'coach-done', 'coach-plan-version'].forEach(key => localStorage.removeItem(key));
     localStorage.setItem('coach-migrated-v2', '1');
   }
 
-  // ============================================
-  // STATE
-  // ============================================
-  const style = 'minimal'; // locked
   let mode = localStorage.getItem('coach-mode') || 'light';
-  // sessionStatus: { 'mon.0': 'done', 'fri.0': 'missed', ... }. Missing key = not yet tracked.
   let sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || 'null');
   if (sessionStatus === null) {
-    // Migrate from old done-only array
     const oldDone = JSON.parse(localStorage.getItem(k('sessionsdone')) || '[]');
     sessionStatus = {};
     oldDone.forEach(key => { sessionStatus[key] = 'done'; });
@@ -2127,10 +2123,9 @@
   }
   let sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
   let checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
-  let currentSessionId = null;
-  let todayId = currentPlan.todayId; // null for archived/past weeks
-  let activeDayId = todayId || currentPlan.days[0].id; // fallback to first day if no "today"
-  let activeSessionIdx = 0; // for multi-session days: which session is selected
+  let todayId = currentPlan.todayId;
+  let activeDayId = todayId || currentPlan.days[0].id;
+  let activeSessionIdx = 0;
   const dayNames = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
 
   // ============================================
@@ -2142,26 +2137,46 @@
     swim: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2M2 18s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2M2 6s2-2 5-2 5 2 5 2 2-2 5-2 5 2 5 2"/></svg>',
     rest: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>',
     strength: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="6" y2="18"/><line x1="18" y1="6" x2="18" y2="18"/><line x1="3" y1="9" x2="3" y2="15"/><line x1="21" y1="9" x2="21" y2="15"/><line x1="6" y1="12" x2="18" y2="12"/></svg>',
-    football: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/></svg>'
+    football: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/></svg>',
+    mobility: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 22v-5l-3-3M16 13l-3 4M9 12L6 9l3-2 5 1 2 3"/></svg>'
   };
 
-  // ============================================
-  // WEEK DATA (loaded from plans.js)
-  // ============================================
   let week = currentPlan.days;
 
   // ============================================
-  // HELPERS — session status (done / missed / null)
+  // HELPERS — discipline, duration, status
   // ============================================
+  function disciplineOf(session) {
+    const text = ((session.name || '') + ' ' + (session.meta || '')).toLowerCase();
+    if (/football/.test(text)) return 'football';
+    if (/swim|pool|drill|catch|sculling/.test(text)) return 'swim';
+    if (/bike|ride|cycling|cycle|brick|sweet spot/.test(text)) return 'bike';
+    if (/s&c|strength|upper|lower body|squat|deadlift|lift/.test(text)) return 'strength';
+    if (/rest|recovery|off/.test(text)) return 'rest';
+    if (/mobility|stretch|foam roll|yoga/.test(text)) return 'mobility';
+    return 'run';
+  }
+
+  function parseDurationMins(meta) {
+    if (!meta) return 30;
+    const s = String(meta).toLowerCase();
+    // e.g. "60 min", "30–40 min", "2:00", "1900m · 50 min"
+    let m = s.match(/(\d+)\s*[–\-]\s*(\d+)\s*min/);
+    if (m) return (parseInt(m[1], 10) + parseInt(m[2], 10)) / 2;
+    m = s.match(/(\d+)\s*min/);
+    if (m) return parseInt(m[1], 10);
+    m = s.match(/(\d+):(\d{2})/);
+    if (m) return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+    m = s.match(/(\d+)\s*hr/);
+    if (m) return parseInt(m[1], 10) * 60;
+    return 30;
+  }
+
   function getSessionStatus(dayId, idx) {
     return sessionStatus[`${dayId}.${idx}`] || null;
   }
-  function isSessionDone(dayId, idx) {
-    return getSessionStatus(dayId, idx) === 'done';
-  }
-  function isSessionMissed(dayId, idx) {
-    return getSessionStatus(dayId, idx) === 'missed';
-  }
+  function isSessionDone(dayId, idx) { return getSessionStatus(dayId, idx) === 'done'; }
+  function isSessionMissed(dayId, idx) { return getSessionStatus(dayId, idx) === 'missed'; }
   function isDayDone(dayId) {
     const d = week.find(x => x.id === dayId);
     if (!d || !d.sessions || d.sessions.length === 0) return false;
@@ -2172,37 +2187,36 @@
     if (!d || !d.sessions || d.sessions.length === 0) return false;
     return d.sessions.every((_, i) => isSessionMissed(dayId, i));
   }
-  function isDayPartial(dayId) {
-    const d = week.find(x => x.id === dayId);
-    if (!d || d.sessions.length <= 1) return false;
-    const statuses = d.sessions.map((_, i) => getSessionStatus(dayId, i));
-    const someSet = statuses.some(s => s !== null);
-    const allSame = statuses.every(s => s === statuses[0]);
-    return someSet && !allSame;
-  }
   function totalSessions() {
     return week.reduce((sum, d) => sum + d.sessions.length, 0);
   }
   function totalSessionsDone() {
     let count = 0;
-    week.forEach(d => d.sessions.forEach((_, i) => {
-      if (isSessionDone(d.id, i)) count++;
-    }));
+    week.forEach(d => d.sessions.forEach((_, i) => { if (isSessionDone(d.id, i)) count++; }));
     return count;
   }
   function totalSessionsMissed() {
     let count = 0;
-    week.forEach(d => d.sessions.forEach((_, i) => {
-      if (isSessionMissed(d.id, i)) count++;
-    }));
+    week.forEach(d => d.sessions.forEach((_, i) => { if (isSessionMissed(d.id, i)) count++; }));
     return count;
   }
   function persistStatus() {
     localStorage.setItem(k('sessionstatus'), JSON.stringify(sessionStatus));
   }
 
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function renderTextOrList(content) {
+    if (Array.isArray(content)) {
+      return `<ul>${content.map(item => `<li>${item}</li>`).join('')}</ul>`;
+    }
+    return `<div>${content}</div>`;
+  }
+
   // ============================================
-  // RENDER — week grid (small cards with per-session checkboxes)
+  // RENDER — week grid (per-session checkboxes)
   // ============================================
   function renderDayBox(d) {
     const dayDone = isDayDone(d.id);
@@ -2213,10 +2227,12 @@
       const status = getSessionStatus(d.id, i);
       const cbClass = status === 'done' ? 'done' : status === 'missed' ? 'missed' : '';
       const nameClass = status === 'done' ? 'checked' : status === 'missed' ? 'missed' : '';
+      const disc = disciplineOf(s);
       return `
         <div class="day-session-row">
+          <span class="day-session-dot" data-disc="${disc}"></span>
           <span class="day-session-name ${nameClass}">${s.name}</span>
-          <button class="day-checkbox ${cbClass}" onclick="event.stopPropagation(); cycleSessionStatus('${d.id}', ${i});" aria-label="Cycle status (done / missed / clear)">
+          <button class="day-checkbox ${cbClass}" onclick="event.stopPropagation(); cycleSessionStatus('${d.id}', ${i});" aria-label="Cycle status">
             <svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
             <svg class="x-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -2224,15 +2240,15 @@
       `;
     }).join('');
     return `
-      <div class="day-box ${dayDone ? 'done' : ''} ${dayMissed ? 'missed' : ''} ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''} ${d.rest ? 'rest' : ''}" onclick="cardClick('${d.id}')">
-        <div class="day-box-day-label">${d.day}</div>
+      <div class="day-box ${dayDone ? 'done' : ''} ${dayMissed ? 'missed' : ''} ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''} ${d.rest ? 'rest' : ''}" onclick="setActiveDay('${d.id}')">
+        <div class="day-box-label"><span>${d.day}</span><span style="color: var(--text-faint); font-weight: 600; letter-spacing: 0;">${d.date.split(' ')[0]}</span></div>
         <div class="day-box-sessions">${sessionsHtml}</div>
       </div>
     `;
   }
 
   // ============================================
-  // RENDER — active-day preview (per-session detail)
+  // RENDER — today hero card
   // ============================================
   function renderActiveDay() {
     const d = week.find(x => x.id === activeDayId);
@@ -2241,23 +2257,24 @@
     const s = d.sessions[activeSessionIdx];
     const isToday = d.id === todayId;
     const dayDone = isDayDone(d.id);
-    const sessionDone = isSessionDone(d.id, activeSessionIdx);
-    const log = sessionLog[d.id];
-
-    // Pill (day-level)
     const dayMissed = isDayMissed(d.id);
-    let pillHtml = '';
-    if (isToday && dayDone) pillHtml = '<span class="today-section-pill done">Today · Done</span>';
-    else if (isToday && dayMissed) pillHtml = '<span class="today-section-pill missed">Today · Missed</span>';
-    else if (isToday) pillHtml = '<span class="today-section-pill">Today</span>';
-    else if (dayDone) pillHtml = '<span class="today-section-pill done">Done</span>';
-    else if (dayMissed) pillHtml = '<span class="today-section-pill missed">Missed</span>';
+    const sessionDone = isSessionDone(d.id, activeSessionIdx);
+    const sessionMissed = isSessionMissed(d.id, activeSessionIdx);
+    const log = sessionLog[d.id];
+    const disc = disciplineOf(s);
 
-    const backBtn = !isToday
-      ? `<button class="back-to-today" onclick="setActiveDay('${todayId}')">← Today</button>`
+    let pillHtml = '';
+    if (isToday && dayDone) pillHtml = '<span class="pill done">Today · Done</span>';
+    else if (isToday && dayMissed) pillHtml = '<span class="pill missed">Today · Missed</span>';
+    else if (isToday) pillHtml = '<span class="pill today live">Today</span>';
+    else if (dayDone) pillHtml = '<span class="pill done">Done</span>';
+    else if (dayMissed) pillHtml = '<span class="pill missed">Missed</span>';
+    else pillHtml = '<span class="pill muted">Upcoming</span>';
+
+    const backBtn = (!isToday && todayId)
+      ? `<button class="back-to-today" onclick="setActiveDay('${todayId}')">← Back to today</button>`
       : '';
 
-    // Session selector tabs (multi-session days only)
     const selectorHtml = d.sessions.length > 1
       ? `<div class="session-selector">
           ${d.sessions.map((sess, i) => {
@@ -2270,215 +2287,159 @@
         </div>`
       : '';
 
-    const logSummary = log ? `<div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);">
-      <strong style="color: var(--text);">Logged:</strong> RPE ${log.rpe}${log.notes ? ' · "' + escapeHtml(log.notes.substring(0, 100)) + (log.notes.length > 100 ? '…' : '') + '"' : ''}
-    </div>` : '';
+    const logStamp = log ? `
+      <div class="log-stamp">
+        <span class="log-stamp-rpe">RPE ${log.rpe}</span>
+        <span>${log.notes ? '"' + escapeHtml(log.notes.substring(0, 120)) + (log.notes.length > 120 ? '…' : '') + '"' : 'Logged · no notes'}</span>
+      </div>` : '';
 
-    const pacesHtml = s.paces.length
-      ? `<div style="display: flex; flex-wrap: wrap; gap: 6px;">
-          ${s.paces.map(p => `<div class="target-chip">${p}</div>`).join('')}
-        </div>`
-      : '<div class="preview-section-content" style="color: var(--text-faint);">No specific pace targets.</div>';
+    const pacesHtml = s.paces && s.paces.length
+      ? `<div class="paces-strip">${s.paces.map(p => `<div class="pace-chip">${p}</div>`).join('')}</div>`
+      : '';
 
     const wholeDayBtn = d.sessions.length > 1
-      ? `<div style="display: flex; gap: 8px; margin-top: 8px;">
-           <button class="btn btn-secondary" style="flex: 1;" onclick="markDayComplete('${d.id}')">
-             ${dayDone ? 'Whole day not done' : 'Whole day complete'}
+      ? `<div class="today-row-secondary">
+           <button class="btn btn-ghost" onclick="markDayComplete('${d.id}')">
+             ${dayDone ? 'Whole day · undo' : 'Whole day complete'}
            </button>
-           <button class="btn btn-secondary" style="flex: 1;" onclick="markDayMissed('${d.id}')">
-             ${dayMissed ? 'Whole day not missed' : 'Whole day missed'}
+           <button class="btn btn-ghost" onclick="markDayMissed('${d.id}')">
+             ${dayMissed ? 'Whole day · undo missed' : 'Whole day missed'}
            </button>
          </div>`
       : '';
 
-    document.getElementById('todaySection').innerHTML = `
-      <div class="today-section-top">
-        <div class="today-section-label">
+    document.getElementById('todayCard').setAttribute('data-disc', disc);
+    document.getElementById('todayCard').innerHTML = `
+      <div class="today-top">
+        <div class="today-meta-row">
           ${pillHtml}
-          <span class="today-section-date">${dayNames[d.id]} ${d.date}</span>
-          ${backBtn}
+          <span class="today-date"><strong>${dayNames[d.id]}</strong> · ${d.date}</span>
         </div>
+        ${backBtn}
       </div>
 
       ${selectorHtml}
 
-      <div class="today-section-title">${s.name}</div>
-      <div class="today-section-meta">${s.meta}</div>
-      <div class="preview-headline">${s.headline}</div>
-
-      <div class="preview-section">
-        <div class="preview-section-label">Warm up</div>
-        ${renderTextOrList(s.warmUp)}
+      <div class="today-title-row">
+        <div class="disc-icon" data-disc="${disc}">${icons[disc] || icons.run}</div>
+        <div class="today-title-text">
+          <div class="today-title">${s.name}</div>
+          <div class="today-meta">${s.meta || ''}</div>
+        </div>
       </div>
 
-      <div class="preview-section">
-        <div class="preview-section-label">Main session</div>
-        ${renderTextOrList(s.mainSet)}
+      ${s.headline ? `<div class="today-headline">${s.headline}</div>` : ''}
+
+      <div class="main-set-block">
+        <div class="main-set-label">Main set</div>
+        <div class="main-set-content">${renderTextOrList(s.mainSet)}</div>
       </div>
 
-      <div class="preview-section">
-        <div class="preview-section-label">Focus</div>
-        <div class="preview-section-content">${s.focus}</div>
+      <div class="sub-grid">
+        <div class="sub-card">
+          <div class="sub-card-label">Warm up</div>
+          <div class="sub-card-body">${renderTextOrList(s.warmUp)}</div>
+        </div>
+        <div class="sub-card">
+          <div class="sub-card-label">Focus</div>
+          <div class="sub-card-body">${s.focus || '—'}</div>
+        </div>
+        <div class="sub-card">
+          <div class="sub-card-label">Things to think about</div>
+          <div class="sub-card-body">${Array.isArray(s.considerations) ? `<ul>${s.considerations.map(c => `<li>${c}</li>`).join('')}</ul>` : (s.considerations || '—')}</div>
+        </div>
       </div>
 
-      <div class="preview-section">
-        <div class="preview-section-label">Paces</div>
-        ${pacesHtml}
-      </div>
+      ${pacesHtml}
 
-      <div class="preview-section">
-        <div class="preview-section-label">Other things to think about</div>
-        <ul>
-          ${s.considerations.map(c => `<li>${c}</li>`).join('')}
-        </ul>
-      </div>
+      ${s.importance ? `<div class="why-block">
+        <div class="why-label">Why this matters</div>
+        <div class="why-body">${s.importance}</div>
+      </div>` : ''}
 
-      <div class="preview-importance">
-        <div class="preview-section-label">Why this matters</div>
-        <div class="preview-importance-content">${s.importance}</div>
-      </div>
-
-      <div class="today-section-actions">
+      <div class="today-actions">
         <button class="btn btn-primary" onclick="setSessionStatus('${d.id}', ${activeSessionIdx}, ${sessionDone ? 'null' : "'done'"})">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>
           ${sessionDone ? 'Mark not done' : 'Mark complete'}
         </button>
-        <button class="btn btn-secondary" onclick="setSessionStatus('${d.id}', ${activeSessionIdx}, ${isSessionMissed(d.id, activeSessionIdx) ? 'null' : "'missed'"})">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          ${isSessionMissed(d.id, activeSessionIdx) ? 'Clear missed' : 'Mark missed'}
+        <button class="btn btn-secondary" onclick="openLogModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Log + notes
         </button>
       </div>
-      <button class="btn btn-secondary" style="width: 100%; margin-top: 8px;" onclick="openLogModal()">Log + notes</button>
+      <div class="today-row-secondary">
+        <button class="btn btn-ghost" onclick="setSessionStatus('${d.id}', ${activeSessionIdx}, ${sessionMissed ? 'null' : "'missed'"})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          ${sessionMissed ? 'Clear missed' : 'Mark missed'}
+        </button>
+      </div>
       ${wholeDayBtn}
-      ${logSummary}
+      ${logStamp}
     `;
   }
 
+  // ============================================
+  // RENDER — full plan view
+  // ============================================
   function renderWeek() {
     document.getElementById('weekGrid').innerHTML = week.map(renderDayBox).join('');
     renderActiveDay();
-    document.getElementById('progressDone').textContent = totalSessionsDone();
-    document.getElementById('progressTotal').textContent = totalSessions();
+    updateProgressRing();
+    updateEmptyBanner();
+  }
+
+  function updateProgressRing() {
+    const done = totalSessionsDone();
+    const total = totalSessions();
     const missed = totalSessionsMissed();
-    const missedEl = document.getElementById('progressMissed');
-    if (missed > 0) {
-      missedEl.textContent = `${missed} missed`;
-      missedEl.style.display = 'block';
+
+    animateNumber('progressValue', done);
+    document.getElementById('progressTotal').textContent = total;
+
+    const ring = document.getElementById('progressRingFill');
+    const circumference = 2 * Math.PI * 34;
+    const pct = total > 0 ? done / total : 0;
+    ring.style.strokeDashoffset = circumference * (1 - pct);
+
+    let summary = '';
+    if (done === 0 && missed === 0) summary = `<strong>${total} sessions</strong> planned this week.`;
+    else if (done === total) summary = `<strong>Whole week done.</strong> Smart work.`;
+    else if (missed > 0) summary = `<strong>${done} of ${total} done.</strong> ${missed} missed.`;
+    else summary = `<strong>${done} of ${total} done.</strong> ${total - done} to go.`;
+    document.getElementById('progressSummary').innerHTML = summary;
+  }
+
+  function updateEmptyBanner() {
+    const banner = document.getElementById('emptyBanner');
+    if (!todayId && currentWeekIdx === window.COACH_PLANS.weeks.length - 1) {
+      // Latest week but no active day = between weeks
+      banner.style.display = 'flex';
+      document.getElementById('emptyBannerText').innerHTML = `<strong>${currentPlan.title} — ${currentPlan.dateRange}.</strong> Plan is archived. Send your check-in to your coach for the next block.`;
     } else {
-      missedEl.style.display = 'none';
+      banner.style.display = 'none';
     }
   }
 
-  // ============================================
-  // RENDER — session detail (dynamic per day + session)
-  // ============================================
-  function renderSessionDetail() {
-    if (!currentSessionId) return;
-    const d = week.find(x => x.id === currentSessionId);
-    if (!d) return;
-    if (activeSessionIdx >= d.sessions.length) activeSessionIdx = 0;
-    const s = d.sessions[activeSessionIdx];
-    const dayDone = isDayDone(d.id);
-    const sessionDone = isSessionDone(d.id, activeSessionIdx);
-    const log = sessionLog[d.id] || { rpe: 5, notes: '' };
-    const fullDayName = dayNames[d.id];
-
-    // Session selector (multi-session days only)
-    const selectorHtml = d.sessions.length > 1
-      ? `<div class="session-selector">
-          ${d.sessions.map((sess, i) => {
-            const done = isSessionDone(d.id, i);
-            return `<button class="session-tab ${i === activeSessionIdx ? 'active' : ''} ${done ? 'done' : ''}" onclick="setSessionAndRedrawDetail(${i})">
-              ${sess.name}
-              ${done ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>' : ''}
-            </button>`;
-          }).join('')}
-        </div>`
-      : '';
-
-    document.getElementById('view-session').innerHTML = `
-      <button class="back-btn" onclick="showView('plan')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
-        Back
-      </button>
-
-      <div class="page-sub" style="margin-bottom: 4px;">${fullDayName} ${d.date}</div>
-      ${selectorHtml}
-
-      <div class="page-title">${s.name}</div>
-      <div class="page-sub">${s.meta}</div>
-
-      ${sessionDone ? `<div style="background: var(--success); color: white; padding: 7px 12px; border-radius: var(--radius-button); font-size: 12px; font-weight: 600; margin: 8px 0 12px; display: inline-flex; align-items: center; gap: 6px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><path d="M5 12l5 5L20 7"/></svg>
-        Session complete
-      </div>` : ''}
-
-      <div class="detail-block">
-        <div class="detail-label">Headline</div>
-        <div style="font-size: 14px; color: var(--text-muted); font-style: italic;">${s.headline}</div>
-      </div>
-
-      <div class="detail-block">
-        <div class="detail-label">Warm up</div>
-        ${Array.isArray(s.warmUp) ? `<ul style="font-size: 14px; padding-left: 18px; margin-top: 4px;">${s.warmUp.map(i => `<li style="margin: 4px 0;">${i}</li>`).join('')}</ul>` : `<div style="font-size: 14px;">${s.warmUp}</div>`}
-      </div>
-
-      <div class="detail-block">
-        <div class="detail-label">Main session</div>
-        ${Array.isArray(s.mainSet) ? `<ul style="font-size: 14px; padding-left: 18px; margin-top: 4px;">${s.mainSet.map(i => `<li style="margin: 4px 0;">${i}</li>`).join('')}</ul>` : `<div style="font-size: 14px;">${s.mainSet}</div>`}
-      </div>
-
-      <div class="detail-block">
-        <div class="detail-label">Focus</div>
-        <div style="font-size: 14px;">${s.focus}</div>
-      </div>
-
-      ${s.paces.length ? `<div class="detail-block">
-        <div class="detail-label">Paces</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
-          ${s.paces.map(p => `<div class="target-chip">${p}</div>`).join('')}
-        </div>
-      </div>` : ''}
-
-      <div class="detail-block">
-        <div class="detail-label">Other things to think about</div>
-        <ul>
-          ${s.considerations.map(c => `<li>${c}</li>`).join('')}
-        </ul>
-      </div>
-
-      <div class="detail-block" style="background: var(--accent-soft); border-color: var(--accent);">
-        <div class="detail-label" style="color: var(--accent-text);">Why this matters</div>
-        <div style="font-size: 14px; line-height: 1.55;">${s.importance}</div>
-      </div>
-
-      <div class="detail-block">
-        <div class="detail-label">Log this ${d.sessions.length > 1 ? 'day' : 'session'}</div>
-        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">${d.sessions.length > 1 ? 'Log applies to the whole day. Use notes to call out individual sessions.' : ''}</div>
-        <div style="margin-top: 4px;">
-          <label class="form-label" style="margin-bottom: 8px;">RPE (effort 1–10)</label>
-          <div class="rpe-row">
-            <div class="rpe-value" id="rpeValue">${log.rpe}</div>
-            <input type="range" class="rpe-slider" id="rpeSlider" min="1" max="10" value="${log.rpe}" oninput="document.getElementById('rpeValue').textContent = this.value;">
-          </div>
-        </div>
-        <div style="margin-top: 14px;">
-          <label class="form-label">Notes</label>
-          <textarea id="sessionNotes" placeholder="How did it feel? Anything notable — sleep, weather, niggles, fuelling...">${escapeHtml(log.notes || '')}</textarea>
-        </div>
-        <button class="btn btn-primary" style="margin-top: 12px; width:100%;" onclick="saveSessionLog('${d.id}')">${dayDone ? 'Update log' : 'Save and mark day complete'}</button>
-        ${dayDone ? `<button class="btn btn-secondary" style="margin-top: 8px; width:100%;" onclick="markDayComplete('${d.id}'); showView('plan');">Mark day not done</button>` : ''}
-      </div>
-    `;
-  }
-
-  function setSessionAndRedrawDetail(idx) {
-    activeSessionIdx = idx;
-    renderSessionDetail();
+  // Number count-up animation
+  function animateNumber(id, target) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const current = parseInt(el.textContent, 10) || 0;
+    if (current === target) { el.textContent = target; return; }
+    const duration = 380;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const t = Math.min(1, elapsed / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(current + (target - current) * eased);
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   }
 
   // ============================================
-  // RENDER — check-in (loads saved values)
+  // RENDER — check-in
   // ============================================
   function renderCheckin() {
     ['overall', 'niggles', 'context', 'girlfriend', 'other'].forEach(f => {
@@ -2488,30 +2449,15 @@
     if (checkin.submittedAt) {
       const dt = new Date(checkin.submittedAt);
       const fmt = dt.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-      document.getElementById('checkinSubtitle').textContent = `Last submitted ${fmt} — keep editing until Week 3 generates`;
+      document.getElementById('checkinSubtitle').textContent = `Last submitted ${fmt} — keep editing until your coach writes the next week.`;
     }
-  }
-
-  // ============================================
-  // UTILS
-  // ============================================
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
-
-  // Render either a string (paragraph) or an array (bullet list)
-  function renderTextOrList(content) {
-    if (Array.isArray(content)) {
-      return `<ul>${content.map(item => `<li>${item}</li>`).join('')}</ul>`;
-    }
-    return `<div class="preview-section-content">${content}</div>`;
   }
 
   // ============================================
   // ACTIONS
   // ============================================
   function applyTheme() {
-    document.body.setAttribute('data-theme', `${style}-${mode}`);
+    document.body.setAttribute('data-theme', mode);
     const ico = document.getElementById('lightDarkIcon');
     if (mode === 'dark') {
       ico.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
@@ -2526,15 +2472,9 @@
     applyTheme();
   }
 
-  function openSession(id) {
-    currentSessionId = id;
-    renderSessionDetail();
-    showView('session');
-  }
-
   function setActiveDay(id) {
     activeDayId = id;
-    activeSessionIdx = 0; // reset to first session when switching days
+    activeSessionIdx = 0;
     renderWeek();
   }
 
@@ -2543,17 +2483,12 @@
     renderActiveDay();
   }
 
-  function cardClick(id) {
-    // Swap the preview pane to show this day — no page navigation
-    setActiveDay(id);
-  }
-
   function showView(name) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById('view-' + name).classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name || (name === 'session' && b.dataset.view === 'plan')));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name));
     if (name === 'checkin') renderCheckin();
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function setSessionStatus(dayId, idx, status) {
@@ -2566,20 +2501,13 @@
     persistStatus();
     pushStatusToSupabase(currentPlan.id, dayId, idx, status);
     renderWeek();
-    if (currentSessionId === dayId) renderSessionDetail();
   }
 
   function cycleSessionStatus(dayId, idx) {
-    // Cycle through: blank → done → missed → blank
     const current = getSessionStatus(dayId, idx);
     if (current === null) setSessionStatus(dayId, idx, 'done');
     else if (current === 'done') setSessionStatus(dayId, idx, 'missed');
     else setSessionStatus(dayId, idx, null);
-  }
-
-  // Kept under old name as alias for any existing onclick handlers.
-  function toggleSessionDone(dayId, idx) {
-    cycleSessionStatus(dayId, idx);
   }
 
   function markDayComplete(dayId) {
@@ -2596,7 +2524,6 @@
     persistStatus();
     d.sessions.forEach((_, i) => pushStatusToSupabase(currentPlan.id, dayId, i, target));
     renderWeek();
-    if (currentSessionId === dayId) renderSessionDetail();
   }
 
   function markDayMissed(dayId) {
@@ -2613,29 +2540,6 @@
     persistStatus();
     d.sessions.forEach((_, i) => pushStatusToSupabase(currentPlan.id, dayId, i, target));
     renderWeek();
-    if (currentSessionId === dayId) renderSessionDetail();
-  }
-
-  function saveSessionLog(id) {
-    const rpe = parseInt(document.getElementById('rpeSlider').value, 10);
-    const notes = document.getElementById('sessionNotes').value;
-    sessionLog[id] = { rpe, notes, completedAt: new Date().toISOString() };
-    localStorage.setItem(k('sessionlog'), JSON.stringify(sessionLog));
-    pushLogToSupabase(currentPlan.id, id, sessionLog[id]);
-    if (!isDayDone(id)) {
-      const d = week.find(x => x.id === id);
-      d.sessions.forEach((_, i) => {
-        sessionStatus[`${id}.${i}`] = 'done';
-        pushStatusToSupabase(currentPlan.id, id, i, 'done');
-      });
-      persistStatus();
-      toast("Session logged and day marked complete");
-    } else {
-      toast("Log updated");
-    }
-    activeDayId = id;
-    renderWeek();
-    showView('plan');
   }
 
   function saveCheckinField(field, value) {
@@ -2644,9 +2548,7 @@
     pushCheckinToSupabase(currentPlan.id, checkin);
   }
 
-  // Build the formatted check-in text (used by Send + Copy)
   function buildCheckinText() {
-    // Capture any unblurred fields
     ['overall', 'niggles', 'context', 'girlfriend', 'other'].forEach(f => {
       const el = document.getElementById('checkin-' + f);
       if (el) checkin[f] = el.value;
@@ -2663,7 +2565,6 @@
       other: 'Anything else for the coach'
     };
 
-    // Also include logged sessions summary
     let logged = '';
     Object.entries(sessionLog).forEach(([dayId, log]) => {
       const day = currentPlan.days.find(d => d.id === dayId);
@@ -2672,14 +2573,12 @@
       }
     });
 
-    const body = [
+    return [
       `Week ${currentPlan.number} check-in — ${currentPlan.dateRange}`,
       '',
       ...Object.entries(labels).map(([k, label]) => `${label}:\n${checkin[k] || '(no answer)'}\n`),
       logged ? `Session log:\n${logged}` : ''
     ].filter(Boolean).join('\n');
-
-    return body;
   }
 
   function sendCheckinToCoach() {
@@ -2694,10 +2593,8 @@
     const body = buildCheckinText();
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(body).then(() => {
-        toast("Check-in copied — paste it wherever you want");
-      }).catch(() => {
-        fallbackCopy(body);
-      });
+        toast("Check-in copied — paste wherever you want");
+      }).catch(() => fallbackCopy(body));
     } else {
       fallbackCopy(body);
     }
@@ -2719,23 +2616,12 @@
     document.body.removeChild(textarea);
   }
 
-  // Legacy alias (still called from somewhere internally — safe to keep)
-  function submitCheckin() {
-    sendCheckinToCoach();
-  }
-
   function weekNav(direction) {
     let newIdx = currentWeekIdx;
     if (direction === 'prev') newIdx--;
     else if (direction === 'next') newIdx++;
-    if (newIdx < 0) {
-      toast("No earlier weeks");
-      return;
-    }
-    if (newIdx >= window.COACH_PLANS.weeks.length) {
-      toast("No later weeks yet — written when ready");
-      return;
-    }
+    if (newIdx < 0) { toast("No earlier weeks"); return; }
+    if (newIdx >= window.COACH_PLANS.weeks.length) { toast("No later weeks yet"); return; }
     loadWeek(newIdx);
   }
 
@@ -2744,7 +2630,6 @@
     currentPlan = window.COACH_PLANS.weeks[idx];
     todayId = currentPlan.todayId;
     week = currentPlan.days;
-    // Reload state from this week's storage keys (with migration)
     sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || 'null');
     if (sessionStatus === null) {
       const oldDone = JSON.parse(localStorage.getItem(k('sessionsdone')) || '[]');
@@ -2754,10 +2639,8 @@
     }
     sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
     checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
-    // Reset preview selection
     activeDayId = todayId || currentPlan.days[0].id;
     activeSessionIdx = 0;
-    // Re-render everything
     renderPlanHeader();
     renderWeek();
   }
@@ -2776,7 +2659,6 @@
     document.getElementById('modalSessionNotes').value = log.notes || '';
     document.getElementById('modalSaveBtn').textContent = dayDone ? 'Update log' : 'Save and mark complete';
     document.getElementById('logModalBackdrop').classList.add('show');
-    // Focus the notes field for fast input
     setTimeout(() => document.getElementById('modalSessionNotes').focus(), 50);
   }
 
@@ -2806,13 +2688,9 @@
     renderWeek();
   }
 
-  // Close modal on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.getElementById('logModalBackdrop').classList.contains('show')) {
-      closeLogModal();
-    }
-  });
-
+  // ============================================
+  // TOAST
+  // ============================================
   function toast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -2822,7 +2700,7 @@
   }
 
   // ============================================
-  // PACE CONVERSION CALCULATOR
+  // PACE CALCULATOR
   // ============================================
   function parsePace(str) {
     if (str === null || str === undefined) return null;
@@ -2878,19 +2756,10 @@
   }
 
   function renderPaceTable() {
-    // 3:00 to 7:00 per km in 5-second steps (49 rows)
     const rows = [];
-    // Tagged zones for quick recognition
     const zoneTags = {
-      '3:30': 'VO2',
-      '3:55': 'Threshold',
-      '4:00': 'Threshold',
-      '4:05': 'Threshold',
-      '4:15': 'Marathon',
-      '4:25': 'Marathon',
-      '4:40': 'Long run',
-      '5:00': 'Long run',
-      '5:15': 'Easy'
+      '3:30': 'VO2', '3:55': 'Threshold', '4:00': 'Threshold', '4:05': 'Threshold',
+      '4:15': 'Marathon', '4:25': 'Marathon', '4:40': 'Long run', '5:00': 'Long run', '5:15': 'Easy'
     };
     for (let totalSec = 180; totalSec <= 420; totalSec += 5) {
       const minKm = totalSec / 60;
@@ -2903,26 +2772,24 @@
     document.getElementById('paceTableBody').innerHTML = rows.join('');
   }
 
-  // ============================================
-  // PACES — discipline switching
-  // ============================================
   let activeDiscipline = localStorage.getItem('coach-discipline') || 'run';
   function setDiscipline(d) {
     activeDiscipline = d;
     localStorage.setItem('coach-discipline', d);
-    document.querySelectorAll('.discipline-tab').forEach(b => {
+    document.querySelectorAll('.discipline-tab[data-discipline]').forEach(b => {
       b.classList.toggle('active', b.dataset.discipline === d);
     });
-    document.querySelectorAll('.discipline-content').forEach(c => {
+    document.querySelectorAll('#view-paces .discipline-content').forEach(c => {
       c.style.display = c.id === 'discipline-' + d ? '' : 'none';
     });
   }
 
   // ============================================
-  // RENDER — plan header (title, stats, focus)
+  // RENDER — plan header + sidebar
   // ============================================
   function renderPlanHeader() {
     document.getElementById('weekTitle').innerHTML = `<strong>Week ${currentPlan.number} — ${currentPlan.title}</strong> · ${currentPlan.dateRange}`;
+    document.getElementById('brandSub').textContent = `Week ${currentPlan.number}`;
     document.getElementById('statRun').textContent = currentPlan.stats.runKm;
     document.getElementById('statBike').textContent = currentPlan.stats.bikeKm;
     document.getElementById('statSwim').textContent = currentPlan.stats.swimM;
@@ -2931,7 +2798,7 @@
   }
 
   // ============================================
-  // LIBRARY — drills, exercises, stretches
+  // LIBRARY
   // ============================================
   let activeLibraryCat = 'stretches';
 
@@ -2974,8 +2841,8 @@
               <div class="library-stretch-duration">${s.duration}s</div>
             </div>
           `).join('')}
-          <button class="btn btn-primary" style="width: 100%; margin-top: 16px;" onclick="event.stopPropagation(); startRoutine('${r.id}');">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="margin-right:6px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 18px;" onclick="event.stopPropagation(); startRoutine('${r.id}');">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             Start routine
           </button>
         </div>
@@ -2988,14 +2855,8 @@
     const swim = window.COACH_LIBRARY.drills.swim.map(drillCard).join('');
     const run = window.COACH_LIBRARY.drills.run.map(drillCard).join('');
     document.getElementById('library-drills').innerHTML = `
-      <div class="library-section">
-        <div class="library-section-title">Swim drills</div>
-        ${swim}
-      </div>
-      <div class="library-section">
-        <div class="library-section-title">Run drills</div>
-        ${run}
-      </div>
+      <div class="library-section"><div class="library-section-title">Swim drills</div>${swim}</div>
+      <div class="library-section"><div class="library-section-title">Run drills</div>${run}</div>
     `;
   }
 
@@ -3025,18 +2886,9 @@
     const accessory = window.COACH_LIBRARY.strength.accessory.map(exerciseCard).join('');
     const core = window.COACH_LIBRARY.strength.core.map(exerciseCard).join('');
     document.getElementById('library-strength').innerHTML = `
-      <div class="library-section">
-        <div class="library-section-title">Compound lifts</div>
-        ${compound}
-      </div>
-      <div class="library-section">
-        <div class="library-section-title">Accessory</div>
-        ${accessory}
-      </div>
-      <div class="library-section">
-        <div class="library-section-title">Core</div>
-        ${core}
-      </div>
+      <div class="library-section"><div class="library-section-title">Compound lifts</div>${compound}</div>
+      <div class="library-section"><div class="library-section-title">Accessory</div>${accessory}</div>
+      <div class="library-section"><div class="library-section-title">Core</div>${core}</div>
     `;
   }
 
@@ -3088,11 +2940,8 @@
     timerState.intervalId = setInterval(() => {
       if (!timerState || timerState.isPaused) return;
       timerState.timeRemaining--;
-      if (timerState.timeRemaining <= 0) {
-        nextStretch();
-      } else {
-        updateTimerDisplay();
-      }
+      if (timerState.timeRemaining <= 0) nextStretch();
+      else updateTimerDisplay();
     }, 1000);
   }
 
@@ -3146,7 +2995,6 @@
   let currentUser = null;
 
   async function initAuth() {
-    // Local file:// testing — skip auth, use localStorage only
     if (window.location.protocol === 'file:') {
       document.getElementById('authOverlay').classList.add('hidden');
       console.log('Local file mode — auth and cloud sync skipped. Use deployed URL for sync.');
@@ -3158,14 +3006,20 @@
       window.COACH_CONFIG.supabaseAnonKey
     );
 
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (session) {
-      currentUser = session.user;
-      document.getElementById('authOverlay').classList.add('hidden');
-      await syncFromSupabase();
-      renderWeek();
-    } else {
-      document.getElementById('authOverlay').classList.remove('hidden');
+    try {
+      const { data: { session }, error } = await supabaseClient.auth.getSession();
+      if (error) throw error;
+      if (session) {
+        currentUser = session.user;
+        document.getElementById('authOverlay').classList.add('hidden');
+        await syncFromSupabase();
+        renderWeek();
+      } else {
+        document.getElementById('authOverlay').classList.remove('hidden');
+      }
+    } catch (e) {
+      console.warn('Auth init failed', e);
+      showAuthError(e);
     }
 
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
@@ -3184,6 +3038,18 @@
     });
   }
 
+  function showAuthError(e) {
+    const msg = document.getElementById('authMessage');
+    msg.style.display = 'block';
+    msg.className = 'auth-message warning';
+    const errStr = (e && e.message) ? e.message : String(e);
+    if (/fetch|network|paused/i.test(errStr)) {
+      msg.innerHTML = `Couldn't reach the server. Your Supabase project may be paused after inactivity — open the <a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Supabase dashboard</a> and click <strong>Restore</strong>, then refresh.`;
+    } else {
+      msg.textContent = `Sign-in unavailable: ${errStr}`;
+    }
+  }
+
   async function sendMagicLink() {
     if (!supabaseClient) return;
     const email = document.getElementById('authEmail').value.trim();
@@ -3194,19 +3060,19 @@
     msg.textContent = 'Sending...';
     btn.disabled = true;
 
-    const { error } = await supabaseClient.auth.signInWithOtp({
-      email: email,
-      options: { emailRedirectTo: window.location.origin + window.location.pathname }
-    });
-
-    btn.disabled = false;
-    if (error) {
-      msg.className = 'auth-message error';
-      msg.textContent = `Couldn't send: ${error.message}`;
-    } else {
+    try {
+      const { error } = await supabaseClient.auth.signInWithOtp({
+        email: email,
+        options: { emailRedirectTo: window.location.origin + window.location.pathname }
+      });
+      btn.disabled = false;
+      if (error) throw error;
       msg.className = 'auth-message success';
-      msg.innerHTML = `Check your inbox for <strong>${email}</strong>. Tap the link in the email (signs you in here), or enter the code from the email below.`;
+      msg.innerHTML = `Check your inbox for <strong>${email}</strong>. Tap the link in the email, or enter the code below.`;
       document.getElementById('authOtpSection').style.display = 'block';
+    } catch (e) {
+      btn.disabled = false;
+      showAuthError(e);
     }
   }
 
@@ -3225,17 +3091,11 @@
     msg.className = 'auth-message';
     msg.textContent = 'Verifying...';
 
-    const { error } = await supabaseClient.auth.verifyOtp({
-      email: email,
-      token: token,
-      type: 'email'
-    });
-
+    const { error } = await supabaseClient.auth.verifyOtp({ email, token, type: 'email' });
     if (error) {
       msg.className = 'auth-message error';
       msg.textContent = `Couldn't verify: ${error.message}`;
     }
-    // On success, the onAuthStateChange listener handles the rest
   }
 
   async function logout() {
@@ -3248,46 +3108,35 @@
   async function syncFromSupabase() {
     if (!currentUser || !supabaseClient) return;
     const uid = currentUser.id;
-
     try {
       const [statusRes, logRes, checkinRes] = await Promise.all([
         supabaseClient.from('session_statuses').select('*').eq('user_id', uid),
         supabaseClient.from('session_logs').select('*').eq('user_id', uid),
         supabaseClient.from('checkins').select('*').eq('user_id', uid)
       ]);
-
       const statuses = statusRes.data || [];
       const logs = logRes.data || [];
       const checkins = checkinRes.data || [];
-
       window.COACH_PLANS.weeks.forEach(plan => {
         const statusObj = {};
         statuses.filter(r => r.week_id === plan.id).forEach(r => {
           statusObj[`${r.day_id}.${r.session_idx}`] = r.status;
         });
         localStorage.setItem(`coach-${plan.id}-sessionstatus`, JSON.stringify(statusObj));
-
         const logObj = {};
         logs.filter(r => r.week_id === plan.id).forEach(r => {
           logObj[r.day_id] = { rpe: r.rpe, notes: r.notes || '', completedAt: r.logged_at };
         });
         localStorage.setItem(`coach-${plan.id}-sessionlog`, JSON.stringify(logObj));
-
         const ci = checkins.find(r => r.week_id === plan.id);
         if (ci) {
           const data = {
-            overall: ci.overall || '',
-            niggles: ci.niggles || '',
-            context: ci.context || '',
-            girlfriend: ci.girlfriend || '',
-            other: ci.other || '',
-            submittedAt: ci.submitted_at
+            overall: ci.overall || '', niggles: ci.niggles || '', context: ci.context || '',
+            girlfriend: ci.girlfriend || '', other: ci.other || '', submittedAt: ci.submitted_at
           };
           localStorage.setItem(`coach-${plan.id}-checkin`, JSON.stringify(data));
         }
       });
-
-      // Reload current week's state from refreshed localStorage
       if (currentPlan) {
         sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || '{}');
         sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
@@ -3304,68 +3153,46 @@
     try {
       if (status === null) {
         await supabaseClient.from('session_statuses').delete().match({
-          user_id: currentUser.id,
-          week_id: weekId,
-          day_id: dayId,
-          session_idx: idx
+          user_id: currentUser.id, week_id: weekId, day_id: dayId, session_idx: idx
         });
       } else {
         await supabaseClient.from('session_statuses').upsert({
-          user_id: currentUser.id,
-          week_id: weekId,
-          day_id: dayId,
-          session_idx: idx,
-          status: status
+          user_id: currentUser.id, week_id: weekId, day_id: dayId, session_idx: idx, status
         }, { onConflict: 'user_id,week_id,day_id,session_idx' });
       }
-    } catch (e) {
-      console.warn('Supabase status sync failed', e);
-    }
+    } catch (e) { console.warn('Supabase status sync failed', e); }
   }
 
   async function pushLogToSupabase(weekId, dayId, logData) {
     if (!currentUser || !supabaseClient) return;
     try {
       await supabaseClient.from('session_logs').upsert({
-        user_id: currentUser.id,
-        week_id: weekId,
-        day_id: dayId,
-        rpe: logData.rpe,
-        notes: logData.notes || ''
+        user_id: currentUser.id, week_id: weekId, day_id: dayId,
+        rpe: logData.rpe, notes: logData.notes || ''
       }, { onConflict: 'user_id,week_id,day_id' });
-    } catch (e) {
-      console.warn('Supabase log sync failed', e);
-    }
+    } catch (e) { console.warn('Supabase log sync failed', e); }
   }
 
   async function pushCheckinToSupabase(weekId, c) {
     if (!currentUser || !supabaseClient) return;
     try {
       await supabaseClient.from('checkins').upsert({
-        user_id: currentUser.id,
-        week_id: weekId,
-        overall: c.overall || null,
-        niggles: c.niggles || null,
-        context: c.context || null,
-        girlfriend: c.girlfriend || null,
-        other: c.other || null
+        user_id: currentUser.id, week_id: weekId,
+        overall: c.overall || null, niggles: c.niggles || null,
+        context: c.context || null, girlfriend: c.girlfriend || null, other: c.other || null
       }, { onConflict: 'user_id,week_id' });
-    } catch (e) {
-      console.warn('Supabase checkin sync failed', e);
-    }
+    } catch (e) { console.warn('Supabase checkin sync failed', e); }
   }
 
   async function migrateLocalToSupabase() {
     if (!currentUser || !supabaseClient) return;
     if (localStorage.getItem('coach-migrated-to-supabase')) return;
-
     let migrated = 0;
     for (const plan of window.COACH_PLANS.weeks) {
       const wid = plan.id;
       const status = JSON.parse(localStorage.getItem(`coach-${wid}-sessionstatus`) || '{}');
       const log = JSON.parse(localStorage.getItem(`coach-${wid}-sessionlog`) || '{}');
       const ci = JSON.parse(localStorage.getItem(`coach-${wid}-checkin`) || '{}');
-
       for (const [key, statusValue] of Object.entries(status)) {
         const [dayId, idxStr] = key.split('.');
         await pushStatusToSupabase(wid, dayId, parseInt(idxStr, 10), statusValue);
@@ -3382,9 +3209,8 @@
         migrated++;
       }
     }
-
     localStorage.setItem('coach-migrated-to-supabase', '1');
-    if (migrated > 0) toast(`Synced ${migrated} item${migrated === 1 ? '' : 's'} from this device to the cloud`);
+    if (migrated > 0) toast(`Synced ${migrated} item${migrated === 1 ? '' : 's'} to the cloud`);
   }
 
   // ============================================
@@ -3398,12 +3224,13 @@
   renderLibrary();
   initAuth();
 
-  // Escape key closes timer modal too
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.getElementById('timerModalBackdrop').classList.contains('show')) {
-      closeTimer();
+    if (e.key === 'Escape') {
+      if (document.getElementById('timerModalBackdrop').classList.contains('show')) closeTimer();
+      if (document.getElementById('logModalBackdrop').classList.contains('show')) closeLogModal();
     }
   });
 </script>
+
 </body>
 </html>
