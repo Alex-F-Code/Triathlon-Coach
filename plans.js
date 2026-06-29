@@ -577,7 +577,7 @@ window.COACH_PLANS = {
       title: 'Re-entry',
       dateRange: '22–28 June',
       year: 2026,
-      todayId: 'wed',
+      todayId: null,
       stats: {
         runKm: '~12 km',
         bikeKm: '~45 km',
@@ -725,6 +725,240 @@ window.COACH_PLANS = {
             ],
             importance: 'Long Z2 rides are how the aerobic engine rebuilds with minimal injury risk. Cycling delivers aerobic load without impact, which is exactly what re-entry needs. Save bike intensity for Week 5 once the legs are back in rhythm — pushing watts on a re-entry ride is how niggles happen.'
           }]
+        }
+      ]
+    },
+
+    // ================================================================
+    // WEEK 5 — New normal (29 June – 5 July 2026)
+    // First week of the redesigned template: lower S&C → Tue,
+    // Friday optional, bike intensity → Sun long ride.
+    // ================================================================
+    {
+      id: 'w05',
+      number: 5,
+      title: 'New normal',
+      dateRange: '29 June – 5 July',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~20 km',
+        bikeKm: '~50 km',
+        swimM: '~1900m',
+        totalHours: '~6:30'
+      },
+      focusHtml: 'Normal structure resumes with the post-holiday template baked in. <strong>Lower S&amp;C moves to Tuesday</strong> (same-day clustering with easy run), <strong>Friday becomes optional</strong>, <strong>bike intensity shifts to Sunday</strong> with 1 × 15 sweet spot embedded in the long ride. First quality week back — Sat long run gets a 3 km tempo finish, Sun bike adds one sweet-spot block. Build into Week 6 with 2 × 15 sweet spot.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '29 Jun',
+          name: 'Football + upper S&C', meta: '60+45 min',
+          sessions: [
+            {
+              name: 'Football', meta: '60 min · work fixture',
+              headline: 'Weekly 5-a-side — anaerobic/neuromuscular stimulus',
+              warmUp: 'Active warm-up before kick-off: skips, lateral shuffles, accelerations. Heart rate up before the first sprint, not during it.',
+              mainSet: '60 min 5-a-side football.',
+              focus: 'Sprints, change of direction, reactive movement. Football replaces what would otherwise be Monday intervals.',
+              paces: ['RPE 6–8 in bursts', 'HR variable'],
+              considerations: [
+                'No additional run quality on Mondays — football is the quality',
+                'Stretch off after — calves and hip flexors take the heaviest hit',
+                'Hydrate properly post-game before lifting'
+              ],
+              importance: 'Football is your Monday anaerobic dose. It covers neuromuscular work (sprinting, cutting, decelerating) that interval running would otherwise provide — which is why Mondays have no run quality.'
+            },
+            {
+              name: 'Upper-body S&C', meta: '45 min · gym',
+              headline: 'Maintenance upper-body lifting after football',
+              warmUp: '5–8 min: band pull-aparts, scap push-ups, shoulder dislocates. Wake the shoulders up before loading them.',
+              mainSet: [
+                '3 × 6–8 bench press OR push-up variation (challenging)',
+                '3 × 8 pull-ups (band-assisted if needed) OR lat pulldown',
+                '3 × 10 overhead press (DB or barbell)',
+                '3 × 10 single-arm DB row each side',
+                '3 × 12 face pulls — rear delts and upper back'
+              ],
+              focus: 'Quality reps, moderate load. Goal is maintenance of mass and definition, not hypertrophy peak.',
+              paces: ['RPE 7 on top sets', 'Leave 2–3 reps in reserve'],
+              considerations: [
+                "Don't lift to failure — football already taxed the nervous system",
+                'Progressive overload still applies — add a small amount of weight each week if reps stay clean',
+                'Skip face pulls if pressed for time — keep the compounds'
+              ],
+              importance: 'Upper body lifting protects shoulder durability for swimming and maintains muscle mass — the explicit goal is staying strong, not just light. Mondays are the right slot because legs are already loaded by football.'
+            }
+          ]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '30 Jun',
+          name: 'Easy run + lower S&C', meta: '6 km + 45 min',
+          sessions: [
+            {
+              name: 'Easy run', meta: '6 km · 35 min',
+              headline: 'Recovery aerobic run before the lift',
+              warmUp: 'First km deliberately slow — let HR settle into easy zone.',
+              mainSet: '6 km continuous at easy aerobic pace.',
+              focus: 'Conversational throughout. This run is to set up the lift, not a session in itself.',
+              paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+              considerations: [
+                'If football left calves trashed, drop to 4 km or swap for 20 min mobility',
+                'Easy means easy — pace will feel slow, that\'s correct',
+                'Eat properly in between the run and the lift — 1–2 hours gap is ideal'
+              ],
+              importance: 'Easy aerobic minutes are the backbone of the running engine. Pairing them with lower-body S&C uses one set of legs efficiently — both done with one warm-up cost.'
+            },
+            {
+              name: 'Lower-body S&C', meta: '45 min · gym',
+              headline: 'Lower-body lifting — same-day same-system clustering',
+              warmUp: '8 min: glute bridges, bodyweight squats, leg swings, banded clamshells. Hips firing before loading them.',
+              mainSet: [
+                '3 × 5–6 back squat OR goblet squat (load matters)',
+                '3 × 6 each leg Bulgarian split squat OR rear-foot-elevated split squat',
+                '3 × 8 Romanian deadlift (DB or barbell)',
+                '3 × 10 each leg single-leg calf raise',
+                '3 × 12 single-leg glute bridge each side'
+              ],
+              focus: 'Form > load. Squats and RDLs are the prime movers — single-leg work locks in stability.',
+              paces: ['RPE 7 on top sets', 'Leave 2 reps in reserve'],
+              considerations: [
+                'Lower S&C on Tue (post-run) is the new template — same-day same-system clustering means one fresh warm-up, two stimuli',
+                "Don't load squats heavy after a hard football game on Monday — listen to the legs",
+                'Single-leg work is the gold for run injury prevention — don\'t skip it',
+                'Friday is no longer the lower S&C day — that slot is now optional'
+              ],
+              importance: 'Moving lower S&C to Tuesday is the structural redesign you committed to post-holiday. Friday was consistently getting skipped — clustering lower-body work with the easy run on Tuesday makes both more likely to land. Single-leg loading protects against the asymmetries that produce running injuries.'
+            }
+          ]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '1 Jul',
+          name: 'Swim — technique + aerobic', meta: '1900m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + aerobic', meta: '1900m · 50 min',
+            headline: 'First pool session back — re-establish feel before pushing pace',
+            warmUp: [
+              '200m easy freestyle',
+              '100m kick with board — small fast kicks from the hips',
+              '100m build to moderate pace'
+            ],
+            mainSet: [
+              '2 × 50m front sculling with 20s rest — re-feel the catch position',
+              '2 × 50m single-arm freestyle (25m each arm) with 20s rest',
+              '2 × 50m catch-up drill with 20s rest',
+              '8 × 100m at 1:45–1:50 with 20s rest — steady aerobic, smooth stroke',
+              '4 × 50m at 1:40–1:45 pace with 30s rest — build the 2nd 25m of each rep',
+              '200m easy cool-down'
+            ],
+            focus: 'Feel the catch — open water swim last week probably loosened the stroke. Tighten the technique back up in the pool.',
+            paces: ['Main: 1:45–1:50 /100m', 'Speed: 1:40–1:45 /100m', 'Easy: 2:05–2:15 /100m'],
+            considerations: [
+              'Bring a kickboard',
+              "Open water last week was good for fitness — pool today is for technique",
+              'If pace targets feel hard after the layoff, drop 5 sec/100m — rebuild gradually',
+              'Last 2 reps of the 100s push to 1:43 if feeling smooth'
+            ],
+            importance: 'At your level (likely sub-14 min 800m now), swim gains come from technique not fitness. Coming back into the pool after open water swimming is the right moment to re-tighten the catch — open water tends to bias toward survival stroke.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '2 Jul',
+          name: 'Rest', meta: 'No structured training', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Thursday rest — protects the Sat/Sun double',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional mobility or foam roll.',
+            focus: 'Sleep, hydration, fuelling — particularly important before Saturday\'s long run.',
+            paces: [],
+            considerations: [
+              'Optional 15–20 min mobility if you feel stiff from Mon/Tue',
+              "Don't sneak in an extra easy run — Thursday rest is what allows Sat/Sun quality"
+            ],
+            importance: 'The rest day before Saturday\'s quality run is non-negotiable. Hard run on tired legs is the fastest way to a tendon issue.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '3 Jul',
+          name: 'Optional easy run', meta: '30–40 min · optional', rest: true,
+          sessions: [{
+            name: 'Optional easy run', meta: '30–40 min',
+            headline: 'Friday is now optional — no expectations',
+            warmUp: '—',
+            mainSet: '30–40 min easy jog if it fits — or rest, or 20 min mobility.',
+            focus: 'No structure. No targets. Movement only if it serves the weekend.',
+            paces: ['5:00–5:30 /km', 'RPE 2–3'],
+            considerations: [
+              'Friday is the new flex day — no longer a required session',
+              'Skip without guilt — Sat/Sun is where the week\'s training lives',
+              'If work has been heavy, definitely skip',
+              'A short shake-out is fine if you fancy it'
+            ],
+            importance: 'The Friday redesign is the structural change you committed to post-holiday — Friday was consistently being missed, so it\'s now genuinely optional. Sat/Sun carry the real training. Removing Friday\'s mandate also removes the guilt of skipping it.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '4 Jul',
+          name: 'Long run + tempo finish', meta: '11 km · 60 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '11 km · 60 min',
+            headline: 'First quality session back — long run with a moderate tempo finish',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              "8 km easy at 4:45–5:00 /km (HR <150) — settle into rhythm, no chasing pace",
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard but conversational in bursts'
+            ],
+            focus: "Tempo is softer than threshold — marathon pace, not 10K race pace. Don't go off too fast.",
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'You handled 4 × 5 min at 4:00/km last week — 4:10–4:20 tempo is comfortably below that',
+              "First long run with quality back — keep the tempo controlled, don't chase the lower end of the range",
+              'Bail rule: 1 km into the tempo and it feels wrong, run the rest easy',
+              'Eat 1–2 hours before — long run on fumes is a misery'
+            ],
+            importance: "Saturday is your main run quality day. 11 km with a 3 km tempo finish is a measured first step back into quality — it trains aerobic capacity at sub-threshold without taxing the system the way full threshold reps would. You handled harder than this last week, so this should land cleanly."
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '5 Jul',
+          name: 'Long bike + 15 SS + brick', meta: '2:00 + 15 min · ~50 km',
+          sessions: [
+            {
+              name: 'Long bike — 1 × 15 sweet spot', meta: '2:00 · ~50 km',
+              headline: 'First long ride with intensity — single 15 min sweet spot block embedded',
+              warmUp: '15 min easy spinning, building from very easy to steady Z2 in the final 5 min.',
+              mainSet: [
+                '40 min steady Z2 — RPE 3–4, HR 130–145',
+                '15 min sweet spot — RPE 6–7, HR 145–155 (a touch under threshold, sustainable but working)',
+                '5 min easy spin recovery',
+                '45 min steady Z2 — settle back into aerobic rhythm',
+                '5 min cool-down spin'
+              ],
+              focus: 'Sweet spot is RPE 6–7 — hard enough to be working, comfortable enough you could hold it for 30+ min if you had to. Not threshold.',
+              paces: ['Z2: RPE 3–4, HR 130–145', 'Sweet spot: RPE 6–7, HR 145–155'],
+              considerations: [
+                'First intensity back on the bike — keep the sweet spot block controlled, don\'t drift into threshold',
+                "Sweet spot before the back half of the Z2 — fresher legs = better quality of the working block",
+                'Fuel: 30–40 g carbs/hour after the first 60 min',
+                'If quads feel hammered from Sat\'s long run, hold the sweet spot block at RPE 6, not 7',
+                'Next week (Week 6) builds to 2 × 15 sweet spot'
+              ],
+              importance: 'Bike intensity moves to Sunday — the structural redesign post-holiday. One 15 min sweet spot block this week is a measured re-introduction; the long Z2 around it keeps total stimulus aerobic-dominant. Sweet spot trains FTP without the cost of threshold work, which is exactly what you want when the legs are still rebuilding.'
+            },
+            {
+              name: 'Brick run', meta: '15 min easy off the bike',
+              headline: 'Short easy run straight off the bike — neuromuscular only',
+              warmUp: 'Straight into running — that\'s the point of a brick.',
+              mainSet: '15 min easy off the bike at conversational pace.',
+              focus: 'Goal is teaching the legs to run on cycling-trashed quads — not pace, not heart rate, just turnover.',
+              paces: ['5:00–5:30 /km', 'RPE 3'],
+              considerations: [
+                'Legs will feel weird for the first 5 min — that\'s the whole point of a brick',
+                'Don\'t chase pace — this is neuromuscular only',
+                'Skip if quads are completely cooked from the sweet spot block — better to bank the bike clean'
+              ],
+              importance: "Brick runs train the bike-to-run transition that makes or breaks triathlons. Even a short one teaches the body the pattern. Sunday after a long Z2 ride is the right moment — Saturday's long run already covered the running quality."
+            }
+          ]
         }
       ]
     }
