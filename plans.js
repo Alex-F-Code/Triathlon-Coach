@@ -961,6 +961,422 @@ window.COACH_PLANS = {
           ]
         }
       ]
+    },
+
+    // ================================================================
+    // WEEK 6 — Endurance swim + bike SS build (6–12 July 2026)
+    // Second week of new template. Swim rotates to endurance (Type B).
+    // Bike sweet spot builds from 1×15 → 2×15. Sat run tempo extends.
+    // Weekend sessions are flexible — swap for partner's plans.
+    // ================================================================
+    {
+      id: 'w06',
+      number: 6,
+      title: 'Endurance swim + bike SS + Mon quality',
+      dateRange: '6–12 July',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~28 km',
+        bikeKm: '~55 km',
+        swimM: '~2400m',
+        totalHours: '~7:00'
+      },
+      focusHtml: 'Football off Monday — <strong>threshold quality moves to Monday</strong> (previewing next week\'s Thu slot). <strong>Swim rotates to endurance</strong> (Type B, 2400m). <strong>Bike sweet spot builds 1 × 15 → 2 × 15</strong>. <strong>Sat tempo extends 3 km → 5 km</strong>. Fri drops to true rest (not optional) to protect Sat. Run volume ~28 km — legitimate jump given the Mon swap. Weekend sessions flex around partner\'s plans.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '6 Jul',
+          name: 'Run quality — 4–5 × 1 km threshold', meta: '9 km · 50 min',
+          sessions: [{
+            name: 'Threshold reps — 4–5 × 1 km', meta: '9 km · 50 min',
+            headline: 'Football off today — threshold quality swaps in',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km — deliberately slow first 5 min to let HR settle',
+              '4 × 100m strides on a flat stretch — build to fast, not sprints'
+            ],
+            mainSet: [
+              '1 km at 3:55–4:00/km — controlled hard, RPE 7',
+              '90s easy jog recovery — HR drops to <145',
+              '1 km at 3:55–4:00/km — same effort as rep 1',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — hold form, don\'t chase pace',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — finish strong but controlled',
+              'Optional 5th rep at 3:55–4:00/km if the first 4 felt controlled — decide with 500m to go on rep 4',
+              '10 min easy jog cool-down'
+            ],
+            focus: 'Even effort across all reps. Three-to-four word sentences only during reps. Rep 1 should feel almost too easy — that means the pace is right.',
+            paces: ['Reps: 3:55–4:00 /km', 'Recovery: 90s jog', 'HR 165–172'],
+            considerations: [
+              "Swapped in for football today — a preview of Week 7's Thursday quality slot",
+              'Same pace you cleaned as 4 × 5 min in Week 4 — should feel familiar',
+              'Even effort > faster start — first rep should feel sustainable',
+              'HR should recover to <145 between reps',
+              'Bail rule: if rep 1 feels wrong, do 3 × 1 km instead',
+              'Fri is now a true rest day (not optional) to protect Saturday\'s long + tempo',
+              '5 days between this and Sat = plenty of recovery — no need to hold back today'
+            ],
+            importance: "Threshold reps are where the 10K race pace ceiling lifts. For sub-37 you need to hold 3:42/km for 10 km — training at 3:55–4:00 makes race pace feel achievable. This session opens the 10K build a week early. Football's neuromuscular hit is absent this week — Tuesday's easy run compensates."
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '7 Jul',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Recovery aerobic run — building base volume',
+            warmUp: 'First km deliberately slow — HR settles into easy zone.',
+            mainSet: '7 km continuous at easy aerobic pace.',
+            focus: 'Conversational throughout. Aerobic base work — the substrate that makes threshold sessions possible.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: [
+              'If football left calves trashed, drop to 5 km or swap for mobility',
+              'Easy means easy — pace will feel slow, that\'s correct',
+              'Optional 15–20 min home lower-body work after (bodyweight squats, RDLs, single-leg glute bridges, planks) — not prescribed but useful if fancied'
+            ],
+            importance: 'Aerobic base is what makes the Thursday threshold and Saturday tempo sessions possible. Building weekly km slowly (this week 7, next week 8) is the safest way to grow the engine without a niggle.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '8 Jul',
+          name: 'Swim — endurance', meta: '2400m · 60 min',
+          sessions: [{
+            name: 'Swim — endurance (Type B)', meta: '2400m · 60 min',
+            headline: 'Longer continuous chunks — first endurance swim of the rotation',
+            warmUp: [
+              '200m easy freestyle',
+              '100m kick with board',
+              '4 × 50m as 25m drill / 25m swim (pick a drill: catch-up, fingertip drag, or 6-1-6)'
+            ],
+            mainSet: [
+              '3 × 400m at 1:48–1:52 /100m with 45s rest — long continuous chunks, hold form as fatigue builds',
+              '(alternative shape: 2 × 600m at 1:50 /100m with 60s rest — even longer if you fancy it)',
+              '4 × 50m at 1:38–1:42 pace with 20s rest — sharp finish to remind the arms what fast feels like',
+              '200m easy cool-down'
+            ],
+            focus: 'Long chunks train the aerobic engine in the swim differently to 100s — less rest, so you can\'t hide behind the wall. Stroke count per length should stay stable across all 400s.',
+            paces: ['Long / endurance: 1:48–1:52 /100m', 'Speed: 1:38–1:42 /100m', 'Easy: 1:55–2:05 /100m'],
+            considerations: [
+              'First endurance swim in the rotation — pace targets nudged down from Week 5 based on how the 100s landed',
+              'Count strokes on the first and last 25 of each 400 — if strokes-per-length rises by more than 2, pace is too hot',
+              'The 600m option is available if you\'re feeling it — same total volume, longer chunks, harder mental load',
+              'Bring a kickboard for the warm-up',
+              'Week 7 = speed/form (Type C). Week 8 = tri pace (Type D). Then rotate back to A.'
+            ],
+            importance: 'Endurance swims build the aerobic ceiling in the water and teach pace discipline over long chunks — critical for open-water racing where you can\'t reset every 100m. The pace bump is a response to Week 5\'s 100s landing comfortably; targets are flexible, hit slower if a set feels rough.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '9 Jul',
+          name: 'Rest', meta: 'No structured training', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Thursday rest — protects the Sat/Sun double',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional mobility or foam roll.',
+            focus: 'Sleep, hydration, fuelling — particularly before Saturday\'s long run.',
+            paces: [],
+            considerations: [
+              'Optional 15–20 min mobility if you feel stiff from Mon/Tue',
+              'Don\'t sneak in extra easy work — Thursday rest is what allows Sat/Sun quality'
+            ],
+            importance: 'The rest day before Saturday\'s quality run is non-negotiable. Hard run on tired legs is the fastest way to a tendon issue.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '10 Jul',
+          name: 'Rest', meta: 'True rest — protects Sat', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'True rest day',
+            headline: 'Rest day — 2 quality runs this week means Friday matters',
+            warmUp: '—',
+            mainSet: 'No structured training. Walking, casual movement fine.',
+            focus: 'Recovery for Saturday\'s long + tempo. Sleep, food, hydration.',
+            paces: [],
+            considerations: [
+              'Fri normally optional — this week it\'s a true rest because you\'ve added Monday quality',
+              'Optional 15–20 min mobility if you feel stiff — no running',
+              "Sat's long + 5 km tempo is the second quality of the week — protect it"
+            ],
+            importance: 'Two quality run sessions in a week (Mon + Sat) means the recovery day between them needs to be real. Optional-easy Friday works when the week has one quality; two qualities need honest rest.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '11 Jul',
+          name: 'Long run + tempo finish', meta: '12 km · 65 min',
+          sessions: [{
+            name: 'Long run + 5km tempo finish', meta: '12 km · 65 min',
+            headline: 'Long run with an extended 5 km tempo finish — main run quality',
+            warmUp: 'First 1–2 km deliberately slow — HR rises naturally to easy zone.',
+            mainSet: [
+              '7 km easy at 4:45–5:00 /km (HR <150) — settle in, no chasing pace',
+              '5 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard but conversational in bursts'
+            ],
+            focus: 'Tempo extends from 3 km (last week) to 5 km — the same effort held longer. Don\'t drop the pace, hold the effort.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Last week\'s 3 km tempo landed — 5 km at the same pace is the natural progression',
+              'Even effort > faster start — first km of tempo should feel almost too easy',
+              'Bail rule: 2 km into tempo and it feels wrong, run the rest easy',
+              'Weekend flex: if partner has a long run planned Sat, join her for the easy 7 km and add the tempo alone — or swap this session to Sunday and shift the bike',
+              'Eat 1–2 hours before'
+            ],
+            importance: "Saturday's long run is your primary run quality slot. 5 km tempo is the sustained aerobic-power stimulus — the ceiling for how fast you can hold marathon pace lifts here. Progressing tempo distance is safer than progressing pace at this stage."
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '12 Jul',
+          name: 'Long bike + 2×15 SS + brick', meta: '2:15 + 15 min · ~55 km',
+          sessions: [
+            {
+              name: 'Long bike — 2 × 15 sweet spot', meta: '2:15 · ~55 km',
+              headline: 'Long ride with two 15 min sweet spot blocks — bike intensity progression',
+              warmUp: '15 min easy spinning, building from very easy to steady Z2 in the final 5 min.',
+              mainSet: [
+                '30 min steady Z2 — RPE 3–4, HR 130–145',
+                '15 min sweet spot — RPE 6–7, HR 145–155',
+                '10 min easy spin recovery',
+                '15 min sweet spot — RPE 6–7, HR 145–155 (aim to hit the same power/HR as the first block)',
+                '35 min steady Z2 — settle back into aerobic',
+                '5 min cool-down spin'
+              ],
+              focus: 'Second sweet spot block is the meaningful one — the goal is holding the same output on the second one as the first. If block 2 drops significantly, block 1 was too hard.',
+              paces: ['Z2: RPE 3–4, HR 130–145', 'Sweet spot: RPE 6–7, HR 145–155'],
+              considerations: [
+                'Building from 1 × 15 (Week 5) to 2 × 15 sweet spot — same block, doubled',
+                'Even effort across both blocks > pushing block 1',
+                'Fuel: 40–50 g carbs/hour after the first 60 min — you\'re working now, not just riding',
+                'If quads feel hammered from Sat\'s long run, hold sweet spots at RPE 6 not 7 — or drop to 1 × 15 and log it',
+                'Weekend flex: if partner has a long ride, join her for the aerobic sections and slot the two SS blocks in when she\'s taking a coffee stop — or swap the whole session for her ride and I\'ll adjust',
+                'Next progression (Week 7 or 8): 2 × 20 sweet spot'
+              ],
+              importance: 'Sweet spot is where bike FTP grows without the recovery cost of full threshold work. Two 15 min blocks is the standard first proper progression — trains aerobic power and tolerance to sustained effort. Bike intensity on Sunday keeps the run schedule uncomplicated.'
+            },
+            {
+              name: 'Brick run', meta: '15 min easy off the bike',
+              headline: 'Short easy run straight off the bike — neuromuscular only',
+              warmUp: 'Straight into running.',
+              mainSet: '15 min easy off the bike at conversational pace.',
+              focus: 'Teaching the legs to run on cycling-loaded quads. Turnover, not pace.',
+              paces: ['5:00–5:30 /km', 'RPE 3'],
+              considerations: [
+                'Legs will feel weird for the first 5 min — that\'s the point',
+                'Don\'t chase pace — neuromuscular only',
+                'Skip if quads are cooked from the second SS block — protect the bike investment'
+              ],
+              importance: "Brick runs train the bike-to-run transition. Even a short one teaches the pattern. Building the brick run gradually — 15 min now, will extend to 20–25 min as sweet spot work stabilises."
+            }
+          ]
+        }
+      ]
+    },
+
+    // ================================================================
+    // WEEK 7 — 10K build begins (13–19 July 2026)
+    // First week of the run-focused template targeting sub-37 10K in Jan.
+    // Thu quality slot introduced. S&C ghosted to optional home work.
+    // ================================================================
+    {
+      id: 'w07',
+      number: 7,
+      title: '10K build — Thu quality intro',
+      dateRange: '13–19 July',
+      year: 2026,
+      todayId: null,
+      stats: {
+        runKm: '~25 km',
+        bikeKm: '~55 km',
+        swimM: '~2000m',
+        totalHours: '~7:00'
+      },
+      focusHtml: 'First week of the <strong>sub-37 10K build</strong> (race target Jan). <strong>Thursday quality slot introduced</strong> — 4 × 1 km threshold reps at 3:55–4:00/km (same pace you handled clean in Week 4). Sat long extends to 13 km with 5 km tempo. Gym S&amp;C now demoted — optional home work only. Wed swim rotation → Type C (speed/form). Weekend flex around partner as normal.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '13 Jul',
+          name: 'Football', meta: '60 min',
+          sessions: [{
+            name: 'Football', meta: '60 min · work fixture',
+            headline: 'Weekly 5-a-side — the Monday anaerobic dose',
+            warmUp: 'Active warm-up before kick-off: skips, lateral shuffles, accelerations.',
+            mainSet: '60 min 5-a-side football.',
+            focus: 'Sprints, change of direction, reactive movement. This is the week\'s neuromuscular work — replaces gym lower work you\'d otherwise have to do.',
+            paces: ['RPE 6–8 in bursts', 'HR variable'],
+            considerations: [
+              'No additional run quality on Mondays',
+              'Stretch off after — calves and hip flexors',
+              'Optional home upper-body work after if you fancy (push-ups, pike push-ups, bird-dog, planks) — not prescribed'
+            ],
+            importance: 'Football gives you the anaerobic/neuromuscular stimulus that intervals would otherwise cost a run session. Free training — take it, don\'t double up.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '14 Jul',
+          name: 'Easy run', meta: '8 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '8 km · 40 min',
+            headline: 'Aerobic base — building week-on-week',
+            warmUp: 'First km deliberately slow — HR settles.',
+            mainSet: '8 km continuous at easy aerobic pace.',
+            focus: 'Conversational. This is aerobic engine building, not a session to push.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: [
+              'Up 1 km from last week\'s 7 km',
+              'If football left legs trashed, drop to 6 km',
+              'No strides, no tempo — save the legs for Thursday quality',
+              'Optional 15–20 min home lower work after if fancied — not required'
+            ],
+            importance: 'Tue easy is the aerobic base session. Weekly volume creeps up slowly — 7 → 8 → 9 km over the coming weeks. The build to 10K race fitness lives in these easy km more than in the interval sessions.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '15 Jul',
+          name: 'Swim — speed/form', meta: '2100m · 55 min',
+          sessions: [{
+            name: 'Swim — speed/form (Type C)', meta: '2100m · 55 min',
+            headline: 'Third rotation — sharper 50s and descending 100s',
+            warmUp: [
+              '200m easy freestyle',
+              '100m kick with board',
+              '4 × 50m as 25 drill / 25 swim'
+            ],
+            mainSet: [
+              '10 × 50m at 1:38–1:42 pace with 20s rest — sharp, controlled speed reps',
+              '100m easy between blocks',
+              '4 × 100m descending (start at 1:47, finish at 1:40) with 30s rest — each 100 slightly faster than the last',
+              '100m easy',
+              '4 × 50m at 1:38–1:42 with 25s rest — last block, hold form as fatigue builds',
+              '200m easy cool-down'
+            ],
+            focus: 'Speed is about turnover and clean catch, not muscling. 50s should feel sharp but sustainable — leave a rep in the tank.',
+            paces: ['Speed: 1:38–1:42 /100m', 'Descending 100s: 1:47 → 1:40', 'Easy: 1:55–2:05 /100m'],
+            considerations: [
+              'Third session in the rotation — speed/form (Type C)',
+              'Descending 100s teach pace control — if you go too fast on rep 1, rep 4 won\'t descend',
+              'Count strokes on the 50s — good speed comes with clean, powerful strokes, not thrashing',
+              'Week 8 = Type D (tri pace). Then rotate back to A.'
+            ],
+            importance: 'Speed/form work develops the top end of the swim range and refines the catch under load. Even for triathlon (where you never sprint), speed work teaches the stroke to be efficient — which is what matters at every pace.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '16 Jul',
+          name: 'Run quality — threshold', meta: '8 km · 45 min',
+          sessions: [{
+            name: 'Threshold reps — 4 × 1km', meta: '8 km · 45 min',
+            headline: 'First threshold session of the 10K build — re-introducing what you handled in Week 4',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km — deliberately slow first 5 min',
+              '4 × 100m strides on a flat stretch — build to fast, not sprints'
+            ],
+            mainSet: [
+              '1 km at 3:55–4:00/km — controlled hard, RPE 7',
+              '90s easy jog recovery — HR drops to <145',
+              '1 km at 3:55–4:00/km — same effort as rep 1',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — hold form, don\'t chase pace',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — finish strong but controlled',
+              '10 min easy jog cool-down'
+            ],
+            focus: 'Even effort across all 4 reps. Three-to-four word sentences only. First rep should feel almost too easy — that means the pace is right.',
+            paces: ['Reps: 3:55–4:00 /km', 'Recovery: 90s jog', 'HR 165–172'],
+            considerations: [
+              'You held 4 × 5 min at 4:00/km clean in Week 4 — this is the same pace, slightly shorter reps, more recoveries',
+              'Even effort > faster start — first rep should feel sustainable',
+              'HR should recover to <145 between reps',
+              'Bail rule: if rep 1 already feels wrong, do 3 × 1km instead',
+              'Sub-37 pathway: this session progresses to 5 × 1km, then 6 × 1km, then 3 × 2km, then hills, then VO2 — 20+ week arc'
+            ],
+            importance: 'Threshold reps are where the 10K race pace ceiling lifts. For sub-37 you need to hold 3:42/km for 10 km — training at 3:55–4:00 makes race pace feel easier. This session is the load-bearing weekly stimulus of the 10K build.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '17 Jul',
+          name: 'Rest or 30 min easy', meta: 'Optional easy', rest: true,
+          sessions: [{
+            name: 'Optional easy run OR rest', meta: '30 min · optional',
+            headline: 'Recovery day after Thursday quality — rest or shake-out only',
+            warmUp: '—',
+            mainSet: '30 min easy jog if legs feel good, or full rest.',
+            focus: 'Recovery. If Thursday reps hit hard, take the rest.',
+            paces: ['5:00–5:30 /km if running', 'RPE 2'],
+            considerations: [
+              'Friday is the flex day — no expectation',
+              'If Thursday reps landed harder than expected, take the rest',
+              'Short shake-out is fine if legs feel fresh — but easy only, no strides',
+              'Saturday long+tempo is the second quality session — protect it'
+            ],
+            importance: 'Two quality run sessions per week (Thu + Sat) means Friday recovery matters. This is what changed from the old template — Friday is now genuinely optional, not "should but often skipped".'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '18 Jul',
+          name: 'Long run + tempo finish', meta: '13 km · 70 min',
+          sessions: [{
+            name: 'Long run + 5km tempo finish', meta: '13 km · 70 min',
+            headline: 'Long run with sustained tempo finish — the week\'s second quality',
+            warmUp: 'First 1–2 km deliberately slow — HR rises naturally.',
+            mainSet: [
+              '8 km easy at 4:45–5:00 /km (HR <150) — settle in',
+              '5 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
+            ],
+            focus: 'Same tempo as Week 6, longer easy portion first. Building fatigue tolerance — tempo needs to hold when legs already have 8 km in them.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Volume up 1 km from Week 6 (12 → 13 km) — easy portion is the addition',
+              'Second quality of the week after Thu threshold — tempo should feel harder in the legs than a fresh-legs Saturday',
+              'Even effort > faster start — first km of tempo should feel almost too easy',
+              'Bail rule: 2 km into tempo and it feels wrong, run the rest easy',
+              'Weekend flex: if partner has a long run planned, join her for the easy 8 km and do the tempo alone — or swap to Sun and shift the bike'
+            ],
+            importance: "Sat long run trains tempo tolerance with cumulative fatigue — different stimulus to Thu's fresh-legs threshold. Both matter for sub-37: Thu lifts the ceiling, Sat teaches you to hold pace when tired."
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '19 Jul',
+          name: 'Long bike + 2×15 SS + brick', meta: '2:15 + 15 min · ~55 km',
+          sessions: [
+            {
+              name: 'Long bike — 2 × 15 sweet spot', meta: '2:15 · ~55 km',
+              headline: 'Same shape as Week 6 — hold the sweet spot progression steady',
+              warmUp: '15 min easy spinning, building from very easy to Z2.',
+              mainSet: [
+                '30 min steady Z2 — RPE 3–4, HR 130–145',
+                '15 min sweet spot — RPE 6–7, HR 145–155',
+                '10 min easy spin recovery',
+                '15 min sweet spot — RPE 6–7, HR 145–155',
+                '35 min steady Z2',
+                '5 min cool-down spin'
+              ],
+              focus: 'Second week of 2 × 15 SS — target is holding the same effort on block 2 as block 1. Bike stays supporting the run block, not competing with it.',
+              paces: ['Z2: RPE 3–4, HR 130–145', 'Sweet spot: RPE 6–7, HR 145–155'],
+              considerations: [
+                'Same sweet spot volume as Week 6 — holding not building this week (running quality is the priority)',
+                'Even effort across both blocks',
+                'Fuel: 40–50 g carbs/hour after 60 min',
+                'If Sat long run tempo was rough, drop SS to RPE 6 or 1 × 15',
+                'Weekend flex: swap for partner\'s ride if she has one',
+                'Bike progression sits behind run — next SS bump (2 × 20) waits until Week 10'
+              ],
+              importance: 'Bike now supports the run block rather than competing with it. Holding 2 × 15 SS steady while run volume climbs is the correct pattern — you can\'t progress two disciplines aggressively at once. Sub-37 10K requires the run to be the priority.'
+            },
+            {
+              name: 'Brick run', meta: '15 min easy off the bike',
+              headline: 'Short easy brick — neuromuscular only',
+              warmUp: 'Straight into running.',
+              mainSet: '15 min easy off the bike at conversational pace.',
+              focus: 'Teaching the legs to run on cycling-loaded quads.',
+              paces: ['5:00–5:30 /km', 'RPE 3'],
+              considerations: [
+                'Skip if legs are cooked from Sat + Sun SS blocks',
+                'Don\'t chase pace — neuromuscular only',
+                'Brick trains the transition, doesn\'t train fitness'
+              ],
+              importance: 'Bricks teach the bike-to-run transition. Even short ones matter. Keep them light while run volume ramps.'
+            }
+          ]
+        }
+      ]
     }
 
   ]
