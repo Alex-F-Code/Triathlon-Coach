@@ -13,6 +13,7 @@
 <script src="config.js"></script>
 <script src="plans.js"></script>
 <script src="library.js"></script>
+<script src="swaps.js"></script>
 
 <style>
   /* ============================================
@@ -1679,6 +1680,278 @@
   }
 
   /* ============================================
+     SECTION BLOCKS — Warm Up / Main Set / Cool Down
+     ============================================ */
+  .section-block {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-button);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .section-block.main {
+    padding: 16px 18px;
+    background: var(--bg-subtle);
+    border-color: var(--border-strong);
+  }
+  .section-block-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section-block.main .section-block-label {
+    color: var(--accent-text);
+  }
+  .section-block.main .section-block-label::before {
+    content: '';
+    width: 14px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .section-block-content {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .section-block.main .section-block-content {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .section-block-content ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  .section-block-content li {
+    padding: 4px 0 4px 14px;
+    position: relative;
+    border-bottom: 1px dashed var(--border);
+  }
+  .section-block-content li:last-child { border-bottom: none; }
+  .section-block-content li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-faint);
+  }
+  .section-block.main .section-block-content li::before {
+    background: var(--accent);
+    width: 7px;
+    height: 7px;
+    top: 15px;
+    left: 2px;
+  }
+  .section-block.main .section-block-content li {
+    padding-left: 22px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  /* ============================================
+     MORE DETAILS — collapsible Focus/Considerations/Why
+     ============================================ */
+  .more-details {
+    margin: 6px 0 14px;
+  }
+  .more-details-toggle {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-button);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .more-details-toggle:hover {
+    background: var(--bg-strong);
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .more-details-toggle svg {
+    width: 12px;
+    height: 12px;
+    transition: transform var(--transition);
+  }
+  .more-details.open .more-details-toggle svg {
+    transform: rotate(180deg);
+  }
+  .more-details-body {
+    display: none;
+    margin-top: 10px;
+    display: none;
+  }
+  .more-details.open .more-details-body {
+    display: block;
+    animation: expandIn 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* ============================================
+     SWAP BUTTON + BADGE
+     ============================================ */
+  .swap-btn {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 11px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: var(--radius-pill);
+    font-family: inherit;
+    font-weight: 600;
+    transition: all var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .swap-btn:hover {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    border-color: var(--accent);
+  }
+  .swap-btn svg { width: 11px; height: 11px; }
+  .swap-active-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    border-radius: var(--radius-pill);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .swap-active-badge svg { width: 9px; height: 9px; }
+
+  /* ============================================
+     SWAP MODAL — alternates list
+     ============================================ */
+  .swap-hint {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .swap-current-header {
+    padding: 10px 12px;
+    background: var(--accent-soft);
+    border-radius: var(--radius-button);
+    margin-bottom: 14px;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .swap-current-header strong { color: var(--accent-text); font-weight: 700; }
+  .swap-reset-btn {
+    margin-left: auto;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-elevated);
+    color: var(--text);
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .swap-reset-btn:hover {
+    background: var(--missed-soft);
+    color: var(--missed);
+    border-color: var(--missed);
+  }
+  .swap-alternates {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .swap-alternate {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-button);
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    font-family: inherit;
+    width: 100%;
+  }
+  .swap-alternate:hover {
+    border-color: var(--accent);
+    background: var(--bg-elevated);
+    transform: translateY(-1px);
+  }
+  .swap-alternate:active { transform: translateY(0); }
+  .swap-alternate.current {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .swap-alternate-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+  .swap-alternate-icon svg { width: 16px; height: 16px; }
+  .swap-alternate-icon[data-disc="run"] { background: var(--c-run); }
+  .swap-alternate-icon[data-disc="bike"] { background: var(--c-bike); }
+  .swap-alternate-icon[data-disc="swim"] { background: var(--c-swim); }
+  .swap-alternate-icon[data-disc="strength"] { background: var(--c-strength); }
+  .swap-alternate-icon[data-disc="football"] { background: var(--c-football); }
+  .swap-alternate-icon[data-disc="rest"] { background: var(--c-rest); }
+  .swap-alternate-icon[data-disc="mobility"] { background: var(--c-mobility); }
+  .swap-alternate-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .swap-alternate-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .swap-alternate-reason {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ============================================
      RESPONSIVE
      ============================================ */
   @media (max-width: 960px) {
@@ -1994,12 +2267,14 @@
       <div class="form-group">
         <div class="form-label">Your swim pace zones · per 100m</div>
         <div class="pace-rows">
-          <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">2:05–2:15</span><span class="pace-hr">Warm-up</span></div>
-          <div class="pace-row"><span class="pace-zone">Steady aerobic</span><span class="pace-value">1:45–1:50</span><span class="pace-hr">Main sets</span></div>
-          <div class="pace-row"><span class="pace-zone">Speed</span><span class="pace-value">1:40–1:45</span><span class="pace-hr">Speed reps</span></div>
+          <div class="pace-row"><span class="pace-zone">Easy</span><span class="pace-value">1:55–2:05</span><span class="pace-hr">Warm-up</span></div>
+          <div class="pace-row"><span class="pace-zone">Long / endurance</span><span class="pace-value">1:48–1:52</span><span class="pace-hr">400m+ chunks</span></div>
+          <div class="pace-row"><span class="pace-zone">Steady aerobic</span><span class="pace-value">1:42–1:47</span><span class="pace-hr">100m main sets</span></div>
+          <div class="pace-row"><span class="pace-zone">Race / tri pace</span><span class="pace-value">1:43–1:47</span><span class="pace-hr">Sustained</span></div>
+          <div class="pace-row"><span class="pace-zone">Speed</span><span class="pace-value">1:38–1:42</span><span class="pace-hr">50s speed reps</span></div>
         </div>
         <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.55;">
-          Based on your 1:45/100m sustained pace in Week 1's main set. Targets update as you build.
+          Bumped from Week 6 after you held 1:45–1:50 comfortably across 8 × 100s in Week 5. Flex slower if a set feels rough — targets are directional, not commandments.
         </div>
       </div>
     </div>
@@ -2111,6 +2386,24 @@
   </div>
 </div>
 
+<!-- SWAP MODAL -->
+<div class="modal-backdrop" id="swapModalBackdrop" onclick="closeSwapModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Swap session</div>
+        <div class="modal-subtitle" id="swapModalSubtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeSwapModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="swapModalBody">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</div>
+
 <!-- AUTH OVERLAY -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-card">
@@ -2147,7 +2440,13 @@
   // ============================================
   // PLAN STATE — from plans.js
   // ============================================
+  // Default to the latest week with an active todayId (i.e. the current week).
+  // Future weeks written ahead of time (todayId: null) exist in the array but
+  // don't auto-load — chevron over to see them.
   let currentWeekIdx = window.COACH_PLANS.weeks.length - 1;
+  for (let i = window.COACH_PLANS.weeks.length - 1; i >= 0; i--) {
+    if (window.COACH_PLANS.weeks[i].todayId) { currentWeekIdx = i; break; }
+  }
   let currentPlan = window.COACH_PLANS.weeks[currentWeekIdx];
 
   function k(suffix) { return `coach-${currentPlan.id}-${suffix}`; }
@@ -2167,6 +2466,9 @@
   }
   let sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
   let checkin = JSON.parse(localStorage.getItem(k('checkin')) || '{}');
+  // sessionSwaps: { 'w06.mon.0': { slot: 'football', swapId: 'threshold-4x1km' }, ... }
+  // Global (not per-week namespaced) since we key by week id already.
+  let sessionSwaps = JSON.parse(localStorage.getItem('coach-session-swaps') || '{}');
   let todayId = currentPlan.todayId;
   let activeDayId = todayId || currentPlan.days[0].id;
   let activeSessionIdx = 0;
@@ -2248,6 +2550,52 @@
     localStorage.setItem(k('sessionstatus'), JSON.stringify(sessionStatus));
   }
 
+  // ============================================
+  // SWAPS — resolve, apply, reset
+  // ============================================
+  function swapKey(weekId, dayId, sessionIdx) {
+    return `${weekId}.${dayId}.${sessionIdx}`;
+  }
+
+  function getSwap(weekId, dayId, sessionIdx) {
+    return sessionSwaps[swapKey(weekId, dayId, sessionIdx)] || null;
+  }
+
+  function findAlternate(slot, altId) {
+    const slotDef = window.COACH_SWAPS && window.COACH_SWAPS[slot];
+    if (!slotDef) return null;
+    return slotDef.alternates.find(a => a.id === altId) || null;
+  }
+
+  // Resolve a session — if it has a swap applied, return the swap's session
+  // instead of the original. Adds a _swap marker for the render code.
+  function resolveSession(weekId, dayId, sessionIdx, originalSession) {
+    const swap = getSwap(weekId, dayId, sessionIdx);
+    if (!swap) return originalSession;
+    const alt = findAlternate(swap.slot, swap.swapId);
+    if (!alt) return originalSession;
+    return Object.assign({}, alt.session, {
+      _swap: { slot: swap.slot, swapId: swap.swapId, altLabel: alt.label, originalName: originalSession.name }
+    });
+  }
+
+  // Map a session to a swap slot key
+  function slotForSession(session) {
+    const text = ((session.name || '') + ' ' + (session.meta || '')).toLowerCase();
+    if (/football/.test(text)) return 'football';
+    if (/swim|pool|drill|catch|sculling/.test(text)) return 'swim';
+    if (/long bike|long ride|sweet spot|brick/.test(text)) return 'bike-long';
+    if (/threshold|reps|quality|fartlek|hill/.test(text)) return 'run-quality';
+    if (/long run|tempo finish/.test(text)) return 'run-long';
+    if (/rest|mobility|walk/.test(text)) return 'rest';
+    if (/easy run|recovery/.test(text)) return 'run-easy';
+    return 'run-easy';
+  }
+
+  function persistSwaps() {
+    localStorage.setItem('coach-session-swaps', JSON.stringify(sessionSwaps));
+  }
+
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
@@ -2267,15 +2615,18 @@
     const dayMissed = isDayMissed(d.id);
     const isToday = d.id === todayId;
     const isSelected = d.id === activeDayId;
-    const sessionsHtml = d.sessions.map((s, i) => {
+    const sessionsHtml = d.sessions.map((original, i) => {
+      // Resolve for swap overlay — day grid shows the swapped name too
+      const s = resolveSession(currentPlan.id, d.id, i, original);
       const status = getSessionStatus(d.id, i);
       const cbClass = status === 'done' ? 'done' : status === 'missed' ? 'missed' : '';
       const nameClass = status === 'done' ? 'checked' : status === 'missed' ? 'missed' : '';
       const disc = disciplineOf(s);
+      const swapMark = s._swap ? ' <span style="color: var(--accent); font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">◆</span>' : '';
       return `
         <div class="day-session-row">
           <span class="day-session-dot" data-disc="${disc}"></span>
-          <span class="day-session-name ${nameClass}">${s.name}</span>
+          <span class="day-session-name ${nameClass}">${s.name}${swapMark}</span>
           <button class="day-checkbox ${cbClass}" onclick="event.stopPropagation(); cycleSessionStatus('${d.id}', ${i});" aria-label="Cycle status">
             <svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
             <svg class="x-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -2298,7 +2649,11 @@
     const d = week.find(x => x.id === activeDayId);
     if (!d) return;
     if (activeSessionIdx >= d.sessions.length) activeSessionIdx = 0;
-    const s = d.sessions[activeSessionIdx];
+    const originalSession = d.sessions[activeSessionIdx];
+    // Apply any swap overlay
+    const s = resolveSession(currentPlan.id, d.id, activeSessionIdx, originalSession);
+    const swapActive = !!s._swap;
+
     const isToday = d.id === todayId;
     const dayDone = isDayDone(d.id);
     const dayMissed = isDayMissed(d.id);
@@ -2315,9 +2670,21 @@
     else if (dayMissed) pillHtml = '<span class="pill missed">Missed</span>';
     else pillHtml = '<span class="pill muted">Upcoming</span>';
 
+    const swapBadge = swapActive
+      ? `<span class="swap-active-badge" title="Original: ${escapeHtml(s._swap.originalName)}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          Swapped
+        </span>`
+      : '';
+
     const backBtn = (!isToday && todayId)
       ? `<button class="back-to-today" onclick="setActiveDay('${todayId}')">← Back to today</button>`
       : '';
+
+    const swapBtn = `<button class="swap-btn" onclick="openSwapModal('${d.id}', ${activeSessionIdx})" title="Swap this session for an alternative">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        Swap
+      </button>`;
 
     const selectorHtml = d.sessions.length > 1
       ? `<div class="session-selector">
@@ -2341,6 +2708,55 @@
       ? `<div class="paces-strip">${s.paces.map(p => `<div class="pace-chip">${p}</div>`).join('')}</div>`
       : '';
 
+    // Sections: Warm Up, Main Set, Cool Down (in that order)
+    const warmUpHtml = s.warmUp && s.warmUp !== '—'
+      ? `<div class="section-block">
+          <div class="section-block-label">Warm up</div>
+          <div class="section-block-content">${renderTextOrList(s.warmUp)}</div>
+        </div>`
+      : '';
+
+    const mainSetHtml = `<div class="section-block main">
+        <div class="section-block-label">Main set</div>
+        <div class="section-block-content">${renderTextOrList(s.mainSet)}</div>
+      </div>`;
+
+    const coolDownHtml = s.coolDown && s.coolDown !== '—'
+      ? `<div class="section-block">
+          <div class="section-block-label">Cool down</div>
+          <div class="section-block-content">${renderTextOrList(s.coolDown)}</div>
+        </div>`
+      : '';
+
+    // More details (collapsible): focus, considerations, why
+    const hasFocus = s.focus && s.focus !== '—';
+    const hasConsiderations = s.considerations && (Array.isArray(s.considerations) ? s.considerations.length > 0 : s.considerations !== '—');
+    const hasImportance = s.importance && s.importance !== '—';
+    const hasMore = hasFocus || hasConsiderations || hasImportance;
+
+    const moreDetailsHtml = hasMore ? `
+      <div class="more-details" id="moreDetails">
+        <button class="more-details-toggle" onclick="document.getElementById('moreDetails').classList.toggle('open')">
+          More details
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="more-details-body">
+          ${hasFocus ? `<div class="section-block">
+            <div class="section-block-label">Focus</div>
+            <div class="section-block-content">${s.focus}</div>
+          </div>` : ''}
+          ${hasConsiderations ? `<div class="section-block">
+            <div class="section-block-label">Things to think about</div>
+            <div class="section-block-content">${Array.isArray(s.considerations) ? `<ul>${s.considerations.map(c => `<li>${c}</li>`).join('')}</ul>` : s.considerations}</div>
+          </div>` : ''}
+          ${hasImportance ? `<div class="why-block">
+            <div class="why-label">Why this matters</div>
+            <div class="why-body">${s.importance}</div>
+          </div>` : ''}
+        </div>
+      </div>
+    ` : '';
+
     const wholeDayBtn = d.sessions.length > 1
       ? `<div class="today-row-secondary">
            <button class="btn btn-ghost" onclick="markDayComplete('${d.id}')">
@@ -2358,8 +2774,12 @@
         <div class="today-meta-row">
           ${pillHtml}
           <span class="today-date"><strong>${dayNames[d.id]}</strong> · ${d.date}</span>
+          ${swapBadge}
         </div>
-        ${backBtn}
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          ${swapBtn}
+          ${backBtn}
+        </div>
       </div>
 
       ${selectorHtml}
@@ -2374,32 +2794,13 @@
 
       ${s.headline ? `<div class="today-headline">${s.headline}</div>` : ''}
 
-      <div class="main-set-block">
-        <div class="main-set-label">Main set</div>
-        <div class="main-set-content">${renderTextOrList(s.mainSet)}</div>
-      </div>
-
-      <div class="sub-grid">
-        <div class="sub-card">
-          <div class="sub-card-label">Warm up</div>
-          <div class="sub-card-body">${renderTextOrList(s.warmUp)}</div>
-        </div>
-        <div class="sub-card">
-          <div class="sub-card-label">Focus</div>
-          <div class="sub-card-body">${s.focus || '—'}</div>
-        </div>
-        <div class="sub-card">
-          <div class="sub-card-label">Things to think about</div>
-          <div class="sub-card-body">${Array.isArray(s.considerations) ? `<ul>${s.considerations.map(c => `<li>${c}</li>`).join('')}</ul>` : (s.considerations || '—')}</div>
-        </div>
-      </div>
-
       ${pacesHtml}
 
-      ${s.importance ? `<div class="why-block">
-        <div class="why-label">Why this matters</div>
-        <div class="why-body">${s.importance}</div>
-      </div>` : ''}
+      ${warmUpHtml}
+      ${mainSetHtml}
+      ${coolDownHtml}
+
+      ${moreDetailsHtml}
 
       <div class="today-actions">
         <button class="btn btn-primary" onclick="setSessionStatus('${d.id}', ${activeSessionIdx}, ${sessionDone ? 'null' : "'done'"})">
@@ -2686,6 +3087,92 @@
     activeDayId = todayId || currentPlan.days[0].id;
     activeSessionIdx = 0;
     renderPlanHeader();
+    renderWeek();
+  }
+
+  // ============================================
+  // SWAP MODAL
+  // ============================================
+  let swapModalContext = null; // { dayId, sessionIdx, slot }
+
+  function openSwapModal(dayId, sessionIdx) {
+    const d = week.find(x => x.id === dayId);
+    if (!d) return;
+    const original = d.sessions[sessionIdx];
+    const currentSession = resolveSession(currentPlan.id, dayId, sessionIdx, original);
+    const slot = slotForSession(original);
+    swapModalContext = { dayId, sessionIdx, slot };
+
+    const slotDef = (window.COACH_SWAPS && window.COACH_SWAPS[slot]) || null;
+    const currentSwap = getSwap(currentPlan.id, dayId, sessionIdx);
+    const currentAlt = currentSwap ? findAlternate(currentSwap.slot, currentSwap.swapId) : null;
+
+    document.getElementById('swapModalSubtitle').textContent =
+      `${dayNames[dayId]} ${d.date} · ${original.name}`;
+
+    let bodyHtml = '';
+
+    if (!slotDef) {
+      bodyHtml = `<div class="swap-hint">No alternates configured for this session type yet. Send a note to your coach and one will be added.</div>`;
+    } else {
+      bodyHtml += `<div class="swap-hint">${slotDef.hint || ''}</div>`;
+
+      if (currentAlt) {
+        bodyHtml += `
+          <div class="swap-current-header">
+            <span>Currently swapped to <strong>${escapeHtml(currentAlt.label)}</strong></span>
+            <button class="swap-reset-btn" onclick="resetSwap()">Reset to original</button>
+          </div>
+        `;
+      }
+
+      bodyHtml += `<div class="swap-alternates">`;
+      slotDef.alternates.forEach(alt => {
+        const isCurrent = currentSwap && currentSwap.swapId === alt.id;
+        bodyHtml += `
+          <button class="swap-alternate ${isCurrent ? 'current' : ''}" onclick="applySwap('${slot}', '${alt.id}')">
+            <div class="swap-alternate-icon" data-disc="${alt.icon || 'run'}">${icons[alt.icon] || icons.run}</div>
+            <div class="swap-alternate-content">
+              <div class="swap-alternate-label">${escapeHtml(alt.label)}${isCurrent ? ' · current' : ''}</div>
+              <div class="swap-alternate-reason">${escapeHtml(alt.reason || '')} · ${escapeHtml(alt.session.meta || '')}</div>
+            </div>
+          </button>
+        `;
+      });
+      bodyHtml += `</div>`;
+    }
+
+    document.getElementById('swapModalBody').innerHTML = bodyHtml;
+    document.getElementById('swapModalBackdrop').classList.add('show');
+  }
+
+  function closeSwapModal() {
+    document.getElementById('swapModalBackdrop').classList.remove('show');
+    swapModalContext = null;
+  }
+
+  function applySwap(slot, altId) {
+    if (!swapModalContext) return;
+    const { dayId, sessionIdx } = swapModalContext;
+    const key = swapKey(currentPlan.id, dayId, sessionIdx);
+    sessionSwaps[key] = { slot, swapId: altId, appliedAt: new Date().toISOString() };
+    persistSwaps();
+    pushSwapToSupabase(currentPlan.id, dayId, sessionIdx, slot, altId);
+    closeSwapModal();
+    const alt = findAlternate(slot, altId);
+    toast(`Swapped to ${alt ? alt.label : 'alternate'}`);
+    renderWeek();
+  }
+
+  function resetSwap() {
+    if (!swapModalContext) return;
+    const { dayId, sessionIdx } = swapModalContext;
+    const key = swapKey(currentPlan.id, dayId, sessionIdx);
+    delete sessionSwaps[key];
+    persistSwaps();
+    deleteSwapFromSupabase(currentPlan.id, dayId, sessionIdx);
+    closeSwapModal();
+    toast('Reset to original plan');
     renderWeek();
   }
 
@@ -3153,14 +3640,16 @@
     if (!currentUser || !supabaseClient) return;
     const uid = currentUser.id;
     try {
-      const [statusRes, logRes, checkinRes] = await Promise.all([
+      const [statusRes, logRes, checkinRes, swapRes] = await Promise.all([
         supabaseClient.from('session_statuses').select('*').eq('user_id', uid),
         supabaseClient.from('session_logs').select('*').eq('user_id', uid),
-        supabaseClient.from('checkins').select('*').eq('user_id', uid)
+        supabaseClient.from('checkins').select('*').eq('user_id', uid),
+        supabaseClient.from('session_swaps').select('*').eq('user_id', uid)
       ]);
       const statuses = statusRes.data || [];
       const logs = logRes.data || [];
       const checkins = checkinRes.data || [];
+      const swaps = swapRes.data || [];
       window.COACH_PLANS.weeks.forEach(plan => {
         const statusObj = {};
         statuses.filter(r => r.week_id === plan.id).forEach(r => {
@@ -3181,6 +3670,16 @@
           localStorage.setItem(`coach-${plan.id}-checkin`, JSON.stringify(data));
         }
       });
+      // Swaps are global (all weeks) — rebuild the in-memory map
+      const swapObj = {};
+      swaps.forEach(r => {
+        swapObj[`${r.week_id}.${r.day_id}.${r.session_idx}`] = {
+          slot: r.swap_slot, swapId: r.swap_id, appliedAt: r.applied_at
+        };
+      });
+      sessionSwaps = swapObj;
+      localStorage.setItem('coach-session-swaps', JSON.stringify(sessionSwaps));
+
       if (currentPlan) {
         sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || '{}');
         sessionLog = JSON.parse(localStorage.getItem(k('sessionlog')) || '{}');
@@ -3228,6 +3727,29 @@
     } catch (e) { console.warn('Supabase checkin sync failed', e); }
   }
 
+  async function pushSwapToSupabase(weekId, dayId, sessionIdx, slot, swapId) {
+    if (!currentUser || !supabaseClient) return;
+    try {
+      await supabaseClient.from('session_swaps').upsert({
+        user_id: currentUser.id,
+        week_id: weekId,
+        day_id: dayId,
+        session_idx: sessionIdx,
+        swap_slot: slot,
+        swap_id: swapId
+      }, { onConflict: 'user_id,week_id,day_id,session_idx' });
+    } catch (e) { console.warn('Supabase swap sync failed', e); }
+  }
+
+  async function deleteSwapFromSupabase(weekId, dayId, sessionIdx) {
+    if (!currentUser || !supabaseClient) return;
+    try {
+      await supabaseClient.from('session_swaps').delete().match({
+        user_id: currentUser.id, week_id: weekId, day_id: dayId, session_idx: sessionIdx
+      });
+    } catch (e) { console.warn('Supabase swap delete failed', e); }
+  }
+
   async function migrateLocalToSupabase() {
     if (!currentUser || !supabaseClient) return;
     if (localStorage.getItem('coach-migrated-to-supabase')) return;
@@ -3272,6 +3794,7 @@
     if (e.key === 'Escape') {
       if (document.getElementById('timerModalBackdrop').classList.contains('show')) closeTimer();
       if (document.getElementById('logModalBackdrop').classList.contains('show')) closeLogModal();
+      if (document.getElementById('swapModalBackdrop').classList.contains('show')) closeSwapModal();
     }
   });
 </script>

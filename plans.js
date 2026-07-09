@@ -1002,9 +1002,9 @@ window.COACH_PLANS = {
               '1 km at 3:55–4:00/km — hold form, don\'t chase pace',
               '90s easy jog recovery',
               '1 km at 3:55–4:00/km — finish strong but controlled',
-              'Optional 5th rep at 3:55–4:00/km if the first 4 felt controlled — decide with 500m to go on rep 4',
-              '10 min easy jog cool-down'
+              'Optional 5th rep at 3:55–4:00/km if the first 4 felt controlled — decide with 500m to go on rep 4'
             ],
+            coolDown: '10 min easy jog at 5:00–5:15/km — HR drops back to Z2 before you stop. Do not stop at the end of the last rep; keep moving for at least 5 min.',
             focus: 'Even effort across all reps. Three-to-four word sentences only during reps. Rep 1 should feel almost too easy — that means the pace is right.',
             paces: ['Reps: 3:55–4:00 /km', 'Recovery: 90s jog', 'HR 165–172'],
             considerations: [
@@ -1199,6 +1199,7 @@ window.COACH_PLANS = {
             headline: 'Weekly 5-a-side — the Monday anaerobic dose',
             warmUp: 'Active warm-up before kick-off: skips, lateral shuffles, accelerations.',
             mainSet: '60 min 5-a-side football.',
+            coolDown: 'Walk 5 min after the final whistle to bring HR down, then stretch calves, hip flexors, adductors, hamstrings. Football hits those four hardest — 10 min of proper stretching now saves you Tuesday\'s tightness.',
             focus: 'Sprints, change of direction, reactive movement. This is the week\'s neuromuscular work — replaces gym lower work you\'d otherwise have to do.',
             paces: ['RPE 6–8 in bursts', 'HR variable'],
             considerations: [
@@ -1217,6 +1218,7 @@ window.COACH_PLANS = {
             headline: 'Aerobic base — building week-on-week',
             warmUp: 'First km deliberately slow — HR settles.',
             mainSet: '8 km continuous at easy aerobic pace.',
+            coolDown: 'Last 500m drop to a walk — 3–5 min of walking after helps HR come down properly and starts recovery for Thursday.',
             focus: 'Conversational. This is aerobic engine building, not a session to push.',
             paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
             considerations: [
@@ -1244,9 +1246,9 @@ window.COACH_PLANS = {
               '100m easy between blocks',
               '4 × 100m descending (start at 1:47, finish at 1:40) with 30s rest — each 100 slightly faster than the last',
               '100m easy',
-              '4 × 50m at 1:38–1:42 with 25s rest — last block, hold form as fatigue builds',
-              '200m easy cool-down'
+              '4 × 50m at 1:38–1:42 with 25s rest — last block, hold form as fatigue builds'
             ],
+            coolDown: '200m easy freestyle at 2:00–2:10 /100m — mixing strokes fine (backstroke, breaststroke). Focus on long, easy strokes to flush the arms.',
             focus: 'Speed is about turnover and clean catch, not muscling. 50s should feel sharp but sustainable — leave a rep in the tank.',
             paces: ['Speed: 1:38–1:42 /100m', 'Descending 100s: 1:47 → 1:40', 'Easy: 1:55–2:05 /100m'],
             considerations: [
@@ -1275,9 +1277,9 @@ window.COACH_PLANS = {
               '90s easy jog recovery',
               '1 km at 3:55–4:00/km — hold form, don\'t chase pace',
               '90s easy jog recovery',
-              '1 km at 3:55–4:00/km — finish strong but controlled',
-              '10 min easy jog cool-down'
+              '1 km at 3:55–4:00/km — finish strong but controlled'
             ],
+            coolDown: '10 min easy jog at 5:00–5:15/km — HR drops back to Z2 before you stop. Do not stop at the end of the last rep; keep moving for at least 5 min.',
             focus: 'Even effort across all 4 reps. Three-to-four word sentences only. First rep should feel almost too easy — that means the pace is right.',
             paces: ['Reps: 3:55–4:00 /km', 'Recovery: 90s jog', 'HR 165–172'],
             considerations: [
@@ -1320,6 +1322,7 @@ window.COACH_PLANS = {
               '8 km easy at 4:45–5:00 /km (HR <150) — settle in',
               '5 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
             ],
+            coolDown: 'Do NOT stop at the end of the tempo — jog 5 min easy at 5:00–5:30 /km to bring HR down gradually. Walk 5 min after that. Refuel within 20 min.',
             focus: 'Same tempo as Week 6, longer easy portion first. Building fatigue tolerance — tempo needs to hold when legs already have 8 km in them.',
             paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
             considerations: [
@@ -1345,9 +1348,9 @@ window.COACH_PLANS = {
                 '15 min sweet spot — RPE 6–7, HR 145–155',
                 '10 min easy spin recovery',
                 '15 min sweet spot — RPE 6–7, HR 145–155',
-                '35 min steady Z2',
-                '5 min cool-down spin'
+                '35 min steady Z2'
               ],
+              coolDown: '5 min easy spin at RPE 2 — legs flush before you dismount. Do NOT skip this if you\'re doing the brick run — it makes the bike-to-run transition safer.',
               focus: 'Second week of 2 × 15 SS — target is holding the same effort on block 2 as block 1. Bike stays supporting the run block, not competing with it.',
               paces: ['Z2: RPE 3–4, HR 130–145', 'Sweet spot: RPE 6–7, HR 145–155'],
               considerations: [
@@ -1365,6 +1368,7 @@ window.COACH_PLANS = {
               headline: 'Short easy brick — neuromuscular only',
               warmUp: 'Straight into running.',
               mainSet: '15 min easy off the bike at conversational pace.',
+              coolDown: 'Walk 5 min after — the brick was already short, so no formal jog cool-down needed. Refuel within 20 min.',
               focus: 'Teaching the legs to run on cycling-loaded quads.',
               paces: ['5:00–5:30 /km', 'RPE 3'],
               considerations: [
