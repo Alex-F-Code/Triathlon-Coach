@@ -732,6 +732,9 @@
     min-height: 84px;
     text-align: left;
     position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
   .day-box:hover {
     border-color: var(--border-strong);
@@ -1680,6 +1683,53 @@
   }
 
   /* ============================================
+     SESSION DETAIL MODAL — wider variant, discipline stripe
+     ============================================ */
+  .modal.session-modal {
+    max-width: 640px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal.session-modal .modal-header {
+    padding: 20px 24px 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    background: var(--bg-elevated);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  .modal.session-modal .modal-body {
+    padding: 20px 24px 24px;
+    margin-bottom: 0;
+    overflow-y: auto;
+    flex: 1;
+    position: relative;
+  }
+  .modal.session-modal .modal-body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+  }
+  .modal.session-modal[data-disc="run"] .modal-body::before { background: var(--c-run); }
+  .modal.session-modal[data-disc="bike"] .modal-body::before { background: var(--c-bike); }
+  .modal.session-modal[data-disc="swim"] .modal-body::before { background: var(--c-swim); }
+  .modal.session-modal[data-disc="strength"] .modal-body::before { background: var(--c-strength); }
+  .modal.session-modal[data-disc="football"] .modal-body::before { background: var(--c-football); }
+  .modal.session-modal[data-disc="rest"] .modal-body::before { background: var(--c-rest); }
+  .modal.session-modal[data-disc="mobility"] .modal-body::before { background: var(--c-mobility); }
+  @media (max-width: 640px) {
+    .modal.session-modal { max-width: 100%; max-height: 92vh; margin: 0; border-radius: 16px 16px 0 0; }
+    #sessionModalBackdrop { align-items: flex-end; padding: 0; }
+    .modal.session-modal .modal-body { padding: 18px 18px 24px; }
+    .modal.session-modal .modal-header { padding: 18px 18px 12px; }
+  }
+
+  /* ============================================
      SECTION BLOCKS — Warm Up / Main Set / Cool Down
      ============================================ */
   .section-block {
@@ -2386,6 +2436,22 @@
   </div>
 </div>
 
+<!-- SESSION DETAIL MODAL (double-tap on day tile opens this) -->
+<div class="modal-backdrop" id="sessionModalBackdrop" onclick="closeSessionModal()">
+  <div class="modal session-modal" id="sessionModal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="sessionModalTitle">Session</div>
+        <div class="modal-subtitle" id="sessionModalSubtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeSessionModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="sessionModalBody"></div>
+  </div>
+</div>
+
 <!-- SWAP MODAL -->
 <div class="modal-backdrop" id="swapModalBackdrop" onclick="closeSwapModal()">
   <div class="modal" onclick="event.stopPropagation()">
@@ -2635,7 +2701,7 @@
       `;
     }).join('');
     return `
-      <div class="day-box ${dayDone ? 'done' : ''} ${dayMissed ? 'missed' : ''} ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''} ${d.rest ? 'rest' : ''}" onclick="setActiveDay('${d.id}')">
+      <div class="day-box ${dayDone ? 'done' : ''} ${dayMissed ? 'missed' : ''} ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''} ${d.rest ? 'rest' : ''}" onclick="dayBoxTap('${d.id}')" ondblclick="openSessionModal('${d.id}')" title="Tap to select · double-tap to open">
         <div class="day-box-label"><span>${d.day}</span><span style="color: var(--text-faint); font-weight: 600; letter-spacing: 0;">${d.date.split(' ')[0]}</span></div>
         <div class="day-box-sessions">${sessionsHtml}</div>
       </div>
@@ -2735,8 +2801,8 @@
     const hasMore = hasFocus || hasConsiderations || hasImportance;
 
     const moreDetailsHtml = hasMore ? `
-      <div class="more-details" id="moreDetails">
-        <button class="more-details-toggle" onclick="document.getElementById('moreDetails').classList.toggle('open')">
+      <div class="more-details">
+        <button class="more-details-toggle" onclick="this.closest('.more-details').classList.toggle('open')">
           More details
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
@@ -2768,8 +2834,7 @@
          </div>`
       : '';
 
-    document.getElementById('todayCard').setAttribute('data-disc', disc);
-    document.getElementById('todayCard').innerHTML = `
+    const cardHtml = `
       <div class="today-top">
         <div class="today-meta-row">
           ${pillHtml}
@@ -2821,6 +2886,48 @@
       ${wholeDayBtn}
       ${logStamp}
     `;
+    const todayCard = document.getElementById('todayCard');
+    todayCard.setAttribute('data-disc', disc);
+    todayCard.innerHTML = cardHtml;
+
+    // Mirror into the session detail modal if it's open
+    const sessionModal = document.getElementById('sessionModal');
+    const sessionModalBackdrop = document.getElementById('sessionModalBackdrop');
+    if (sessionModalBackdrop && sessionModalBackdrop.classList.contains('show')) {
+      sessionModal.setAttribute('data-disc', disc);
+      document.getElementById('sessionModalTitle').textContent = s.name;
+      document.getElementById('sessionModalSubtitle').textContent = `${dayNames[d.id]} ${d.date}${s.meta ? ' · ' + s.meta : ''}`;
+      document.getElementById('sessionModalBody').innerHTML = cardHtml;
+    }
+  }
+
+  // ============================================
+  // SESSION DETAIL MODAL — opened by double-tapping a day tile
+  // ============================================
+  let lastDayTap = { id: null, time: 0 };
+  const DOUBLE_TAP_MS = 350;
+
+  function dayBoxTap(id) {
+    const now = Date.now();
+    const isDouble = lastDayTap.id === id && (now - lastDayTap.time) < DOUBLE_TAP_MS;
+    if (isDouble) {
+      setActiveDay(id);
+      openSessionModal(id);
+      lastDayTap = { id: null, time: 0 };
+    } else {
+      setActiveDay(id);
+      lastDayTap = { id, time: now };
+    }
+  }
+
+  function openSessionModal(id) {
+    activeDayId = id;
+    document.getElementById('sessionModalBackdrop').classList.add('show');
+    renderActiveDay(); // populates the modal body via the mirror in renderActiveDay
+  }
+
+  function closeSessionModal() {
+    document.getElementById('sessionModalBackdrop').classList.remove('show');
   }
 
   // ============================================
@@ -3795,6 +3902,7 @@
       if (document.getElementById('timerModalBackdrop').classList.contains('show')) closeTimer();
       if (document.getElementById('logModalBackdrop').classList.contains('show')) closeLogModal();
       if (document.getElementById('swapModalBackdrop').classList.contains('show')) closeSwapModal();
+      if (document.getElementById('sessionModalBackdrop').classList.contains('show')) closeSessionModal();
     }
   });
 </script>
