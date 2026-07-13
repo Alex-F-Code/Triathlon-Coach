@@ -975,7 +975,7 @@ window.COACH_PLANS = {
       title: 'Endurance swim + bike SS + Mon quality',
       dateRange: '6–12 July',
       year: 2026,
-      todayId: 'mon',
+      todayId: null,
       stats: {
         runKm: '~28 km',
         bikeKm: '~55 km',
@@ -1182,32 +1182,33 @@ window.COACH_PLANS = {
       title: '10K build — Thu quality intro',
       dateRange: '13–19 July',
       year: 2026,
-      todayId: null,
+      todayId: 'mon',
       stats: {
-        runKm: '~25 km',
-        bikeKm: '~55 km',
-        swimM: '~2000m',
+        runKm: '~26 km',
+        bikeKm: '~50 km',
+        swimM: '~2100m',
         totalHours: '~7:00'
       },
-      focusHtml: 'First week of the <strong>sub-37 10K build</strong> (race target Jan). <strong>Thursday quality slot introduced</strong> — 4 × 1 km threshold reps at 3:55–4:00/km (same pace you handled clean in Week 4). Sat long extends to 13 km with 5 km tempo. Gym S&amp;C now demoted — optional home work only. Wed swim rotation → Type C (speed/form). Weekend flex around partner as normal.',
+      focusHtml: 'First week of the <strong>sub-37 10K build</strong>. <strong>Adjusted for lighter Week 6</strong> — Monday football off so easy run + optional S&amp;C (not a repeat threshold), Sat tempo trimmed 5 → 3 km, Sun bike back to 1 × 15 SS. <strong>Thu 4 × 1 km threshold at 3:55–4:00/km stays the main session</strong> — bank this one. Solo weekend so Sat/Sun are yours to hit.',
       days: [
         {
           id: 'mon', day: 'Mon', date: '13 Jul',
-          name: 'Football', meta: '60 min',
+          name: 'Easy run + optional home S&C', meta: '6 km + 30 min',
           sessions: [{
-            name: 'Football', meta: '60 min · work fixture',
-            headline: 'Weekly 5-a-side — the Monday anaerobic dose',
-            warmUp: 'Active warm-up before kick-off: skips, lateral shuffles, accelerations.',
-            mainSet: '60 min 5-a-side football.',
-            coolDown: 'Walk 5 min after the final whistle to bring HR down, then stretch calves, hip flexors, adductors, hamstrings. Football hits those four hardest — 10 min of proper stretching now saves you Tuesday\'s tightness.',
-            focus: 'Sprints, change of direction, reactive movement. This is the week\'s neuromuscular work — replaces gym lower work you\'d otherwise have to do.',
-            paces: ['RPE 6–8 in bursts', 'HR variable'],
+            name: 'Easy run + optional home S&C', meta: '6 km · 35 min + optional S&C',
+            headline: 'Football off — easy aerobic to re-set after last week\'s off-feeling week',
+            warmUp: 'First km deliberately slow — let HR settle. If legs feel dead by 2 km, cut it short without guilt.',
+            mainSet: '6 km continuous at easy aerobic pace — conversational throughout.',
+            coolDown: 'Last 500m drop to walk, 3 min walking after. Then optional home S&C: 3 rounds of 12 squats / 8 push-ups / 10 reverse lunges / 8 single-leg RDLs / 30s plank.',
+            focus: 'Deliberately not a repeat of last week\'s missed threshold. Easy today protects Thursday\'s quality, which is the main session of the week.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
             considerations: [
-              'No additional run quality on Mondays',
-              'Stretch off after — calves and hip flexors',
-              'Optional home upper-body work after if you fancy (push-ups, pike push-ups, bird-dog, planks) — not prescribed'
+              'Not chasing quality today — last week\'s "off" feeling is a real signal',
+              'If legs feel genuinely fresh and you want quality, swap to Fartlek 6×2min via the swap button',
+              'Home S&C is optional bonus — skip if legs still feel heavy',
+              'Thursday\'s 4×1km is the priority quality this week — protect it'
             ],
-            importance: 'Football gives you the anaerobic/neuromuscular stimulus that intervals would otherwise cost a run session. Free training — take it, don\'t double up.'
+            importance: "Last Monday's threshold didn't happen because the engine wasn't ready. Repeating the same prescription today would likely produce the same outcome. Easy + optional S&C banks a session, keeps consistency, and leaves the tank for Thursday. If you feel great, the swap library is one tap away."
           }]
         },
         {
@@ -1313,55 +1314,53 @@ window.COACH_PLANS = {
         },
         {
           id: 'sat', day: 'Sat', date: '18 Jul',
-          name: 'Long run + tempo finish', meta: '13 km · 70 min',
+          name: 'Long run + short tempo', meta: '12 km · 65 min',
           sessions: [{
-            name: 'Long run + 5km tempo finish', meta: '13 km · 70 min',
-            headline: 'Long run with sustained tempo finish — the week\'s second quality',
+            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
+            headline: 'Long run with modest tempo finish — dialled back from 5 → 3 km after lighter Week 6',
             warmUp: 'First 1–2 km deliberately slow — HR rises naturally.',
             mainSet: [
-              '8 km easy at 4:45–5:00 /km (HR <150) — settle in',
-              '5 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
+              '9 km easy at 4:45–5:00 /km (HR <150) — settle in',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
             ],
-            coolDown: 'Do NOT stop at the end of the tempo — jog 5 min easy at 5:00–5:30 /km to bring HR down gradually. Walk 5 min after that. Refuel within 20 min.',
-            focus: 'Same tempo as Week 6, longer easy portion first. Building fatigue tolerance — tempo needs to hold when legs already have 8 km in them.',
+            coolDown: 'Do NOT stop at the end of the tempo — jog 5 min easy at 5:00–5:30 /km to bring HR down. Walk 5 min after. Refuel within 20 min.',
+            focus: 'Trimmed tempo distance to 3 km — a moderate return to Sat quality after a lighter week. Downgrade to full easy if legs feel off from Thu threshold.',
             paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
             considerations: [
-              'Volume up 1 km from Week 6 (12 → 13 km) — easy portion is the addition',
-              'Second quality of the week after Thu threshold — tempo should feel harder in the legs than a fresh-legs Saturday',
-              'Even effort > faster start — first km of tempo should feel almost too easy',
-              'Bail rule: 2 km into tempo and it feels wrong, run the rest easy',
-              'Weekend flex: if partner has a long run planned, join her for the easy 8 km and do the tempo alone — or swap to Sun and shift the bike'
+              'Tempo trimmed 5 → 3 km given Week 6 was lighter than planned',
+              'Downgrade rule: if legs feel off after Thu threshold, drop tempo entirely and run the 12 km easy',
+              'Second quality of the week after Thu — this one is optional if Thu drained you',
+              'No partner training this weekend so this is yours to hit or bail'
             ],
-            importance: "Sat long run trains tempo tolerance with cumulative fatigue — different stimulus to Thu's fresh-legs threshold. Both matter for sub-37: Thu lifts the ceiling, Sat teaches you to hold pace when tired."
+            importance: "Sat long trains tempo tolerance with cumulative fatigue — different stimulus to Thu's fresh-legs threshold. Modest tempo distance protects against the same pattern as Week 6 where quality got skipped altogether."
           }]
         },
         {
           id: 'sun', day: 'Sun', date: '19 Jul',
-          name: 'Long bike + 2×15 SS + brick', meta: '2:15 + 15 min · ~55 km',
+          name: 'Long bike + 1×15 SS + brick', meta: '2:00 + 15 min · ~50 km',
           sessions: [
             {
-              name: 'Long bike — 2 × 15 sweet spot', meta: '2:15 · ~55 km',
-              headline: 'Same shape as Week 6 — hold the sweet spot progression steady',
+              name: 'Long bike — 1 × 15 sweet spot', meta: '2:00 · ~50 km',
+              headline: 'Dialled back to 1 × 15 SS after lighter Week 6 — bike waits behind the run block',
               warmUp: '15 min easy spinning, building from very easy to Z2.',
               mainSet: [
-                '30 min steady Z2 — RPE 3–4, HR 130–145',
+                '40 min steady Z2 — RPE 3–4, HR 130–145',
                 '15 min sweet spot — RPE 6–7, HR 145–155',
-                '10 min easy spin recovery',
-                '15 min sweet spot — RPE 6–7, HR 145–155',
-                '35 min steady Z2'
+                '5 min easy spin recovery',
+                '45 min steady Z2',
+                '5 min cool-down spin'
               ],
-              coolDown: '5 min easy spin at RPE 2 — legs flush before you dismount. Do NOT skip this if you\'re doing the brick run — it makes the bike-to-run transition safer.',
-              focus: 'Second week of 2 × 15 SS — target is holding the same effort on block 2 as block 1. Bike stays supporting the run block, not competing with it.',
+              coolDown: '5 min easy spin at RPE 2 — legs flush before you dismount. Do NOT skip this if you\'re doing the brick run.',
+              focus: 'One sweet spot block only this week — the second block waits until Sat + Thu quality land cleanly. Run is priority.',
               paces: ['Z2: RPE 3–4, HR 130–145', 'Sweet spot: RPE 6–7, HR 145–155'],
               considerations: [
-                'Same sweet spot volume as Week 6 — holding not building this week (running quality is the priority)',
-                'Even effort across both blocks',
-                'Fuel: 40–50 g carbs/hour after 60 min',
-                'If Sat long run tempo was rough, drop SS to RPE 6 or 1 × 15',
-                'Weekend flex: swap for partner\'s ride if she has one',
-                'Bike progression sits behind run — next SS bump (2 × 20) waits until Week 10'
+                'Dropped 2 × 15 → 1 × 15 given Week 6 was lighter and this Sat has quality',
+                'No partner ride this weekend — this is yours',
+                'Fuel: 30–40 g carbs/hour after 60 min',
+                'If Sat tempo was hard, drop SS to Z2-only and log a clean ride',
+                'Bike progression resumes next week if this Thu + Sat both land clean'
               ],
-              importance: 'Bike now supports the run block rather than competing with it. Holding 2 × 15 SS steady while run volume climbs is the correct pattern — you can\'t progress two disciplines aggressively at once. Sub-37 10K requires the run to be the priority.'
+              importance: 'Bike supports the run block — not competing with it. Holding steady this week protects the two run qualities. The 2 × 15 SS returns as soon as the run schedule stabilises.'
             },
             {
               name: 'Brick run', meta: '15 min easy off the bike',
