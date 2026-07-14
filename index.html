@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Coach — Triathlon Training</title>
+<meta name="theme-color" id="themeColorMeta" content="#fbfaf7">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -233,7 +234,10 @@
     font-size: 14px;
     color: var(--text-muted);
     font-weight: 500;
+    cursor: pointer;
+    transition: color var(--transition);
   }
+  .week-title:hover strong { color: var(--accent); }
   .week-title strong {
     color: var(--text);
     font-family: var(--font-display);
@@ -307,9 +311,39 @@
   .today-card[data-disc="rest"]::before { background: var(--c-rest); }
   .today-card[data-disc="mobility"]::before { background: var(--c-mobility); }
 
+  /* Soft discipline-coloured glow in the card's top corner */
+  .today-card::after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, currentColor 0%, transparent 68%);
+    opacity: 0.07;
+    pointer-events: none;
+    color: var(--accent);
+  }
+  .today-card[data-disc="run"]::after { color: var(--c-run); }
+  .today-card[data-disc="bike"]::after { color: var(--c-bike); }
+  .today-card[data-disc="swim"]::after { color: var(--c-swim); }
+  .today-card[data-disc="strength"]::after { color: var(--c-strength); }
+  .today-card[data-disc="football"]::after { color: var(--c-football); }
+  .today-card[data-disc="rest"]::after { color: var(--c-rest); }
+  .today-card[data-disc="mobility"]::after { color: var(--c-mobility); }
+
   @keyframes cardIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideFromRight {
+    from { opacity: 0; transform: translateX(26px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideFromLeft {
+    from { opacity: 0; transform: translateX(-26px); }
+    to { opacity: 1; transform: translateX(0); }
   }
 
   .today-top {
@@ -656,6 +690,43 @@
     font-size: 11px;
   }
 
+  /* Next-up teaser — shown when today is done or a rest day */
+  .next-up {
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--bg-subtle);
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius-button);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: all var(--transition);
+  }
+  .next-up:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .next-up-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-text);
+    flex-shrink: 0;
+  }
+  .next-up-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 0;
+  }
+  .next-up svg { width: 14px; height: 14px; color: var(--text-faint); flex-shrink: 0; }
+
   /* ============================================
      BUTTONS
      ============================================ */
@@ -940,6 +1011,12 @@
     color: var(--text-muted);
   }
   .progress-summary-text strong { color: var(--text); font-weight: 600; }
+  .progress-ring.pop { animation: ringPop 420ms cubic-bezier(0.32, 0.72, 0, 1); }
+  @keyframes ringPop {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
 
   .sidebar-stats {
     display: grid;
@@ -996,6 +1073,29 @@
     margin-bottom: 6px;
   }
   .sidebar-focus strong { color: var(--accent-text); }
+
+  /* Goal footer — sub-37 countdown */
+  .sidebar-goal {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--accent-soft);
+    border-radius: var(--radius-button);
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .sidebar-goal strong { color: var(--accent-text); }
+  .sidebar-goal .goal-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .sidebar-goal .goal-num {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 11px;
+  }
 
   /* ============================================
      EMPTY STATE
@@ -2005,11 +2105,18 @@
      RESPONSIVE
      ============================================ */
   @media (max-width: 960px) {
-    .plan-columns { grid-template-columns: 1fr; }
-    .plan-sidebar { position: static; order: -1; }
-    .today-card { order: 0; }
+    /* The daily-glance order: week strip → today's session → progress.
+       plan-columns dissolves (display: contents) so its children can be
+       ordered against the week grid. */
+    #view-plan.active { display: flex; flex-direction: column; }
+    .plan-columns { display: contents; }
+    .empty-banner { order: -3; }
+    .week-nav { order: -2; }
+    .week-grid { order: -1; }
+    .today-card { order: 0; margin-bottom: 14px; }
+    .plan-sidebar { order: 1; position: static; }
     .sub-grid { grid-template-columns: 1fr; }
-    /* Compact sidebar when stacked above today card */
+    /* Compact sidebar */
     .plan-sidebar .sidebar-card { padding: 14px 16px; }
     .progress-ring { width: 60px; height: 60px; }
     .progress-ring-value { font-size: 18px; }
@@ -2020,46 +2127,56 @@
   @media (max-width: 640px) {
     .app { padding: 0 14px; }
     .today-card { padding: 20px 18px; }
-    .today-title { font-size: 28px; }
+    .today-title { font-size: 26px; }
     .pace-row { grid-template-columns: 100px 1fr auto; gap: 8px; }
     .sidebar-stats { grid-template-columns: repeat(2, 1fr); }
 
-    /* Day grid becomes a vertical list — each day is a full-width row */
+    /* Week strip — compact glance chips, one per day.
+       Names live in the session card below; tap a chip to load it,
+       double-tap to open the popup. */
     .week-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
     }
     .day-box {
-      flex-direction: row;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 14px;
-      min-height: 0;
-    }
-    .day-box-label {
-      width: 44px;
-      flex-shrink: 0;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-      font-size: 11px;
-    }
-    .day-box-label span:last-child {
-      font-size: 10px;
-      color: var(--text-faint);
-      letter-spacing: 0;
-      text-transform: none;
-    }
-    .day-box-sessions {
-      flex: 1;
-      gap: 6px;
-    }
-    .day-session-row {
       align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 2px 10px;
+      min-height: 0;
+      animation: chipIn 320ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
     }
-    .day-session-dot { margin-top: 0; }
-    .day-session-name { font-size: 13px; }
+    .day-box:nth-child(1) { animation-delay: 0ms; }
+    .day-box:nth-child(2) { animation-delay: 30ms; }
+    .day-box:nth-child(3) { animation-delay: 60ms; }
+    .day-box:nth-child(4) { animation-delay: 90ms; }
+    .day-box:nth-child(5) { animation-delay: 120ms; }
+    .day-box:nth-child(6) { animation-delay: 150ms; }
+    .day-box:nth-child(7) { animation-delay: 180ms; }
+    .day-box-label { width: auto; }
+    .day-box-label span:first-child { font-size: 10px; }
+    .day-box-label span:last-child { display: none; }
+    .day-box.done .day-box-label span:first-child::after { content: '✓'; color: var(--success); margin-left: 2px; }
+    .day-box.missed .day-box-label span:first-child::after { content: '×'; color: var(--missed); margin-left: 2px; }
+    .day-box-sessions {
+      flex: 0 0 auto;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+    .day-session-row { gap: 0; align-items: center; }
+    .day-session-name { display: none; }
+    .day-checkbox { display: none; }
+    .day-session-dot { width: 7px; height: 7px; margin: 0; }
+    .day-box.done { opacity: 1; background: var(--success-soft); border-color: transparent; }
+    .day-box.missed { opacity: 1; background: var(--missed-soft); border-color: transparent; }
+  }
+  @keyframes chipIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   @media (max-width: 480px) {
     .today-title { font-size: 24px; }
@@ -2119,7 +2236,7 @@
     <!-- Week nav (prev / title / next) -->
     <div class="week-nav">
       <button class="week-chev" onclick="weekNav('prev')" title="Previous week" aria-label="Previous week">‹</button>
-      <div class="week-title" id="weekTitle"></div>
+      <div class="week-title" id="weekTitle" onclick="jumpToToday()" title="Jump back to today"></div>
       <button class="week-chev" onclick="weekNav('next')" title="Next week" aria-label="Next week">›</button>
     </div>
 
@@ -2177,6 +2294,8 @@
             <div class="sidebar-focus-label">This week's focus</div>
             <div id="sidebarFocus"></div>
           </div>
+
+          <div class="sidebar-goal" id="sidebarGoal" style="display:none;"></div>
         </div>
 
       </aside>
@@ -2190,7 +2309,7 @@
 
     <div class="checkin-card">
       <div class="checkin-card-title">How did the week feel overall?</div>
-      <div class="checkin-card-hint">Too much, about right, or too easy?</div>
+      <div class="checkin-card-hint">Too much, about right, or too easy? Did the quality sessions land?</div>
       <textarea id="checkin-overall" placeholder="e.g. About right but Saturday's threshold block felt harder than expected..." onblur="saveCheckinField('overall', this.value)"></textarea>
     </div>
 
@@ -2261,7 +2380,11 @@
           <div class="pace-row"><span class="pace-zone">Long run</span><span class="pace-value">4:40–5:00</span><span class="pace-hr">145–155</span></div>
           <div class="pace-row"><span class="pace-zone">Marathon</span><span class="pace-value">4:15–4:25</span><span class="pace-hr">155–165</span></div>
           <div class="pace-row"><span class="pace-zone">Threshold</span><span class="pace-value">3:55–4:05</span><span class="pace-hr">165–172</span></div>
+          <div class="pace-row"><span class="pace-zone">10K race</span><span class="pace-value">3:42–3:45</span><span class="pace-hr">Jan target</span></div>
           <div class="pace-row"><span class="pace-zone">VO2</span><span class="pace-value">3:30–3:40</span><span class="pace-hr">172+</span></div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; line-height: 1.55;">
+          Sub-37 build: threshold reps start at 3:55–4:00 and compress to 3:45–3:50 by November. Zones get re-set after the October 5K marker.
         </div>
       </div>
 
@@ -2506,13 +2629,51 @@
   // ============================================
   // PLAN STATE — from plans.js
   // ============================================
-  // Default to the latest week with an active todayId (i.e. the current week).
-  // Future weeks written ahead of time (todayId: null) exist in the array but
-  // don't auto-load — chevron over to see them.
-  let currentWeekIdx = window.COACH_PLANS.weeks.length - 1;
-  for (let i = window.COACH_PLANS.weeks.length - 1; i >= 0; i--) {
-    if (window.COACH_PLANS.weeks[i].todayId) { currentWeekIdx = i; break; }
+  // The app works out "today" from the real date and each day's date in
+  // plans.js — no manual todayId flipping needed week to week. A week's
+  // explicit todayId is only used as a fallback if dates can't be parsed.
+  const MONTH_IDX = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+
+  function parsePlanDate(dateStr, weekYear, weekHasDec) {
+    const m = String(dateStr || '').trim().match(/^(\d{1,2})\s+([A-Za-z]{3})/);
+    if (!m) return null;
+    const mon = MONTH_IDX[m[2].toLowerCase()];
+    if (mon === undefined) return null;
+    // A week spanning Dec→Jan: its Jan dates belong to the next year
+    const year = (weekHasDec && mon === 0) ? weekYear + 1 : weekYear;
+    return new Date(year, mon, parseInt(m[1], 10)).getTime();
   }
+
+  // Returns { weekIdx, dayId, state } — state: 'current' | 'past' | 'upcoming' | 'fallback'
+  function detectCurrentPosition() {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const weeks = window.COACH_PLANS.weeks;
+    let lastEnd = -Infinity, match = null, nextUp = null;
+    weeks.forEach((w, wi) => {
+      if (!w.year) return;
+      const hasDec = w.days.some(d => / dec/i.test(' ' + (d.date || '')));
+      w.days.forEach(d => {
+        const t = parsePlanDate(d.date, w.year, hasDec);
+        if (t === null) return;
+        if (t === today) match = { weekIdx: wi, dayId: d.id, state: 'current' };
+        if (t > lastEnd) lastEnd = t;
+        if (t > today && (!nextUp || t < nextUp.t)) nextUp = { weekIdx: wi, t: t };
+      });
+    });
+    if (match) return match;
+    if (lastEnd !== -Infinity && today > lastEnd) return { weekIdx: weeks.length - 1, dayId: null, state: 'past' };
+    if (nextUp) return { weekIdx: nextUp.weekIdx, dayId: null, state: 'upcoming' };
+    // No parseable dates — fall back to the last week with an explicit todayId
+    let wi = weeks.length - 1;
+    for (let i = weeks.length - 1; i >= 0; i--) {
+      if (weeks[i].todayId) { wi = i; break; }
+    }
+    return { weekIdx: wi, dayId: weeks[wi].todayId || null, state: 'fallback' };
+  }
+
+  const AUTO_POS = detectCurrentPosition();
+  let currentWeekIdx = AUTO_POS.weekIdx;
   let currentPlan = window.COACH_PLANS.weeks[currentWeekIdx];
 
   function k(suffix) { return `coach-${currentPlan.id}-${suffix}`; }
@@ -2535,7 +2696,7 @@
   // sessionSwaps: { 'w06.mon.0': { slot: 'football', swapId: 'threshold-4x1km' }, ... }
   // Global (not per-week namespaced) since we key by week id already.
   let sessionSwaps = JSON.parse(localStorage.getItem('coach-session-swaps') || '{}');
-  let todayId = currentPlan.todayId;
+  let todayId = AUTO_POS.dayId;
   let activeDayId = todayId || currentPlan.days[0].id;
   let activeSessionIdx = 0;
   const dayNames = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
@@ -2563,6 +2724,8 @@
     if (/football/.test(text)) return 'football';
     if (/swim|pool|drill|catch|sculling/.test(text)) return 'swim';
     if (/bike|ride|cycling|cycle|brick|sweet spot/.test(text)) return 'bike';
+    // Run words win over S&C words for mixed sessions like "Easy run + optional home S&C"
+    if (/easy run|long run|threshold|tempo|fartlek|jog|hill reps/.test(text)) return 'run';
     if (/s&c|strength|upper|lower body|squat|deadlift|lift/.test(text)) return 'strength';
     if (/rest|recovery|off/.test(text)) return 'rest';
     if (/mobility|stretch|foam roll|yoga/.test(text)) return 'mobility';
@@ -2660,6 +2823,18 @@
 
   function persistSwaps() {
     localStorage.setItem('coach-session-swaps', JSON.stringify(sessionSwaps));
+  }
+
+  // Next non-rest session after a given day (swap-aware) — for the "next up" teaser
+  function nextUpcomingSession(afterDayId) {
+    const idx = week.findIndex(d => d.id === afterDayId);
+    for (let i = idx + 1; i < week.length; i++) {
+      const d = week[i];
+      if (d.rest) continue;
+      const s = resolveSession(currentPlan.id, d.id, 0, d.sessions[0]);
+      return { day: d, session: s };
+    }
+    return null;
   }
 
   function escapeHtml(s) {
@@ -2834,6 +3009,27 @@
          </div>`
       : '';
 
+    // "Next up" teaser — when today's work is done (or it's a rest day),
+    // surface the next session so the daily glance answers "what's coming"
+    let nextUpHtml = '';
+    if (isToday && (dayDone || dayMissed || d.rest)) {
+      const nu = nextUpcomingSession(d.id);
+      const chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+      if (nu) {
+        nextUpHtml = `<button class="next-up" onclick="setActiveDay('${nu.day.id}')">
+          <span class="next-up-label">Next up</span>
+          <span class="next-up-name">${nu.day.day} — ${nu.session.name}${nu.session.meta ? ' · ' + nu.session.meta : ''}</span>
+          ${chevron}
+        </button>`;
+      } else if (dayDone || dayMissed) {
+        nextUpHtml = `<button class="next-up" onclick="showView('checkin')">
+          <span class="next-up-label">Week wrapped</span>
+          <span class="next-up-name">Send your Sunday check-in</span>
+          ${chevron}
+        </button>`;
+      }
+    }
+
     const cardHtml = `
       <div class="today-top">
         <div class="today-meta-row">
@@ -2885,10 +3081,19 @@
       </div>
       ${wholeDayBtn}
       ${logStamp}
+      ${nextUpHtml}
     `;
     const todayCard = document.getElementById('todayCard');
     todayCard.setAttribute('data-disc', disc);
     todayCard.innerHTML = cardHtml;
+
+    // Directional slide when stepping between days (swipe or chip tap)
+    if (slideDir !== 0) {
+      todayCard.style.animation = 'none';
+      void todayCard.offsetWidth;
+      todayCard.style.animation = `${slideDir > 0 ? 'slideFromRight' : 'slideFromLeft'} 240ms cubic-bezier(0.32, 0.72, 0, 1)`;
+      slideDir = 0;
+    }
 
     // Mirror into the session detail modal if it's open
     const sessionModal = document.getElementById('sessionModal');
@@ -2930,6 +3135,28 @@
     document.getElementById('sessionModalBackdrop').classList.remove('show');
   }
 
+  // Swipe left/right on the session card to step through the week.
+  // Horizontal-dominant swipes only, so vertical scrolling stays untouched.
+  (function () {
+    const card = document.getElementById('todayCard');
+    let sx = 0, sy = 0, tracking = false;
+    card.addEventListener('touchstart', (e) => {
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+    card.addEventListener('touchend', (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - sx;
+      const dy = t.clientY - sy;
+      if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 2) return;
+      stepDay(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  })();
+
   // ============================================
   // RENDER — full plan view
   // ============================================
@@ -2953,6 +3180,15 @@
     const pct = total > 0 ? done / total : 0;
     ring.style.strokeDashoffset = circumference * (1 - pct);
 
+    // Quick scale pop when a session gets ticked off
+    const ringWrap = document.querySelector('.progress-ring');
+    if (typeof window._lastDoneCount === 'number' && done > window._lastDoneCount && ringWrap) {
+      ringWrap.classList.remove('pop');
+      void ringWrap.offsetWidth;
+      ringWrap.classList.add('pop');
+    }
+    window._lastDoneCount = done;
+
     let summary = '';
     if (done === 0 && missed === 0) summary = `<strong>${total} sessions</strong> planned this week.`;
     else if (done === total) summary = `<strong>Whole week done.</strong> Smart work.`;
@@ -2963,10 +3199,17 @@
 
   function updateEmptyBanner() {
     const banner = document.getElementById('emptyBanner');
-    if (!todayId && currentWeekIdx === window.COACH_PLANS.weeks.length - 1) {
-      // Latest week but no active day = between weeks
+    const text = document.getElementById('emptyBannerText');
+    banner.onclick = null;
+    banner.style.cursor = 'default';
+    if (currentWeekIdx === AUTO_POS.weekIdx && AUTO_POS.state === 'past') {
       banner.style.display = 'flex';
-      document.getElementById('emptyBannerText').innerHTML = `<strong>${currentPlan.title} — ${currentPlan.dateRange}.</strong> Plan is archived. Send your check-in to your coach for the next block.`;
+      text.innerHTML = `<strong>Week ${currentPlan.number} (${currentPlan.dateRange}) has finished.</strong> Send your Sunday check-in — tap here to open it. The next week appears once it's written.`;
+      banner.style.cursor = 'pointer';
+      banner.onclick = () => showView('checkin');
+    } else if (currentWeekIdx === AUTO_POS.weekIdx && AUTO_POS.state === 'upcoming') {
+      banner.style.display = 'flex';
+      text.innerHTML = `<strong>Week ${currentPlan.number} hasn't started yet</strong> (${currentPlan.dateRange}). Until then, follow the most recent week or rest easy.`;
     } else {
       banner.style.display = 'none';
     }
@@ -3002,6 +3245,8 @@
       const dt = new Date(checkin.submittedAt);
       const fmt = dt.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
       document.getElementById('checkinSubtitle').textContent = `Last submitted ${fmt} — keep editing until your coach writes the next week.`;
+    } else {
+      document.getElementById('checkinSubtitle').textContent = `Week ${currentPlan.number} (${currentPlan.dateRange}) — answers auto-save as you type.`;
     }
   }
 
@@ -3010,6 +3255,8 @@
   // ============================================
   function applyTheme() {
     document.body.setAttribute('data-theme', mode);
+    const tc = document.getElementById('themeColorMeta');
+    if (tc) tc.setAttribute('content', mode === 'dark' ? '#0c0d0f' : '#fbfaf7');
     const ico = document.getElementById('lightDarkIcon');
     if (mode === 'dark') {
       ico.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
@@ -3024,10 +3271,30 @@
     applyTheme();
   }
 
+  // Direction of the last day change — drives the slide animation
+  let slideDir = 0;
+
   function setActiveDay(id) {
+    const oldIdx = week.findIndex(x => x.id === activeDayId);
+    const newIdx = week.findIndex(x => x.id === id);
+    if (oldIdx !== -1 && newIdx !== -1 && oldIdx !== newIdx) {
+      slideDir = newIdx > oldIdx ? 1 : -1;
+    }
     activeDayId = id;
     activeSessionIdx = 0;
     renderWeek();
+  }
+
+  function stepDay(dir) {
+    const idx = week.findIndex(d => d.id === activeDayId);
+    const next = idx + dir;
+    if (next < 0 || next >= week.length) return;
+    setActiveDay(week[next].id);
+  }
+
+  function jumpToToday() {
+    if (currentWeekIdx !== AUTO_POS.weekIdx) loadWeek(AUTO_POS.weekIdx);
+    if (AUTO_POS.dayId) setActiveDay(AUTO_POS.dayId);
   }
 
   function setActiveSession(idx) {
@@ -3121,14 +3388,28 @@
     Object.entries(sessionLog).forEach(([dayId, log]) => {
       const day = currentPlan.days.find(d => d.id === dayId);
       if (day) {
-        logged += `- ${day.day} ${day.date} (${day.name}): RPE ${log.rpe}${log.notes ? ' — ' + log.notes : ''}\n`;
+        const names = day.sessions.map((orig, i) => resolveSession(currentPlan.id, day.id, i, orig).name).join(' + ');
+        logged += `- ${day.day} ${day.date} (${names}): RPE ${log.rpe}${log.notes ? ' — ' + log.notes : ''}\n`;
       }
+    });
+
+    // The coach needs to know what actually ran, not just what was planned
+    let swapped = '';
+    currentPlan.days.forEach(day => {
+      day.sessions.forEach((orig, i) => {
+        const sw = getSwap(currentPlan.id, day.id, i);
+        if (sw) {
+          const alt = findAlternate(sw.slot, sw.swapId);
+          swapped += `- ${day.day}: ${orig.name} → ${alt ? alt.session.name : sw.swapId}\n`;
+        }
+      });
     });
 
     return [
       `Week ${currentPlan.number} check-in — ${currentPlan.dateRange}`,
       '',
       ...Object.entries(labels).map(([k, label]) => `${label}:\n${checkin[k] || '(no answer)'}\n`),
+      swapped ? `Swaps made this week:\n${swapped}` : '',
       logged ? `Session log:\n${logged}` : ''
     ].filter(Boolean).join('\n');
   }
@@ -3180,7 +3461,9 @@
   function loadWeek(idx) {
     currentWeekIdx = idx;
     currentPlan = window.COACH_PLANS.weeks[idx];
-    todayId = currentPlan.todayId;
+    // Only the auto-detected current week gets a "today" highlight —
+    // past and future weeks render as archives/previews.
+    todayId = (idx === AUTO_POS.weekIdx) ? AUTO_POS.dayId : null;
     week = currentPlan.days;
     sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || 'null');
     if (sessionStatus === null) {
@@ -3291,7 +3574,8 @@
     if (!d) return;
     const log = sessionLog[d.id] || { rpe: 5, notes: '' };
     const dayDone = isDayDone(d.id);
-    document.getElementById('logModalSubtitle').textContent = `${dayNames[d.id]} ${d.date} · ${d.name}`;
+    const resolvedNames = d.sessions.map((orig, i) => resolveSession(currentPlan.id, d.id, i, orig).name).join(' + ');
+    document.getElementById('logModalSubtitle').textContent = `${dayNames[d.id]} ${d.date} · ${resolvedNames}`;
     document.getElementById('modalRpeSlider').value = log.rpe;
     document.getElementById('modalRpeValue').textContent = log.rpe;
     document.getElementById('modalSessionNotes').value = log.notes || '';
@@ -3433,6 +3717,21 @@
     document.getElementById('statSwim').textContent = currentPlan.stats.swimM;
     document.getElementById('statTime').textContent = currentPlan.stats.totalHours;
     document.getElementById('sidebarFocus').innerHTML = currentPlan.focusHtml;
+
+    // Goal footer — live countdown to the race window
+    const goal = window.COACH_PLANS.goal;
+    const goalEl = document.getElementById('sidebarGoal');
+    if (goal && goalEl) {
+      const race = new Date(goal.raceWindow + 'T00:00:00');
+      const weeksOut = Math.max(0, Math.ceil((race.getTime() - Date.now()) / (7 * 86400000)));
+      const prev = window.COACH_PLANS.weeks[currentWeekIdx - 1];
+      goalEl.style.display = 'block';
+      goalEl.innerHTML = `
+        <div class="goal-line"><strong>${goal.label}</strong><span class="goal-num">${weeksOut} wks out</span></div>
+        <div class="goal-line"><span>Race pace target</span><span class="goal-num">${goal.racePace}</span></div>
+        <div style="color: var(--text-muted); margin-top: 2px;">Run this week ${currentPlan.stats.runKm}${prev ? ' · last week ' + prev.stats.runKm : ''}</div>
+      `;
+    }
   }
 
   // ============================================

@@ -11,6 +11,14 @@ window.COACH_PLANS = {
   // Change this when you move to a personal email post-Newton.
   userEmail: 'alexander.field@newtoneurope.com',
 
+  // The committed goal — shown in the sidebar with a live countdown.
+  // Update raceWindow to the real date once a race is booked.
+  goal: {
+    label: 'Sub-37 10K',
+    raceWindow: '2027-01-15',
+    racePace: '3:42 /km'
+  },
+
   weeks: [
 
     // ================================================================
