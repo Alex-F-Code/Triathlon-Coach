@@ -1595,6 +1595,174 @@ window.COACH_PLANS = {
           ]
         }
       ]
+    },
+
+    // ================================================================
+    // WEEK 9 — Down week + restart (27 Jul – 2 Aug 2026)
+    // Week 8 mostly didn't happen after Tue (life, not injury) — restarted
+    // Mon 27 with an unplanned 9km easy run. This lands right on top of
+    // the down week that was already scheduled, so no extra pull-back
+    // needed: reduced quality, no tempo, no bike SS, easy volume only.
+    // ================================================================
+    {
+      id: 'w09',
+      number: 9,
+      title: 'Down week + restart',
+      dateRange: '27 Jul – 2 Aug',
+      year: 2026,
+      todayId: 'tue',
+      stats: {
+        runKm: '~27 km',
+        bikeKm: '~40 km',
+        swimM: '~1800m',
+        totalHours: '~6:00'
+      },
+      focusHtml: 'Planned down week, and it lands right after a disrupted one — good timing. Week 8 stopped after Tuesday for life reasons, not injury; no pattern, no action needed beyond noting it. <strong>Reduced load across the board</strong>: Thu quality trims to 3 × 1 km, Sat drops the tempo (easy long only), Sun bike is Z2-only (no sweet spot blocks). One goal this week — land it clean and arrive at Week 10 ready to build again.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '27 Jul',
+          name: 'Easy run — restart', meta: '9 km · 50 min',
+          sessions: [{
+            name: 'Easy run — restart', meta: '9 km · 50 min',
+            headline: 'Already done — logged here for the record',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '9 km continuous at easy aerobic pace.',
+            coolDown: 'Walk a few minutes after, refuel normally.',
+            focus: 'Getting back into rhythm after a disrupted week. Nothing wrong with jumping straight back to 9 km.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: [
+              'Self-directed — a good instinct after five days off',
+              'Tap this complete in the app if you want it on the record'
+            ],
+            importance: 'One easy run is the right way back in after an unplanned gap. No ramp-up drama needed for a 5-day break.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '28 Jul',
+          name: 'Rest or light optional', meta: '20–30 min · optional', rest: true,
+          sessions: [{
+            name: 'Rest or light optional movement', meta: '20–30 min optional',
+            headline: 'Deliberately light — yesterday\'s run covered today\'s aerobic need',
+            warmUp: '—',
+            mainSet: 'Full rest, or 20–30 min easy spin / walk / mobility if you feel like moving.',
+            coolDown: '—',
+            focus: 'No training debt to repay. This is a genuinely free day.',
+            paces: ['RPE 1–2 if moving at all'],
+            considerations: [
+              'Swim moves back to its normal Wednesday slot this week — no rush today',
+              'Skip entirely with zero guilt'
+            ],
+            importance: 'Down weeks work by having easy days that are actually easy. Yesterday\'s run already re-opened the week — today just holds the line.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '29 Jul',
+          name: 'Swim — technique + aerobic', meta: '1800m · 45 min',
+          sessions: [{
+            name: 'Swim — technique + aerobic (Type A, lighter)', meta: '1800m · 45 min',
+            headline: 'Back to the normal Wednesday slot — reduced volume for the down week',
+            warmUp: [
+              '200m easy freestyle',
+              '100m kick with board',
+              '100m build to moderate pace'
+            ],
+            mainSet: [
+              '2 × 50m front sculling with 20s rest — re-groove the catch',
+              '2 × 50m catch-up drill with 20s rest',
+              '6 × 100m at 1:42–1:47 with 20s rest — steady, no need to chase last week\'s TT pace',
+              '200m easy cool-down'
+            ],
+            coolDown: '—',
+            focus: 'Easy technique week. Last Tuesday\'s TT was the hard swim — this one is recovery for the stroke.',
+            paces: ['Main: 1:42–1:47 /100m', 'Easy: 1:55–2:05 /100m'],
+            considerations: [
+              'Trimmed from the usual 1900–2400m for the down week',
+              'If you logged last Tuesday\'s 800m TT time, that number now sets your swim zones — flag it at check-in if it moved things'
+            ],
+            importance: 'A lighter technique swim lets the week absorb load from the run/bike side without adding more.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '30 Jul',
+          name: 'Run quality — 3 × 1 km threshold', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Threshold reps — 3 × 1 km', meta: '7 km · 40 min',
+            headline: 'Trimmed quality for the down week — same pace, fewer reps',
+            warmUp: [
+              '12 min easy jog at 5:00–5:15/km',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '1 km at 3:55–4:00/km — controlled hard, RPE 7',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — same effort',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — finish controlled'
+            ],
+            coolDown: '8 min easy jog — keep moving, don\'t stop cold.',
+            focus: 'Same pace band you\'ve been holding, just 3 reps instead of 5 — the down week trims volume, not intensity.',
+            paces: ['Reps: 3:55–4:00 /km', 'Recovery: 90s jog', 'HR 165–172'],
+            considerations: [
+              'Keeps the threshold habit alive without adding to the week\'s load',
+              'Bail rule: 2 reps if legs still feel like last week\'s disruption',
+              'Back to 5–6 reps next week once this down week is banked'
+            ],
+            importance: 'Down weeks hold intensity and cut volume — this is exactly that. Skipping quality entirely would lose feel for the pace; 3 reps keeps it sharp cheaply.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '31 Jul',
+          name: 'Rest', meta: 'No structured training', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest/optional day',
+            headline: 'Rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 20 min mobility.',
+            coolDown: '—',
+            focus: 'Sleep, hydration, food.',
+            paces: [],
+            considerations: ['Protects Saturday\'s long run'],
+            importance: 'Down week or not, the rest day before the weekend still matters.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '1 Aug',
+          name: 'Long easy — no tempo', meta: '11 km · 60 min',
+          sessions: [{
+            name: 'Long easy run — 11 km', meta: '11 km · 60 min',
+            headline: 'Pure aerobic long run — tempo sits out this week',
+            warmUp: 'First 1–2 km deliberately slow.',
+            mainSet: '11 km continuous at easy aerobic pace — no quality finish.',
+            coolDown: 'Walk 5 min after. Refuel within 20 min.',
+            focus: 'Full easy. The tempo work resumes next week once this down week has done its job.',
+            paces: ['4:45–5:00 /km', 'HR <150', 'RPE 3–4'],
+            considerations: [
+              'No tempo finish this week — deliberate, not a downgrade',
+              'This is the one week where "just get the distance in" is the whole assignment'
+            ],
+            importance: 'Down weeks need a genuinely easy long run, not a quieter version of a hard one. This is where the previous three weeks of building actually get absorbed.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '2 Aug',
+          name: 'Long bike — Z2 only', meta: '1:30 · ~40 km',
+          sessions: [{
+            name: 'Long bike — Z2 only, no SS', meta: '1:30 · ~40 km',
+            headline: 'Pure aerobic ride — sweet spot sits out this week too',
+            warmUp: '10 min easy building to Z2.',
+            mainSet: '1:10 steady Z2 — RPE 3–4, HR 130–145, no intensity blocks.',
+            coolDown: '10 min easy spin.',
+            focus: 'Genuinely easy. No brick this week either — full recovery day for the legs.',
+            paces: ['RPE 3–4', 'HR 130–145'],
+            considerations: [
+              'No sweet spot blocks this week — they resume in Week 10',
+              'No brick run today — the whole point of a down week is a full stand-down',
+              'Shorter than the usual 2:00–2:15 — that\'s intentional'
+            ],
+            importance: 'The down week only works if every session actually backs off. A Z2-only ride with no brick closes the week having asked nothing hard of the legs since Thursday.'
+          }]
+        }
+      ]
     }
 
   ]
