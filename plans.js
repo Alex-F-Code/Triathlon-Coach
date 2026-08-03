@@ -1763,6 +1763,213 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    // WEEK 10 — Build resumes (3–9 Aug 2026)
+    // Down week done (Wed swim + Sat run missed, Sun bike + bonus brick
+    // done). Football off Monday again. Thu holds at 5x1km to re-confirm
+    // before 6. Sat tempo returns (3km) — hasn't landed in ~4 weeks, worth
+    // treating gently rather than jumping distance. Sun SS resumes at
+    // 1x15 (last validated block was Week 7 — don't assume 2x15 holds).
+    // ================================================================
+    {
+      id: 'w10',
+      number: 10,
+      title: 'Build resumes',
+      dateRange: '3–9 August',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~30 km',
+        bikeKm: '~50 km',
+        swimM: '~1900m',
+        totalHours: '~6:30'
+      },
+      focusHtml: 'Build resumes after the down week. <strong>Thu holds at 5 × 1 km</strong> — re-confirming the progression in a normal week before pushing to 6. <strong>Sat tempo returns at 3 km</strong> — it hasn\'t actually landed since Week 6, so this is a reset rather than a continuation; land this cleanly before extending it again. <strong>Sun sweet spot returns at 1 × 15</strong> (not 2 × 15 — that block was never re-validated after Week 7). Monday adjusted for no football.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '3 Aug',
+          name: 'Easy run + optional home S&C', meta: '6 km + optional',
+          sessions: [{
+            name: 'Easy run + optional home S&C', meta: '6 km · 35 min + optional S&C',
+            headline: 'Football off — easy aerobic, not a repeat of Thursday\'s quality',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '6 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk. Then optional: 3 rounds of 12 squats / 8 push-ups / 10 reverse lunges / 8 single-leg RDLs / 30s plank.',
+            focus: 'Easy only. Thursday is this week\'s quality session — no need to double up on Monday.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: [
+              'Football off again this week — same pattern as recent weeks',
+              'Home S&C optional bonus, skip if not in the mood',
+              'Swap to fartlek via the app if legs feel genuinely fresh and you want more — otherwise easy is the right call'
+            ],
+            importance: 'Keeps Monday\'s aerobic contribution without competing with Thursday, which is the session actually carrying this week\'s progression test.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '4 Aug',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Aerobic base — normal Tuesday slot',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '7 km continuous at easy aerobic pace.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Conversational. Nothing fancy — this is base-building, not a session to push.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: [
+              'Back to the normal weekly rhythm',
+              'No strides, no pace-chasing — save it for Thursday'
+            ],
+            importance: 'Easy aerobic volume is what makes the harder sessions later in the week possible.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '5 Aug',
+          name: 'Swim — technique + aerobic', meta: '1900m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + aerobic (Type A)', meta: '1900m · 50 min',
+            headline: 'Back to the pool after last week\'s miss',
+            warmUp: [
+              '200m easy freestyle',
+              '100m kick with board',
+              '100m build to moderate pace'
+            ],
+            mainSet: [
+              '2 × 50m front sculling with 20s rest',
+              '2 × 50m single-arm freestyle with 20s rest',
+              '2 × 50m catch-up drill with 20s rest',
+              '8 × 100m at 1:42–1:47 with 20s rest',
+              '4 × 50m at 1:38–1:42 with 30s rest'
+            ],
+            coolDown: '200m easy freestyle, mixing strokes.',
+            focus: 'Feel the catch. No pressure to chase the 800m TT pace today — this is technique maintenance.',
+            paces: ['Main: 1:42–1:47 /100m', 'Speed: 1:38–1:42 /100m', 'Easy: 1:55–2:05 /100m'],
+            considerations: [
+              'Missed last week — no drama, just get back in',
+              'Bring a kickboard',
+              'Next Type D benchmark (with an 800m TT) is a few weeks out — this one is just maintenance'
+            ],
+            importance: 'One missed swim is a non-issue on its own; the pattern only matters if it repeats. Getting back in cleanly this week closes the loop.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '6 Aug',
+          name: 'Run quality — 5 × 1 km threshold', meta: '10 km · 55 min',
+          sessions: [{
+            name: 'Threshold reps — 5 × 1 km', meta: '10 km · 55 min',
+            headline: 'Re-confirm 5 reps in a normal week before building to 6',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km — deliberately slow first 5 min',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '1 km at 3:55–4:00/km — controlled hard, RPE 7',
+              '90s easy jog recovery — HR back under 145',
+              '1 km at 3:55–4:00/km — same effort as rep 1',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — hold form',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — stay honest, no surging',
+              '90s easy jog recovery',
+              '1 km at 3:55–4:00/km — finish strong but controlled'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km — keep moving at least 5 min after the last rep.',
+            focus: 'You self-progressed to 5 reps three weeks ago but it\'s never been retested in a clean, normal week since (Week 8 got disrupted, Week 9 was a down week at 3 reps). This is that retest.',
+            paces: ['Reps: 3:55–4:00 /km', 'Recovery: 90s jog', 'HR 165–172'],
+            considerations: [
+              'Same pace band you\'ve been holding — the question this week is whether 5 reps feels routine',
+              'Even effort across all 5 — if rep 5 is fastest, you had more in the tank; if it fades badly, 5 is still the right number for now',
+              'Bail rule: 4 reps if legs aren\'t cooperating',
+              '6 × 1 km is the next step once this lands clean'
+            ],
+            importance: 'The priority session of the week. Sub-37 is built on repeatable weeks, not one good session three weeks ago — this confirms the progression actually holds before pushing further.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '7 Aug',
+          name: 'Rest or optional easy', meta: '30 min · optional', rest: true,
+          sessions: [{
+            name: 'Rest or optional easy run', meta: '30 min optional',
+            headline: 'Recovery day — protects Saturday',
+            warmUp: '—',
+            mainSet: 'Full rest, or 30 min easy jog if legs feel good.',
+            coolDown: '—',
+            focus: 'Saturday\'s tempo matters this week — don\'t spend the legs today.',
+            paces: ['5:00–5:30 /km if running', 'RPE 2'],
+            considerations: [
+              'Optional — take the rest if Thursday was hard',
+              'Saturday is the session to protect'
+            ],
+            importance: 'Tempo is finally back on Saturday after a long absence — worth arriving fresh.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '8 Aug',
+          name: 'Long run + 3km tempo', meta: '12 km · 65 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
+            headline: 'Tempo returns — first Sat quality since Week 6',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              '9 km easy at 4:45–5:00 /km (HR <150) — settle in, no pace-chasing',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
+            ],
+            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
+            focus: 'This is a reset, not a continuation — it\'s been almost a month since tempo actually happened. Land 3 km cleanly before thinking about extending it.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Deliberately modest distance given how long it\'s been since this landed',
+              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy — say so at check-in either way',
+              'This is the session to protect this week, more than Thursday even'
+            ],
+            importance: 'Thu lifts the ceiling on fresh legs; Sat teaches you to hold pace on tired ones. The build has been getting the first half consistently but not the second — landing this closes that gap.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '9 Aug',
+          name: 'Long bike + 1×15 SS + brick', meta: '2:00 + 15 min · ~50 km',
+          sessions: [
+            {
+              name: 'Long bike — 1 × 15 sweet spot', meta: '2:00 · ~50 km',
+              headline: 'Sweet spot returns — 1 × 15, not 2 × 15',
+              warmUp: '15 min easy spinning, building to Z2 in the last 5 min.',
+              mainSet: [
+                '40 min steady Z2 — RPE 3–4, HR 130–145',
+                '15 min sweet spot — RPE 6–7, HR 145–155',
+                '5 min easy spin recovery',
+                '45 min steady Z2',
+                '5 min cool-down spin'
+              ],
+              coolDown: '5 min easy spin at RPE 2 before dismounting.',
+              focus: 'The last validated sweet-spot block was Week 7\'s single 15-min effort — the 2×15 from Week 8 never actually got tested. Starting from what\'s proven, not what was planned.',
+              paces: ['Z2: RPE 3–4, HR 130–145', 'Sweet spot: RPE 6–7, HR 145–155'],
+              considerations: [
+                'One block, done properly, beats two blocks with the middle one freelanced',
+                'Z2 sections should stay genuinely easy — that was the issue three weeks back',
+                'Fuel: 30–40 g carbs/hour after the first 60 min',
+                '2 × 15 returns next week if this lands controlled'
+              ],
+              importance: 'Progression should be built on what\'s actually been validated, not on intent. One clean sweet-spot block this week re-opens the door to building back up properly.'
+            },
+            {
+              name: 'Brick run', meta: '15 min easy off the bike',
+              headline: 'Short easy brick — neuromuscular only',
+              warmUp: 'Straight into running.',
+              mainSet: '15 min easy off the bike at conversational pace.',
+              coolDown: 'Walk 5 min. Refuel within 20 min.',
+              focus: 'Turnover, not pace — you clearly enjoy these, last week\'s bonus brick was a good sign.',
+              paces: ['5:00–5:30 /km', 'RPE 3'],
+              considerations: [
+                'Skip if the SS block emptied the legs',
+                'Genuinely easy — this isn\'t the place to push'
+              ],
+              importance: 'Keeps the bike-to-run transition pattern alive heading toward any future triathlon racing.'
+            }
+          ]
+        }
+      ]
     }
 
   ]
