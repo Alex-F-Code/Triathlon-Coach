@@ -823,6 +823,16 @@
   .day-box.done { opacity: 0.75; }
   .day-box.done.selected, .day-box.today { opacity: 1; }
   .day-box.rest { background: var(--bg-subtle); }
+  /* Missed days stay fully visible and tinted red — the point is to
+     notice them, not have them fade like completed days do. */
+  .day-box.missed {
+    opacity: 1;
+    background: var(--missed-soft);
+    border-color: var(--missed);
+  }
+  .day-box.missed.selected {
+    box-shadow: 0 0 0 2px var(--missed-soft), 0 0 0 1.5px var(--missed);
+  }
 
   .day-box-label {
     font-size: 10px;
@@ -861,6 +871,11 @@
   .day-session-dot[data-disc="football"] { background: var(--c-football); }
   .day-session-dot[data-disc="rest"] { background: var(--c-rest); }
   .day-session-dot[data-disc="mobility"] { background: var(--c-mobility); }
+  /* Status overrides the discipline colour — this is what makes partial
+     completion on multi-session days (e.g. bike done, brick missed)
+     visible even when names/checkboxes are hidden on compact mobile chips. */
+  .day-session-dot.done { opacity: 0.3; }
+  .day-session-dot.missed { background: var(--missed) !important; opacity: 1; }
 
   .day-session-name {
     font-size: 11.5px;
@@ -2043,6 +2058,16 @@
     flex-direction: column;
     gap: 8px;
   }
+  .swap-group { margin-bottom: 16px; }
+  .swap-group:last-child { margin-bottom: 0; }
+  .swap-group-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
   .swap-alternate {
     background: var(--bg-subtle);
     border: 1px solid var(--border);
@@ -2575,6 +2600,22 @@
   </div>
 </div>
 
+<!-- MOVE DAY MODAL -->
+<div class="modal-backdrop" id="moveModalBackdrop" onclick="closeMoveDayModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Move day</div>
+        <div class="modal-subtitle" id="moveModalSubtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeMoveDayModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="moveModalBody"></div>
+  </div>
+</div>
+
 <!-- SWAP MODAL -->
 <div class="modal-backdrop" id="swapModalBackdrop" onclick="closeSwapModal()">
   <div class="modal" onclick="event.stopPropagation()">
@@ -2696,6 +2737,12 @@
   // sessionSwaps: { 'w06.mon.0': { slot: 'football', swapId: 'threshold-4x1km' }, ... }
   // Global (not per-week namespaced) since we key by week id already.
   let sessionSwaps = JSON.parse(localStorage.getItem('coach-session-swaps') || '{}');
+  // dayOrderSwaps: { 'w10': [['tue','wed'], ...] } — pairs of days whose whole
+  // session content has been swapped for that week. Applied once at load time
+  // (see applyDaySwapsToPlan) then treated as ground truth for the rest of
+  // the session, same pattern as the session-level swap overlay.
+  let dayOrderSwaps = JSON.parse(localStorage.getItem('coach-day-swaps') || '{}');
+  applyDaySwapsToPlan(currentPlan);
   let todayId = AUTO_POS.dayId;
   let activeDayId = todayId || currentPlan.days[0].id;
   let activeSessionIdx = 0;
@@ -2825,6 +2872,70 @@
     localStorage.setItem('coach-session-swaps', JSON.stringify(sessionSwaps));
   }
 
+  // ============================================
+  // DAY MOVE — swap two untouched days' full session content
+  // ============================================
+  const WEEKDAY_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+  function canonicalDayPair(a, b) {
+    return WEEKDAY_ORDER.indexOf(a) < WEEKDAY_ORDER.indexOf(b) ? [a, b] : [b, a];
+  }
+
+  function persistDaySwaps() {
+    localStorage.setItem('coach-day-swaps', JSON.stringify(dayOrderSwaps));
+  }
+
+  // Any day already has at most one active partner — no chained/triple swaps.
+  function getDaySwapPartner(weekId, dayId) {
+    const pairs = dayOrderSwaps[weekId] || [];
+    for (const [a, b] of pairs) {
+      if (a === dayId) return b;
+      if (b === dayId) return a;
+    }
+    return null;
+  }
+
+  // A day is only movable while nothing has happened to it yet — no logged
+  // status, no session-level swap. Keeps the mental model simple: you're
+  // rearranging the week ahead of you, not rewriting what already happened.
+  function dayIsUntouched(dayId) {
+    const d = week.find(x => x.id === dayId);
+    if (!d) return false;
+    for (let i = 0; i < d.sessions.length; i++) {
+      if (getSessionStatus(dayId, i)) return false;
+      if (getSwap(currentPlan.id, dayId, i)) return false;
+    }
+    return true;
+  }
+
+  function swapDayFieldsOnPlan(plan, dayIdA, dayIdB) {
+    const a = plan.days.find(x => x.id === dayIdA);
+    const b = plan.days.find(x => x.id === dayIdB);
+    if (!a || !b) return;
+    const tmp = { sessions: a.sessions, name: a.name, meta: a.meta, rest: a.rest };
+    a.sessions = b.sessions; a.name = b.name; a.meta = b.meta; a.rest = b.rest;
+    b.sessions = tmp.sessions; b.name = tmp.name; b.meta = tmp.meta; b.rest = tmp.rest;
+  }
+
+  // Mutates the plan's day objects in place to reflect the currently recorded
+  // day swaps for this week. Safe to call more than once with different data
+  // (e.g. after a fresh Supabase sync) — it first undoes whatever pairs were
+  // applied last time, then applies the current set, so it never compounds.
+  function applyDaySwapsToPlan(plan) {
+    const newPairs = dayOrderSwaps[plan.id] || [];
+    const prevPairs = plan._appliedDaySwapPairs || [];
+    prevPairs.forEach(([a, b]) => swapDayFieldsOnPlan(plan, a, b));
+    newPairs.forEach(([a, b]) => swapDayFieldsOnPlan(plan, a, b));
+    plan._appliedDaySwapPairs = newPairs.map(p => p.slice());
+  }
+
+  // Used by the interactive move/undo actions, which always operate on the
+  // currently loaded week — keeps currentPlan's applied-pairs marker in sync
+  // so a later applyDaySwapsToPlan() call (e.g. from a sync) stays correct.
+  function swapDayPairInPlace(dayIdA, dayIdB) {
+    swapDayFieldsOnPlan(currentPlan, dayIdA, dayIdB);
+  }
+
   // Next non-rest session after a given day (swap-aware) — for the "next up" teaser
   function nextUpcomingSession(afterDayId) {
     const idx = week.findIndex(d => d.id === afterDayId);
@@ -2866,7 +2977,7 @@
       const swapMark = s._swap ? ' <span style="color: var(--accent); font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">◆</span>' : '';
       return `
         <div class="day-session-row">
-          <span class="day-session-dot" data-disc="${disc}"></span>
+          <span class="day-session-dot ${cbClass}" data-disc="${disc}"></span>
           <span class="day-session-name ${nameClass}">${s.name}${swapMark}</span>
           <button class="day-checkbox ${cbClass}" onclick="event.stopPropagation(); cycleSessionStatus('${d.id}', ${i});" aria-label="Cycle status">
             <svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
@@ -2925,6 +3036,12 @@
     const swapBtn = `<button class="swap-btn" onclick="openSwapModal('${d.id}', ${activeSessionIdx})" title="Swap this session for an alternative">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
         Swap
+      </button>`;
+
+    const dayPartner = getDaySwapPartner(currentPlan.id, d.id);
+    const moveBtn = `<button class="swap-btn" onclick="openMoveDayModal('${d.id}')" title="Move this day's sessions to trade with another day">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 7 8 11"/><line x1="4" y1="7" x2="20" y2="7"/><polyline points="16 21 20 17 16 13"/><line x1="20" y1="17" x2="4" y2="17"/></svg>
+        ${dayPartner ? `↔ ${dayNames[dayPartner].slice(0,3)}` : 'Move'}
       </button>`;
 
     const selectorHtml = d.sessions.length > 1
@@ -3039,6 +3156,7 @@
         </div>
         <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
           ${swapBtn}
+          ${moveBtn}
           ${backBtn}
         </div>
       </div>
@@ -3405,12 +3523,28 @@
       });
     });
 
+    // Definitive done/missed status for every tracked session — built directly
+    // from sessionStatus (not just sessions that got a full log entry), so the
+    // coach knows exactly what happened without it being typed out separately.
+    let statusSummary = '';
+    currentPlan.days.forEach(day => {
+      const lines = [];
+      day.sessions.forEach((orig, i) => {
+        const status = getSessionStatus(day.id, i);
+        if (!status) return;
+        const resolved = resolveSession(currentPlan.id, day.id, i, orig);
+        lines.push(`${resolved.name} — ${status === 'done' ? 'Done' : 'Missed'}`);
+      });
+      if (lines.length) statusSummary += `- ${day.day} ${day.date}: ${lines.join('; ')}\n`;
+    });
+
     return [
       `Week ${currentPlan.number} check-in — ${currentPlan.dateRange}`,
       '',
       ...Object.entries(labels).map(([k, label]) => `${label}:\n${checkin[k] || '(no answer)'}\n`),
       swapped ? `Swaps made this week:\n${swapped}` : '',
-      logged ? `Session log:\n${logged}` : ''
+      statusSummary ? `Session status this week:\n${statusSummary}` : '',
+      logged ? `Session log (RPE/notes):\n${logged}` : ''
     ].filter(Boolean).join('\n');
   }
 
@@ -3461,6 +3595,7 @@
   function loadWeek(idx) {
     currentWeekIdx = idx;
     currentPlan = window.COACH_PLANS.weeks[idx];
+    applyDaySwapsToPlan(currentPlan);
     // Only the auto-detected current week gets a "today" highlight —
     // past and future weeks render as archives/previews.
     todayId = (idx === AUTO_POS.weekIdx) ? AUTO_POS.dayId : null;
@@ -3485,11 +3620,39 @@
   // ============================================
   let swapModalContext = null; // { dayId, sessionIdx, slot }
 
+  // Human-readable labels for each swap slot, used when browsing across
+  // disciplines rather than viewing the one matched to today's session.
+  const SLOT_LABELS = {
+    'football': 'Monday / football slot',
+    'run-easy': 'Easy run',
+    'run-quality': 'Quality run',
+    'run-long': 'Long run',
+    'swim': 'Swim',
+    'bike-long': 'Long bike',
+    'rest': 'Rest day'
+  };
+
+  function renderAlternatesList(slot, currentSwap) {
+    const slotDef = window.COACH_SWAPS && window.COACH_SWAPS[slot];
+    if (!slotDef) return '';
+    return `<div class="swap-alternates">` + slotDef.alternates.map(alt => {
+      const isCurrent = currentSwap && currentSwap.slot === slot && currentSwap.swapId === alt.id;
+      return `
+        <button class="swap-alternate ${isCurrent ? 'current' : ''}" onclick="applySwap('${slot}', '${alt.id}')">
+          <div class="swap-alternate-icon" data-disc="${alt.icon || 'run'}">${icons[alt.icon] || icons.run}</div>
+          <div class="swap-alternate-content">
+            <div class="swap-alternate-label">${escapeHtml(alt.label)}${isCurrent ? ' · current' : ''}</div>
+            <div class="swap-alternate-reason">${escapeHtml(alt.reason || '')} · ${escapeHtml(alt.session.meta || '')}</div>
+          </div>
+        </button>
+      `;
+    }).join('') + `</div>`;
+  }
+
   function openSwapModal(dayId, sessionIdx) {
     const d = week.find(x => x.id === dayId);
     if (!d) return;
     const original = d.sessions[sessionIdx];
-    const currentSession = resolveSession(currentPlan.id, dayId, sessionIdx, original);
     const slot = slotForSession(original);
     swapModalContext = { dayId, sessionIdx, slot };
 
@@ -3502,34 +3665,41 @@
 
     let bodyHtml = '';
 
+    if (currentAlt) {
+      bodyHtml += `
+        <div class="swap-current-header">
+          <span>Currently swapped to <strong>${escapeHtml(currentAlt.label)}</strong></span>
+          <button class="swap-reset-btn" onclick="resetSwap()">Reset to original</button>
+        </div>
+      `;
+    }
+
     if (!slotDef) {
-      bodyHtml = `<div class="swap-hint">No alternates configured for this session type yet. Send a note to your coach and one will be added.</div>`;
+      bodyHtml += `<div class="swap-hint">No suggested alternates for this session type yet — browse other disciplines below, or send a note to your coach.</div>`;
     } else {
       bodyHtml += `<div class="swap-hint">${slotDef.hint || ''}</div>`;
+      bodyHtml += renderAlternatesList(slot, currentSwap);
+    }
 
-      if (currentAlt) {
-        bodyHtml += `
-          <div class="swap-current-header">
-            <span>Currently swapped to <strong>${escapeHtml(currentAlt.label)}</strong></span>
-            <button class="swap-reset-btn" onclick="resetSwap()">Reset to original</button>
-          </div>
-        `;
-      }
-
-      bodyHtml += `<div class="swap-alternates">`;
-      slotDef.alternates.forEach(alt => {
-        const isCurrent = currentSwap && currentSwap.swapId === alt.id;
-        bodyHtml += `
-          <button class="swap-alternate ${isCurrent ? 'current' : ''}" onclick="applySwap('${slot}', '${alt.id}')">
-            <div class="swap-alternate-icon" data-disc="${alt.icon || 'run'}">${icons[alt.icon] || icons.run}</div>
-            <div class="swap-alternate-content">
-              <div class="swap-alternate-label">${escapeHtml(alt.label)}${isCurrent ? ' · current' : ''}</div>
-              <div class="swap-alternate-reason">${escapeHtml(alt.reason || '')} · ${escapeHtml(alt.session.meta || '')}</div>
-            </div>
+    // Cross-discipline browse — every other slot, collapsed by default
+    const otherSlots = Object.keys(window.COACH_SWAPS || {}).filter(k => k !== slot);
+    if (otherSlots.length) {
+      bodyHtml += `
+        <div class="more-details" style="margin-top: 14px;">
+          <button class="more-details-toggle" onclick="this.closest('.more-details').classList.toggle('open')">
+            Swap to a different discipline instead
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-        `;
-      });
-      bodyHtml += `</div>`;
+          <div class="more-details-body">
+            ${otherSlots.map(otherSlot => `
+              <div class="swap-group">
+                <div class="swap-group-title">${SLOT_LABELS[otherSlot] || otherSlot}</div>
+                ${renderAlternatesList(otherSlot, currentSwap)}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
     }
 
     document.getElementById('swapModalBody').innerHTML = bodyHtml;
@@ -3563,6 +3733,96 @@
     deleteSwapFromSupabase(currentPlan.id, dayId, sessionIdx);
     closeSwapModal();
     toast('Reset to original plan');
+    renderWeek();
+  }
+
+  // ============================================
+  // MOVE DAY MODAL — swap two untouched days' content
+  // ============================================
+  let moveModalDayId = null;
+
+  function openMoveDayModal(dayId) {
+    moveModalDayId = dayId;
+    const d = week.find(x => x.id === dayId);
+    if (!d) return;
+
+    const partner = getDaySwapPartner(currentPlan.id, dayId);
+    document.getElementById('moveModalSubtitle').textContent = `${dayNames[dayId]} ${d.date} · ${d.sessions.map(s => s.name).join(' + ')}`;
+
+    let bodyHtml = '';
+
+    if (partner) {
+      const p = week.find(x => x.id === partner);
+      bodyHtml = `
+        <div class="swap-current-header">
+          <span>Currently swapped with <strong>${dayNames[partner]}</strong></span>
+          <button class="swap-reset-btn" onclick="undoMoveDay('${dayId}', '${partner}')">Undo swap</button>
+        </div>
+        <div class="swap-hint">Undo this before moving ${dayNames[dayId]} anywhere else — one swap at a time keeps the week easy to follow.</div>
+      `;
+    } else {
+      const selfUntouched = dayIsUntouched(dayId);
+      bodyHtml = `<div class="swap-hint">${selfUntouched ? 'Pick a day to trade full sessions with — both days need to be untouched (no progress logged, no session swap).' : 'This day already has progress logged, so it can\'t be moved — but you can still move an untouched day elsewhere.'}</div>`;
+      bodyHtml += `<div class="swap-alternates">`;
+      week.filter(x => x.id !== dayId).forEach(other => {
+        const otherPartner = getDaySwapPartner(currentPlan.id, other.id);
+        const otherUntouched = dayIsUntouched(other.id);
+        const eligible = selfUntouched && otherUntouched && !otherPartner;
+        let reason = '';
+        if (!selfUntouched) reason = 'This day has progress logged';
+        else if (otherPartner) reason = `Already swapped with ${dayNames[otherPartner]}`;
+        else if (!otherUntouched) reason = 'Has progress logged';
+        const disc = disciplineOf(other.sessions[0] || { name: '' });
+        bodyHtml += `
+          <button class="swap-alternate ${eligible ? '' : 'disabled'}" ${eligible ? `onclick="confirmMoveDay('${dayId}', '${other.id}')"` : 'disabled'} style="${eligible ? '' : 'opacity: 0.45; cursor: not-allowed;'}">
+            <div class="swap-alternate-icon" data-disc="${disc}">${icons[disc] || icons.run}</div>
+            <div class="swap-alternate-content">
+              <div class="swap-alternate-label">${dayNames[other.id]} — ${other.sessions.map(s => s.name).join(' + ')}</div>
+              <div class="swap-alternate-reason">${eligible ? `Trade full sessions with ${dayNames[dayId]}` : reason}</div>
+            </div>
+          </button>
+        `;
+      });
+      bodyHtml += `</div>`;
+    }
+
+    document.getElementById('moveModalBody').innerHTML = bodyHtml;
+    document.getElementById('moveModalBackdrop').classList.add('show');
+  }
+
+  function closeMoveDayModal() {
+    document.getElementById('moveModalBackdrop').classList.remove('show');
+    moveModalDayId = null;
+  }
+
+  function confirmMoveDay(dayIdA, dayIdB) {
+    if (!dayIsUntouched(dayIdA) || !dayIsUntouched(dayIdB)) {
+      toast("Can't move — one of these days already has progress logged");
+      return;
+    }
+    swapDayPairInPlace(dayIdA, dayIdB);
+    const pair = canonicalDayPair(dayIdA, dayIdB);
+    if (!dayOrderSwaps[currentPlan.id]) dayOrderSwaps[currentPlan.id] = [];
+    dayOrderSwaps[currentPlan.id].push(pair);
+    currentPlan._appliedDaySwapPairs = dayOrderSwaps[currentPlan.id].map(p => p.slice());
+    persistDaySwaps();
+    pushDaySwapToSupabase(currentPlan.id, pair[0], pair[1]);
+    closeMoveDayModal();
+    toast(`${dayNames[dayIdA]} and ${dayNames[dayIdB]} swapped`);
+    renderWeek();
+  }
+
+  function undoMoveDay(dayIdA, dayIdB) {
+    swapDayPairInPlace(dayIdA, dayIdB);
+    const pair = canonicalDayPair(dayIdA, dayIdB);
+    if (dayOrderSwaps[currentPlan.id]) {
+      dayOrderSwaps[currentPlan.id] = dayOrderSwaps[currentPlan.id].filter(p => !(p[0] === pair[0] && p[1] === pair[1]));
+    }
+    currentPlan._appliedDaySwapPairs = (dayOrderSwaps[currentPlan.id] || []).map(p => p.slice());
+    persistDaySwaps();
+    deleteDaySwapFromSupabase(currentPlan.id, pair[0], pair[1]);
+    closeMoveDayModal();
+    toast('Days back to normal order');
     renderWeek();
   }
 
@@ -4046,16 +4306,18 @@
     if (!currentUser || !supabaseClient) return;
     const uid = currentUser.id;
     try {
-      const [statusRes, logRes, checkinRes, swapRes] = await Promise.all([
+      const [statusRes, logRes, checkinRes, swapRes, daySwapRes] = await Promise.all([
         supabaseClient.from('session_statuses').select('*').eq('user_id', uid),
         supabaseClient.from('session_logs').select('*').eq('user_id', uid),
         supabaseClient.from('checkins').select('*').eq('user_id', uid),
-        supabaseClient.from('session_swaps').select('*').eq('user_id', uid)
+        supabaseClient.from('session_swaps').select('*').eq('user_id', uid),
+        supabaseClient.from('day_swaps').select('*').eq('user_id', uid)
       ]);
       const statuses = statusRes.data || [];
       const logs = logRes.data || [];
       const checkins = checkinRes.data || [];
       const swaps = swapRes.data || [];
+      const daySwapRows = daySwapRes.data || [];
       window.COACH_PLANS.weeks.forEach(plan => {
         const statusObj = {};
         statuses.filter(r => r.week_id === plan.id).forEach(r => {
@@ -4085,6 +4347,17 @@
       });
       sessionSwaps = swapObj;
       localStorage.setItem('coach-session-swaps', JSON.stringify(sessionSwaps));
+
+      // Day swaps rebuild per-week, then re-apply so the currently viewed
+      // week reflects any changes made on another device.
+      const dayOrderObj = {};
+      daySwapRows.forEach(r => {
+        if (!dayOrderObj[r.week_id]) dayOrderObj[r.week_id] = [];
+        dayOrderObj[r.week_id].push([r.day_a, r.day_b]);
+      });
+      dayOrderSwaps = dayOrderObj;
+      localStorage.setItem('coach-day-swaps', JSON.stringify(dayOrderSwaps));
+      if (currentPlan) applyDaySwapsToPlan(currentPlan);
 
       if (currentPlan) {
         sessionStatus = JSON.parse(localStorage.getItem(k('sessionstatus')) || '{}');
@@ -4156,6 +4429,24 @@
     } catch (e) { console.warn('Supabase swap delete failed', e); }
   }
 
+  async function pushDaySwapToSupabase(weekId, dayA, dayB) {
+    if (!currentUser || !supabaseClient) return;
+    try {
+      await supabaseClient.from('day_swaps').upsert({
+        user_id: currentUser.id, week_id: weekId, day_a: dayA, day_b: dayB
+      }, { onConflict: 'user_id,week_id,day_a,day_b' });
+    } catch (e) { console.warn('Supabase day swap sync failed', e); }
+  }
+
+  async function deleteDaySwapFromSupabase(weekId, dayA, dayB) {
+    if (!currentUser || !supabaseClient) return;
+    try {
+      await supabaseClient.from('day_swaps').delete().match({
+        user_id: currentUser.id, week_id: weekId, day_a: dayA, day_b: dayB
+      });
+    } catch (e) { console.warn('Supabase day swap delete failed', e); }
+  }
+
   async function migrateLocalToSupabase() {
     if (!currentUser || !supabaseClient) return;
     if (localStorage.getItem('coach-migrated-to-supabase')) return;
@@ -4202,6 +4493,7 @@
       if (document.getElementById('logModalBackdrop').classList.contains('show')) closeLogModal();
       if (document.getElementById('swapModalBackdrop').classList.contains('show')) closeSwapModal();
       if (document.getElementById('sessionModalBackdrop').classList.contains('show')) closeSessionModal();
+      if (document.getElementById('moveModalBackdrop').classList.contains('show')) closeMoveDayModal();
     }
   });
 </script>

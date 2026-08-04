@@ -131,6 +131,31 @@ window.COACH_SWAPS = {
         }
       },
       {
+        id: 'easy-swim-1500',
+        label: 'Easy swim — 1500m',
+        icon: 'swim',
+        reason: 'Pool\'s free, legs want a break from impact',
+        session: {
+          name: 'Easy swim — technique',
+          meta: '1500m · 40 min',
+          headline: 'Cross-discipline swap — no-impact aerobic work',
+          warmUp: '200m easy freestyle.',
+          mainSet: [
+            '2 × 50m catch-up drill with 20s rest',
+            '6 × 100m at 1:45–1:50 with 20s rest — steady, no pressure',
+            '200m easy'
+          ],
+          coolDown: '100m easy, mixed strokes.',
+          focus: 'Zero-impact aerobic day — a genuine alternative when legs need a break but you still want to move.',
+          paces: ['Main: 1:45–1:50 /100m', 'Easy: 1:55–2:05 /100m'],
+          considerations: [
+            'Doesn\'t replace the week\'s Wednesday swim — this is a bonus/substitute for Monday specifically',
+            'Good option if legs are carrying fatigue from the weekend'
+          ],
+          importance: 'Cross-training keeps the week\'s total load consistent without adding to running/football\'s impact cost.'
+        }
+      },
+      {
         id: 'rest',
         label: 'Full rest',
         icon: 'rest',
@@ -361,6 +386,34 @@ window.COACH_SWAPS = {
             'Bail rule: 6–8 reps if legs are struggling'
           ],
           importance: 'Hills build power and running economy. Once in a while replacing flat threshold with hills prevents staleness and builds strength that translates back to flat speed.'
+        }
+      },
+      {
+        id: 'vo2-6x3min',
+        label: 'VO2 — 6 × 3 min',
+        icon: 'run',
+        reason: 'Sharper top-end stimulus',
+        session: {
+          name: 'VO2 reps — 6 × 3 min',
+          meta: '9 km · 55 min',
+          headline: 'Top-end aerobic power — for later in the build, not early',
+          warmUp: [
+            '15 min easy jog',
+            '4 × 100m strides — build to genuinely fast'
+          ],
+          mainSet: [
+            '6 × 3 min at VO2 effort (RPE 9, 3:30–3:40/km if you check pace)',
+            '2:30 easy jog recovery between reps'
+          ],
+          coolDown: '10 min easy jog.',
+          focus: 'Hard. This is the sharpening-phase tool, not a base-phase one — use sparingly this early in the build.',
+          paces: ['Reps: 3:30–3:40 /km', 'Recovery: 2:30 jog', 'HR 172+'],
+          considerations: [
+            'Save this mostly for Oct–Nov (the sharpen phase) — an occasional early taste is fine but don\'t make it a habit yet',
+            'Bail rule: 4 reps if form breaks down',
+            'Needs full recovery either side — don\'t stack with a hard Sat'
+          ],
+          importance: 'VO2 work lifts the aerobic ceiling above threshold — it\'s what eventually makes 3:42/km race pace feel like threshold, not max effort. Held in reserve for when the build calls for it.'
         }
       },
       {
@@ -708,6 +761,27 @@ window.COACH_SWAPS = {
         }
       },
       {
+        id: 'easy-run-6km-fallback',
+        label: 'Easy run — 6km instead',
+        icon: 'run',
+        reason: 'Pool inaccessible entirely — run instead of skipping',
+        session: {
+          name: 'Easy run — 6 km (swim fallback)',
+          meta: '6 km · 35 min',
+          headline: 'Cross-discipline swap — running instead of a missed swim',
+          warmUp: 'First km deliberately slow.',
+          mainSet: '6 km continuous at easy aerobic pace.',
+          coolDown: 'Last 500m drop to walk.',
+          focus: 'Not a swim replacement in training-specificity terms, but keeps the week\'s total aerobic load intact.',
+          paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+          considerations: [
+            'Genuine fallback for when the pool is properly out of reach, not a first choice',
+            'Doesn\'t build swim fitness — just fills the aerobic gap for the week'
+          ],
+          importance: 'Better to bank aerobic minutes somewhere than skip entirely when the swim genuinely can\'t happen.'
+        }
+      },
+      {
         id: 'rest',
         label: 'Skip swim',
         icon: 'rest',
@@ -782,6 +856,31 @@ window.COACH_SWAPS = {
             'Cap RPE at 7 — this isn\'t threshold'
           ],
           importance: 'Progression toward 2 × 20 SS. Single-block variant is a useful stepping stone.'
+        }
+      },
+      {
+        id: 'bike-vo2-6x3min',
+        label: 'Bike VO2 — 6 × 3 min',
+        icon: 'bike',
+        reason: 'Sharper bike stimulus for variety',
+        session: {
+          name: 'Long bike — VO2 intervals',
+          meta: '2:00 · ~45 km',
+          headline: 'Hard bike intervals — a change of stimulus from steady sweet spot',
+          warmUp: '15 min easy building to Z2, 3 × 1 min hard efforts to open the legs.',
+          mainSet: [
+            '30 min steady Z2',
+            '6 × 3 min at VO2 effort (RPE 8–9) with 3 min easy spin recovery',
+            '25 min steady Z2'
+          ],
+          coolDown: '10 min easy spin.',
+          focus: 'Short, hard, repeatable efforts — different training effect to sustained sweet spot.',
+          paces: ['Z2: RPE 3–4', 'VO2: RPE 8–9'],
+          considerations: [
+            'Good occasional variety — not a weekly habit while the run block is the priority',
+            'Demanding — don\'t stack with a hard Sat run the day before'
+          ],
+          importance: 'VO2 bike work develops a different part of the aerobic system to sweet spot — useful variety without adding to weekly volume.'
         }
       },
       {
