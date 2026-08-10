@@ -3538,10 +3538,19 @@
       if (lines.length) statusSummary += `- ${day.day} ${day.date}: ${lines.join('; ')}\n`;
     });
 
+    // Whole-day moves (from the Move Day feature) — these aren't session-level
+    // swaps so they don't show up in `swapped` above, but the coach needs to
+    // know a day's content moved, not just that its sessions got logged.
+    let daysMoved = '';
+    (dayOrderSwaps[currentPlan.id] || []).forEach(([a, b]) => {
+      daysMoved += `- ${dayNames[a]} and ${dayNames[b]} swapped whole days\n`;
+    });
+
     return [
       `Week ${currentPlan.number} check-in — ${currentPlan.dateRange}`,
       '',
       ...Object.entries(labels).map(([k, label]) => `${label}:\n${checkin[k] || '(no answer)'}\n`),
+      daysMoved ? `Days moved this week:\n${daysMoved}` : '',
       swapped ? `Swaps made this week:\n${swapped}` : '',
       statusSummary ? `Session status this week:\n${statusSummary}` : '',
       logged ? `Session log (RPE/notes):\n${logged}` : ''
