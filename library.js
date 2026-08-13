@@ -171,6 +171,39 @@ window.COACH_LIBRARY = {
           'Builds body position and balance'
         ],
         whenToUse: 'Warm-up or as part of a kick set.'
+      },
+      {
+        name: 'Zipper drill',
+        description: 'Thumb drags up the side of your body during recovery, like pulling a zipper — keeps the arm on its own side instead of crossing the centreline on entry.',
+        cues: [
+          'Thumb brushes your hip, ribs, then armpit on the way through',
+          'Hand enters the water in line with your shoulder, not your head or the midline',
+          'Exaggerate it at first — "too wide" is usually about right',
+          'Pairs well with fingertip drag — same recovery phase, different fault fixed'
+        ],
+        whenToUse: 'Whenever the stroke feels like it\'s snaking left-right, or the hand visibly crosses the midline on entry.'
+      },
+      {
+        name: 'Vertical kicking',
+        description: 'Treading water using a flutter kick only — hands out of the water or clasped behind your head.',
+        cues: [
+          'Kick from the hip, not the knee — legs stay long, not bicycling',
+          'Ankles loose and pointed, not flexed — this is the opposite of what running trains, which is exactly why it feels hard',
+          'Start in 10–15s bursts and build up as it gets easier',
+          'Feeling like it\'s impossible at first is normal — that\'s the point, there\'s no arms to hide behind'
+        ],
+        whenToUse: 'Warm-up or a standalone kick block. The single most direct drill for building a weak kick, because the arms can\'t compensate.'
+      },
+      {
+        name: 'Early-catch drill (no-glide catch-up)',
+        description: 'Same setup as catch-up drill, but the moment your hands touch out front, begin the catch immediately — zero pause.',
+        cues: [
+          'Touch your hands together like normal catch-up',
+          'The instant they touch, start bending the elbow and pressing — no floating, no counting, no glide',
+          'If you can silently count "1" before you start pulling, you\'re still gliding too long',
+          'This is the opposite lesson to regular catch-up drill — that one teaches patience and extension, this one removes the dead spot. Do both, but don\'t let regular catch-up become your default full-speed stroke pattern'
+        ],
+        whenToUse: 'Whenever the front arm is sitting out too long before the pull starts, or after a block of regular catch-up drill to reset the timing.'
       }
     ],
     run: [
