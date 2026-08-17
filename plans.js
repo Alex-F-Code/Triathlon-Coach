@@ -2177,6 +2177,188 @@ window.COACH_PLANS = {
           ]
         }
       ]
+    },
+
+    // ================================================================
+    // WEEK 12 — Disrupted week (17–23 Aug 2026)
+    // No swim, no bike this week (equipment/pool unavailable), Tuesday
+    // fully off. Wed/Thu/Fri confirmed good — run and gym only. Delayed
+    // 6×1km threshold test (skipped twice: swapped to rest, then overridden
+    // by an impromptu football game) finally happens here, moved to Wed.
+    // Genuinely lighter week overall — losing swim + bike hours does most
+    // of the work without needing to trim the run sessions themselves.
+    // ================================================================
+    {
+      id: 'w12',
+      number: 12,
+      title: 'Disrupted week — run and gym only',
+      dateRange: '17–23 August',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~30 km',
+        bikeKm: '0 km',
+        swimM: '0m',
+        totalHours: '~4:00'
+      },
+      focusHtml: 'No swim or bike this week — pool and bike both unavailable. Tuesday is a full day off. <strong>The delayed 6 × 1 km threshold test moves to Wednesday</strong> (skipped twice last week — swapped to rest, then an impromptu football game happened instead). Thursday becomes a gym session using the run-and-gym-only window. Friday keeps its long run + tempo slot. Weekend is fully optional — no bike or swim to prescribe anyway. Genuinely lighter week: losing swim and bike hours does most of the work without needing to trim the running itself.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '17 Aug',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Standard easy Monday — unaffected by this week\'s disruption',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '7 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Genuinely easy — Wednesday carries this week\'s big test.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: [
+              'Nothing unusual here — normal Monday shape',
+              'Optional 15 min home mobility after if you fancy it'
+            ],
+            importance: 'Easy aerobic volume, unaffected by the pool/bike unavailability this week.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '18 Aug',
+          name: 'Rest', meta: 'Full day off', rest: true,
+          sessions: [{
+            name: 'Rest — full day off', meta: 'No training',
+            headline: 'The one genuinely fixed day off this week',
+            warmUp: '—',
+            mainSet: 'No structured training of any kind today.',
+            coolDown: '—',
+            focus: 'Actual rest — last week\'s Tuesday rest turned into a football game. This week, take it.',
+            paces: [],
+            considerations: [
+              'You clearly have good energy right now (great swim, strong speed session) — that\'s exactly when an easy day gets skipped. Worth protecting this one specifically',
+              'Wednesday\'s threshold test benefits from fresh legs today'
+            ],
+            importance: 'Two designated rest/easy days have turned into extra effort recently. Not a problem on its own, but Wednesday\'s test is worth arriving fresh for — this is the day that makes that possible.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '19 Aug',
+          name: 'Run quality — 6 × 1 km threshold', meta: '11 km · 60 min',
+          sessions: [{
+            name: 'Threshold reps — 6 × 1 km', meta: '11 km · 60 min',
+            headline: 'The delayed test — finally happening',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km — deliberately slow first 5 min',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '1 km at 3:50–3:55/km — controlled hard, RPE 7',
+              '90s easy jog recovery — HR back under 145',
+              '1 km at 3:50–3:55/km — same effort',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — hold form',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — stay honest',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — hold the effort, not just the pace',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — finish strong but controlled'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km — keep moving at least 5 min after the last rep.',
+            focus: 'This is the same test that was meant to happen last Tuesday — moved here given the week\'s constraints, but the target is unchanged.',
+            paces: ['Reps: 3:50–3:55 /km', 'Recovery: 90s jog', 'HR 165–172'],
+            considerations: [
+              'Fresh off a full rest day — no excuse for holding back',
+              'Even effort across all 6 — last successful attempt (5 reps, three weeks ago) got quicker as it went, so aim to hold this pace steady rather than negative-split',
+              'Bail rule: 5 reps if the 6th feels like a genuine reach',
+              'Recent form (strong swim, strong speed reps) suggests fitness is trending well — no reason to expect this to be hard'
+            ],
+            importance: 'Confirms the pace-tightened progression (3:50–3:55) actually holds at 6 reps, not just in theory. This is the week\'s priority session.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '20 Aug',
+          name: 'Gym — lower body + core', meta: '50 min · gym',
+          sessions: [{
+            name: 'Gym — lower body + core', meta: '50 min · gym',
+            headline: 'Using the run-and-gym-only window — legs get a break from running, not from work',
+            warmUp: '8 min: glute bridges, bodyweight squats, leg swings, banded clamshells.',
+            mainSet: [
+              '3 × 6–8 back squat or goblet squat',
+              '3 × 6 each leg Bulgarian split squat',
+              '3 × 8 Romanian deadlift',
+              '3 × 10 each leg single-leg calf raise',
+              '3 × 12 single-leg glute bridge each side',
+              '3 × 30s plank'
+            ],
+            coolDown: '5 min: hip flexor and hamstring stretch.',
+            focus: 'Form over load. This slots in for the missing bike/swim volume this week, and single-leg work specifically supports running durability.',
+            paces: ['RPE 7 on top sets', 'Leave 2 reps in reserve'],
+            considerations: [
+              'Legs had a hard day Wednesday — moderate load, not a max-effort gym session',
+              'You did a full gym upper session a few weeks back via swap — this one leans lower body to balance it out',
+              'Single-leg work is the best injury-prevention tool available while run volume is the priority'
+            ],
+            importance: 'With swim and bike both unavailable, gym is a legitimate way to keep some non-running load in the week without adding impact on top of Wednesday\'s hard run.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '21 Aug',
+          name: 'Long run + 3km tempo', meta: '12 km · 65 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
+            headline: 'Standard Friday slot — tempo continues at the same modest distance',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              '9 km easy at 4:45–5:00 /km (HR <150) — settle in, no pace-chasing',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
+            ],
+            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
+            focus: 'Same shape as last time this landed — the job is consistency, not extending distance yet.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Second hard running day this week (Wed + Fri) — if Wednesday\'s reps took a lot out of you, run this one at the easier end and don\'t force the tempo',
+              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy',
+              'Once this lands clean twice running, tempo extends to 4 km'
+            ],
+            importance: 'The Friday tempo slot is still new — landing it consistently matters more right now than any single session\'s distance.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '22 Aug',
+          name: 'Optional — no fixed session', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Optional — easy movement or rest', meta: 'Your call',
+            headline: 'Genuinely optional — no bike or swim to prescribe this week anyway',
+            warmUp: '—',
+            mainSet: 'Rest, a short easy jog, or whatever fits. No prescription.',
+            coolDown: '—',
+            focus: 'Nothing owed here. Two hard running days already banked this week (Wed, Fri).',
+            paces: [],
+            considerations: [
+              'If you want to move, easy only — nothing to prove this week',
+              'Log whatever happens'
+            ],
+            importance: 'A lighter week only works if the optional days actually stay optional.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '23 Aug',
+          name: 'Optional — no fixed session', meta: 'Bike unavailable this week', rest: true,
+          sessions: [{
+            name: 'Optional — easy movement or rest', meta: 'Bike paused this week',
+            headline: 'Bike slot paused — resumes next week once available again',
+            warmUp: '—',
+            mainSet: 'Rest, or an easy short run if you fancy it. No structured session.',
+            coolDown: '—',
+            focus: 'Nothing owed. The sweet-spot progression thread picks back up next week.',
+            paces: [],
+            considerations: [
+              'No SS block or brick this week — genuinely nothing lost by skipping entirely',
+              'Bike resumes at 1 × 15 SS next week, same as where it left off'
+            ],
+            importance: 'No point forcing a bike-shaped hole to be filled with something else — better to let the week be lighter as intended.'
+          }]
+        }
+      ]
     }
 
   ]
