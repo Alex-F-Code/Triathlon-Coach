@@ -2359,6 +2359,193 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    // WEEK 13 — Sprint triathlon prep (24–30 Aug 2026)
+    // Last-minute sprint triathlon, race day Sun 6 Sep. Reshuffled from
+    // the original day order per his real-world availability: no open
+    // water access this week (pool swim instead), swim easier Wed, only
+    // running possible Thu, cycling available Fri, and he's already
+    // planning his own bike ride Sun — so the brick moves there and
+    // Sat becomes the pre-brick easy day. Run + swim are already in good
+    // shape (10K build + strong recent OWS); bike has had almost no
+    // dedicated time in 3 weeks, so real bike volume matters this week.
+    // Standalone 10K threshold progression paused in favour of race-
+    // specific work; resumes after the race. Football back on Tuesday.
+    // ================================================================
+    {
+      id: 'w13',
+      number: 13,
+      title: 'Sprint triathlon prep',
+      dateRange: '24–30 August',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~22 km',
+        bikeKm: '~30 km',
+        swimM: '~1200m',
+        totalHours: '~6:00'
+      },
+      focusHtml: 'Sprint triathlon in 9 days (Sun 6 Sep, sea OWS) — reshuffled around this week\'s real availability. Pool swim moves to <strong>Wednesday</strong> (no open water access, easier day for him). <strong>Thursday</strong> carries the race-pace run — the only session Thursday allows. <strong>Friday</strong> gets the bike restoration work. <strong>Sunday\'s brick</strong> rides on his own planned bike ride, with Saturday as a deliberately easy day beforehand. The 6×1km progression test stays paused — resumes after the race.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '24 Aug',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Standard easy Monday — unaffected by the race prep shift',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '7 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Nothing to prove here — the week\'s real work starts Wednesday.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Genuinely easy — save the legs for the sessions ahead'],
+            importance: 'Easy aerobic volume, unaffected by the triathlon prep reshuffle.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '25 Aug',
+          name: 'Football', meta: '60 min',
+          sessions: [{
+            name: 'Football', meta: '60 min · casual game',
+            headline: 'Back on this week — the usual neuromuscular/anaerobic dose',
+            warmUp: 'Active warm-up before kick-off: skips, lateral shuffles, accelerations.',
+            mainSet: '60 min 5-a-side or casual game.',
+            coolDown: 'Walk 5 min, stretch calves and hip flexors.',
+            focus: 'Sprints and change of direction — good race-relevant sharpness, no extra running needed today.',
+            paces: ['RPE 6–8 in bursts'],
+            considerations: [
+              'No additional run quality today — this covers it',
+              'If it doesn\'t happen, a 30 min easy run is the fallback, nothing more'
+            ],
+            importance: 'Free anaerobic/agility work — useful and low-cost with the race close.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '26 Aug',
+          name: 'Swim — pool, race-pace + technique', meta: '~1300m · 35 min',
+          sessions: [{
+            name: 'Pool swim — race-pace + technique warm-up', meta: '~1300m · 35 min',
+            headline: 'No open water this week — pool session, easier day for you logistically anyway',
+            warmUp: [
+              '200m easy free',
+              '3 × 20s vertical kicking, 20s rest — "Ankles loose and pointed, not flexed. Kick from the hip — legs stay long, don\'t bicycle from the knee."',
+              '2 × 50m 6-1-6 — "Eyes on the bottom of the pool the entire time. Feel the hip roll fully before the single stroke."',
+              '2 × 50m side kick — "Hips stacked, bottom arm long. If your legs sink here, it\'s the kick\'s job to fix it, not the arm\'s."',
+              '2 × 50m front sculling — "Palms down, small figure-8s — feel pressure build on the forearms before any actual swimming."'
+            ],
+            mainSet: '6 × 100m at 1:40–1:45/100m with 20s rest — race effort for the swim leg, sustained not sprinted.',
+            coolDown: '100m easy, mixed strokes.',
+            focus: 'Technique warm-up (Week A of the rotation) plus race-pace practice — swim is your safest leg, this keeps it sharp without adding volume you don\'t need.',
+            paces: ['Race effort: 1:40–1:45 /100m', 'Easy: 1:55–2:05 /100m'],
+            considerations: [
+              'No open water this week — pool works fine, the 750m sprint swim leg is well within reach either way',
+              'If you get any brief OWS or wetsuit time before race day it\'s a nice-to-have, not essential given your experience',
+              'This is the first swim to carry the standing technique rotation — see the note on early-catch/zipper drill for Week B next time'
+            ],
+            importance: 'Swim needs confidence and sharpness right now, not more base fitness — the technique work keeps compounding gains even while the main set stays short.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '27 Aug',
+          name: 'Run — 5km race-pace effort', meta: '8 km · 40 min',
+          sessions: [{
+            name: 'Run — 5km at race effort', meta: '8 km · 40 min',
+            headline: 'The only session Thursday allows — race-specific quality, more useful than another isolated threshold test',
+            warmUp: [
+              '15 min easy jog, building gradually',
+              '4 × 100m strides'
+            ],
+            mainSet: '5 km continuous at a strong, controlled effort — aim 3:50–4:00/km fresh. On race day, fatigue from the swim and bike will likely slow this by 15–25 sec/km, which is completely normal and not a fitness concern.',
+            coolDown: '10 min easy jog.',
+            focus: 'Controlled hard, not an all-out time trial — you don\'t need to peak today, just sharpen the legs for a fast finish off the bike on race day.',
+            paces: ['Race effort: 3:50–4:00 /km', 'HR 165–175'],
+            considerations: [
+              'This replaces this week\'s threshold reps — same energy system, more race-relevant',
+              'Run fitness isn\'t the concern for this race — this session is about leg speed and confidence, not proving anything',
+              '6 × 1 km progression test resumes the week after the race'
+            ],
+            importance: '5 km is comfortably within your current fitness — the value here is rehearsing race-effort running, which is what race day actually needs, not another isolated interval session.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '28 Aug',
+          name: 'Bike — restore volume + race-effort segment', meta: '55 min · ~22 km',
+          sessions: [{
+            name: 'Bike — steady with race-effort block', meta: '55 min · ~22 km',
+            headline: 'First real bike session in three weeks — rebuilding comfort and reintroducing race intensity',
+            warmUp: '10 min easy spinning, building gradually.',
+            mainSet: [
+              '25 min steady Z2 — RPE 3–4, HR 130–145, just getting the legs turning over again',
+              '15 min at race effort — RPE 6–7, HR 145–155, similar intensity to what a 20km sprint bike leg actually feels like',
+              '10 min easy spin to finish'
+            ],
+            coolDown: '5 min very easy spin.',
+            focus: 'Legs will feel rusty for the first 10–15 min — completely normal after this long off the bike. The race-effort block matters more than the total distance.',
+            paces: ['Z2: RPE 3–4, HR 130–145', 'Race effort: RPE 6–7, HR 145–155'],
+            considerations: [
+              'Almost no bike time in 3 weeks — don\'t expect this to feel smooth immediately',
+              'The 15 min race-effort block is the important part — it\'s roughly the intensity and rough duration of the actual 20km leg',
+              'Position/comfort check — if anything feels off on the bike (saddle, reach), better to notice now than on race morning'
+            ],
+            importance: 'Bike is the leg that\'s had the least attention and the shortest lead-in to fix it. This session both restores basic comfort and reintroduces the specific effort the race will ask for.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '29 Aug',
+          name: 'Easy run', meta: '5–6 km · 30 min',
+          sessions: [{
+            name: 'Easy run', meta: '5–6 km · 30 min',
+            headline: 'Deliberately light — the brick is tomorrow, not today',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '5–6 km continuous at easy aerobic pace, genuinely conversational.',
+            coolDown: 'Walk a few minutes after.',
+            focus: 'No intensity today — this is purely about keeping the legs moving without adding any fatigue before tomorrow.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 2–3'],
+            considerations: [
+              'Shorten further or skip entirely if Friday\'s bike left anything lingering',
+              'Tomorrow\'s brick is the week\'s remaining big session — arrive fresh for it'
+            ],
+            importance: 'Protects Sunday\'s brick, which is the most race-specific session available this week.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '30 Aug',
+          name: 'Brick — your bike ride + run off the bike', meta: 'Your ride + 12 min run',
+          sessions: [
+            {
+              name: 'Bike — your planned ride, race-effort finish', meta: 'Your distance/duration',
+              headline: 'Whatever ride you\'re already planning — just finish it at race effort',
+              warmUp: 'However you\'d normally start the ride.',
+              mainSet: 'Ride as planned, but make the final 15–20 min race effort — RPE 7–8, harder and more sustained than Friday\'s block, closer to what an all-out 20km leg actually demands.',
+              coolDown: 'Straight into the run below — no cool-down spin today, that\'s the point of a brick.',
+              focus: 'The specific bit that matters is the last 15–20 min at real effort, immediately followed by running — the exact ride length and route beyond that doesn\'t need to be prescribed.',
+              paces: ['Race effort (final segment): RPE 7–8, HR 155–165'],
+              considerations: [
+                'Rack the bike and get straight into running shoes at the end — practice the actual transition, don\'t linger',
+                'The race-effort finish is what makes this a real brick rather than just a ride that happens to be followed by a run'
+              ],
+              importance: 'Closest rehearsal you can get to the real bike leg intensity and duration before race day, built around a ride you\'re already doing.'
+            },
+            {
+              name: 'Brick run', meta: '12 min off the bike',
+              headline: 'Straight off the bike — this is what race legs actually feel like',
+              warmUp: 'None — straight into running, that\'s the whole point.',
+              mainSet: '12 min at a hard-but-controlled effort, straight off the bike.',
+              coolDown: '5 min easy jog, then walk.',
+              focus: 'The first few minutes will feel genuinely strange — heavy, wobbly legs. That adaptation is exactly what this session trains, and it only comes from doing bike-to-run, not from running or biking alone.',
+              paces: ['RPE 7', 'Effort-based, not pace-based today'],
+              considerations: [
+                'Don\'t worry about pace for the first 3–4 min — let the legs find their rhythm',
+                'This is the only bike-to-run transition you need to practice — one good rehearsal is enough',
+                'Taper week starts tomorrow — this is the last hard session before race week eases off'
+              ],
+              importance: 'Bricks are the one triathlon-specific adaptation that nothing else replicates. With just one dedicated session before race day, this is it.'
+            }
+          ]
+        }
+      ]
     }
 
   ]
