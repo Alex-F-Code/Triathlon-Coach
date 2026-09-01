@@ -2546,6 +2546,188 @@ window.COACH_PLANS = {
           ]
         }
       ]
+    },
+
+    // ================================================================
+    // WEEK 14 — Race week (31 Aug – 6 Sep 2026)
+    // Race day: Sun 6 Sep, sprint tri, sea OWS. Neither the race-pace run
+    // nor the brick run happened in W13 — he's never actually completed
+    // a bike-to-run transition, so a short one gets inserted early this
+    // week (low fatigue cost, high value given it's genuinely never
+    // happened). Mon: self-directed 1500m OWS sighting practice (already
+    // done — smart use of real race-environment time). Tue: brick, moved
+    // here since no football this week. Thu/Fri kept light per his own
+    // request, protecting Sat's 5km shakeout + strides before Sunday.
+    // ================================================================
+    {
+      id: 'w14',
+      number: 14,
+      title: 'Race week',
+      dateRange: '31 Aug – 6 Sep',
+      year: 2026,
+      todayId: 'tue',
+      stats: {
+        runKm: '~13 km',
+        bikeKm: '~10 km',
+        swimM: '~2300m',
+        totalHours: '~3:00'
+      },
+      focusHtml: 'Race week — sprint triathlon Sunday, sea OWS. Monday\'s self-directed OWS sighting session was a smart use of race-environment time. <strong>Tuesday\'s brick</strong> (moved here, no football this week) is the first time the bike-to-run transition actually gets rehearsed — neither the race-pace run nor last week\'s brick run happened, so this is worth getting in even during taper. Thursday and Friday stay genuinely light per his own request, protecting <strong>Saturday\'s 5km shakeout + strides</strong> before Sunday\'s race.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '31 Aug',
+          name: 'Open water swim — sighting practice', meta: '1500m · self-directed',
+          sessions: [{
+            name: 'Open water swim — sighting practice', meta: '1500m · self-directed',
+            headline: 'Good initiative — race-environment practice beats anything a pool offers this close to race day',
+            warmUp: 'Easy entry, settle into the water.',
+            mainSet: '1500m in open water, working on sighting rhythm and technique cues in real conditions.',
+            coolDown: 'Easy float/swim to finish.',
+            focus: 'Sighting and technique in the actual race environment — exactly the right use of any OWS access this week.',
+            paces: ['Comfortable, technique-focused — not a fitness session'],
+            considerations: [
+              'Smart call fitting this in — direct race-environment practice for your safest leg',
+              'No need for more swim volume this week — this covers what matters'
+            ],
+            importance: 'The only genuinely race-specific swim practice available before Sunday, and it happened in the real conditions rather than a pool.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '1 Sep',
+          name: 'Brick — bike race effort + run off the bike', meta: '15 min bike + 8–10 min run',
+          sessions: [
+            {
+              name: 'Bike — race effort', meta: '15 min',
+              headline: 'Short and specific — no football this week, so the brick moves here',
+              warmUp: '5 min easy spin.',
+              mainSet: '15 min at race effort — RPE 7, similar intensity to the 20km leg.',
+              coolDown: 'Straight into the run below — no cool-down spin, that\'s the point of a brick.',
+              focus: 'Short by design — this is purely about the transition experience, not adding fitness this close to race day.',
+              paces: ['Race effort: RPE 7, HR 150–160'],
+              considerations: [
+                'Keep it short and controlled — the value is in the transition, not the bike effort itself',
+                'Straight off the bike into running shoes, no lingering'
+              ],
+              importance: 'Neither the race-pace run nor last week\'s brick run happened — this is the first (and only) chance to actually feel the bike-to-run transition before race day.'
+            },
+            {
+              name: 'Brick run', meta: '8–10 min off the bike',
+              headline: 'The adaptation that\'s never actually happened yet — worth getting in even during taper',
+              warmUp: 'None — straight into running.',
+              mainSet: '8–10 min at a hard-but-controlled effort, straight off the bike.',
+              coolDown: '5 min easy jog, then walk.',
+              focus: 'Legs will feel heavy and strange for the first few minutes — that\'s the whole point, and it\'s much better to feel that for the first time today than on race morning.',
+              paces: ['RPE 6–7', 'Effort-based, not pace-based'],
+              considerations: [
+                'Short and low-fatigue on purpose — 5 days out is early enough that this won\'t cost you freshness',
+                'Don\'t chase pace for the first few minutes — let the legs settle'
+              ],
+              importance: 'The one triathlon-specific adaptation nothing else replicates. Getting even a short version of this in before Sunday matters more than protecting every last bit of freshness.'
+            }
+          ]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '2 Sep',
+          name: 'Swim — easy technique touch', meta: '~900m · 25 min',
+          sessions: [{
+            name: 'Easy swim — technique touch', meta: '~900m · 25 min',
+            headline: 'Light — Monday\'s OWS already covered the real race-specific swim work',
+            warmUp: '200m easy free.',
+            mainSet: [
+              '2 × 50m zipper drill — "Thumb brushes hip → ribs → armpit every recovery, hand drops in level with the shoulder."',
+              '2 × 50m early-catch drill — "Touch hands, then catch instantly — no floating, no counting to one."',
+              '4 × 50m easy free, just moving'
+            ],
+            coolDown: '100m easy.',
+            focus: 'Technique rotation Week B — crossover and catch timing. Nothing hard today.',
+            paces: ['Easy throughout, RPE 3'],
+            considerations: ['Keeps some swim frequency without adding any real fatigue'],
+            importance: 'Maintenance touch — swim fitness isn\'t the concern this week, Monday\'s OWS already did the important work.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '3 Sep',
+          name: 'Easy run', meta: '5 km · 30 min',
+          sessions: [{
+            name: 'Easy run', meta: '5 km · 30 min',
+            headline: 'Light — keeping frequency up without adding fatigue',
+            warmUp: 'First 5 min slow.',
+            mainSet: '5 km continuous, easy aerobic pace, fully conversational.',
+            coolDown: 'Walk a few minutes.',
+            focus: 'Nothing to prove — Friday and the shakeout Saturday matter more than this.',
+            paces: ['4:50–5:10 /km', 'RPE 2–3'],
+            considerations: ['Shorten or skip if anything feels off — this is pure maintenance'],
+            importance: 'Keeps hours up as requested without compromising freshness for race day.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '4 Sep',
+          name: 'Rest', meta: 'Light or full rest, your call', rest: true,
+          sessions: [{
+            name: 'Rest — or very light if you\'d rather move', meta: 'Your call',
+            headline: 'Kept light exactly as you asked — protects tomorrow\'s shakeout and Sunday',
+            warmUp: '—',
+            mainSet: 'Full rest, or a short easy walk if you feel like moving. Nothing structured.',
+            coolDown: '—',
+            focus: 'This is the day you specifically asked to keep light — take it.',
+            paces: [],
+            considerations: ['No training debt here — this is exactly what you asked for'],
+            importance: 'Sets up the shakeout and race day fresh, as requested.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '5 Sep',
+          name: 'Shakeout run + strides', meta: '5 km · 30 min',
+          sessions: [{
+            name: 'Shakeout run + strides', meta: '5 km · 30 min',
+            headline: 'Your call, as requested — legs loose and relaxed before tomorrow',
+            warmUp: 'Easy jog into it, no separate warm-up needed for something this short.',
+            mainSet: [
+              '4 km easy, fully relaxed — RPE 2–3',
+              '4–6 × 20s strides at the end — quick, light, relaxed turnover, not maximal'
+            ],
+            coolDown: 'Walk a few minutes, stretch if you fancy it.',
+            focus: 'Legs loose and activated, not fatigued. Strides are about turnover and feel, not speed.',
+            paces: ['Easy: 4:50–5:10 /km', 'Strides: quick but relaxed, not all-out'],
+            considerations: ['Exactly what you asked for — keep it short and light', 'Lay out race kit tonight, check the forecast'],
+            importance: 'Pre-race shakeout — keeps the legs feeling alive without adding any fatigue.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '6 Sep',
+          name: 'Race day — Sprint Triathlon', meta: 'Sea swim · bike · run',
+          sessions: [{
+            name: 'Race day — Sprint Triathlon', meta: 'Sea swim · bike · run',
+            headline: 'Race smart, enjoy it — this is a fun detour, not the main goal',
+            warmUp: [
+              'Wake 2.5–3 hrs before race start. Breakfast: something familiar and carb-focused, low fat/fibre so it settles properly — porridge with honey/banana, toast with jam, a bagel, whatever you already know sits well. Don\'t try anything new this morning.',
+              'Sip water steadily through the morning — don\'t chug it all at once. Stop heavy drinking ~30–45 min before the swim so you\'re not uncomfortable in the water.',
+              'Arrive early enough to rack the bike, lay out helmet/sunglasses/shoes for T2 in the order you\'ll use them, and walk the transition layout once so T1/T2 aren\'t a surprise.',
+              '~15–20 min before the swim: light 5 min jog, a few strides, arm swings, dynamic stretches. A short warm-up swim if it\'s allowed helps but isn\'t essential.',
+              'Small top-up 10–15 min before the start if you want one — a few sips of a sports drink or half a gel. Not essential for a sprint distance, but fine if it settles your stomach to have something in.'
+            ],
+            mainSet: [
+              'SWIM — controlled, not maximal. This is your strongest leg, no need to empty the tank. Settle into rhythm in the first 100–150m rather than sprinting off the beach with the pack. Sight every 6–8 strokes as usual. Exhale fully underwater and try to time breaths away from oncoming waves/spray to reduce how much water you take on.',
+              'If you swallow a lot of water and start feeling rough mid-swim: don\'t push through in a panic. A few strokes of backstroke or a brief pause to cough and reset your breathing costs seconds, not the race. Exit the water walking/jogging steadily rather than sprinting up the beach — a hard exit surge on top of a queasy stomach makes T1 and the bike start worse, not better.',
+              'T1 — efficient, not rushed. Wetsuit peeled to the waist while jogging in, off, helmet on and buckled BEFORE touching the bike (safety rule at most races), sunglasses if you want them, shoes, go. If you\'re feeling rough from the swim, it\'s worth taking the extra few seconds here to breathe and steady rather than rushing straight onto the bike.',
+              'BIKE — the first 5 min are the key part to get right if the swim was rough. Do NOT go straight to race effort. Spin easy for the first 3–5 min specifically to let your stomach settle — deep breaths, sit slightly more upright if the aero position aggravates the nausea, sip water to rinse the salt taste out of your mouth. Once it settles, build into sustainable-hard effort — think strong tempo, not max sprint, since bike-specific fitness has had limited volume recently and the run is where you want legs left. One gel around 15 min in once you\'re settled, plus sips of fluid through the leg if you have a bottle.',
+              'T2 — efficient. Rack the bike, shoes off, running shoes on, go. Expect heavy, wobbly legs for the first minute or two — this has only been rehearsed once, briefly, so don\'t be alarmed by it.',
+              'RUN — this is where you make up ground. Legs will feel strange for the first few minutes; focus on turnover/cadence rather than stride length until they settle (roughly 1–2km), then push. Your run fitness is well ahead of your bike/swim-specific conditioning, so once you\'re moving properly, this is the leg to actually race. Run by feel rather than a rigid pace target — the fatigue pattern is somewhat unpredictable without more brick practice, so let effort guide you and aim to build through the middle rather than starting fast.'
+            ],
+            coolDown: 'Walk, hydrate properly, easy stretch. Eat a proper meal with protein and carbs within 30–60 min — whatever\'s available at the race village or straight after. Enjoy having done it.',
+            focus: 'The real goal is still the January 10K — this race is a genuinely fun addition, not something to blow up chasing a result that doesn\'t matter to the bigger picture.',
+            paces: [],
+            considerations: [
+              'Swallowing seawater and feeling rough exiting the swim is common, especially in any chop — the fix isn\'t preventing it entirely, it\'s giving yourself those first 3–5 easy min on the bike to settle before pushing effort',
+              'T2 will feel odd regardless — that\'s normal and expected, not a sign anything\'s wrong',
+              'The run leg is your advantage — most of the field won\'t have your run fitness after a swim and bike',
+              'Nutrition for a race this short is about not feeling awful, not about avoiding a bonk — familiar breakfast + one optional gel on the bike is plenty',
+              'Whatever the result, the bike work these last two weeks has real carryover value for general fitness, even though it wasn\'t the plan two weeks ago'
+            ],
+            importance: 'A last-minute opportunistic race, prepared for in under two weeks — reasonable to expect it to feel a bit rough around the edges (especially T2 and possibly the swim exit), and that\'s completely fine. Sub-37 in January remains the real target.'
+          }]
+        }
+      ]
     }
 
   ]
