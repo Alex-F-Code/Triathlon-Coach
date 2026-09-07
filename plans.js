@@ -2728,6 +2728,154 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    // WEEK 15 — Recovery / re-entry after the triathlon (7–13 Sep 2026)
+    // Sunday's race was an RPE 10 effort (14:36 swim in rough sea, 33:30
+    // bike at 31.5 km/h on a shortened course, 22:00 run — legs "not
+    // feeling amazing"). He asked for a light week and flagged a
+    // challenging wedding weekend. No quality prescribed — the 6×1km
+    // threshold test and Friday tempo both resume properly next week
+    // once he's actually recovered. This week just eases back into the
+    // rhythm with easy running, one swim, and full flexibility Sat/Sun.
+    // ================================================================
+    {
+      id: 'w15',
+      number: 15,
+      title: 'Recovery — post-triathlon re-entry',
+      dateRange: '7–13 September',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~21 km',
+        bikeKm: '0 km',
+        swimM: '~1900m',
+        totalHours: '~4:00'
+      },
+      focusHtml: 'Deliberate light week after Sunday\'s hard race effort — no quality prescribed. The 6 × 1 km threshold test and Friday tempo both resume properly next week once you\'re actually recovered, not forced back in on legs still finding themselves. Wedding weekend (Sat/Sun) is fully flexible, matching what you flagged.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '7 Sep',
+          name: 'Easy run — recovery', meta: '5 km · 30 min',
+          sessions: [{
+            name: 'Easy run — recovery', meta: '5 km · 30 min',
+            headline: 'Light, the day after a genuinely hard race effort',
+            warmUp: 'Easy from the first step — no need to build into anything today.',
+            mainSet: '5 km at an easy, unhurried pace. Walk breaks are fine if legs are stiff.',
+            coolDown: 'Walk a few minutes, stretch if it helps.',
+            focus: 'Blood flow, not fitness. Sunday asked a lot of your legs — this is about moving, not training.',
+            paces: ['5:00–5:30 /km or slower', 'RPE 2'],
+            considerations: [
+              'Shorten further or skip entirely if legs are properly sore — nothing lost by resting instead',
+              'Sunday was an RPE 10 effort across three disciplines — some residual fatigue today is completely normal'
+            ],
+            importance: 'Easy movement the day after a big effort helps recovery more than complete inactivity, but this is not a training session.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '8 Sep',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Still easy — the 6×1km threshold test waits until next week',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '7 km continuous at easy aerobic pace, fully conversational.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'No quality this week. Legs get a proper week to recover before the threshold progression resumes.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: [
+              'The standing Tuesday quality slot is deliberately skipped this week — resumes next week',
+              'If legs feel genuinely fresh and you want a few relaxed strides at the end, that\'s fine, but no structured effort'
+            ],
+            importance: 'A full recovery week is what makes next week\'s return to quality actually productive, rather than testing tired legs and getting a misleading result.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '9 Sep',
+          name: 'Swim — technique + easy aerobic', meta: '1900m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + easy aerobic', meta: '1900m · 50 min',
+            headline: 'Back to the normal Wednesday slot — easy effort, technique focus',
+            warmUp: [
+              '200m easy free',
+              '3 × 20s vertical kicking, 20s rest — "Ankles loose and pointed, not flexed. Kick from the hip — legs stay long, don\'t bicycle from the knee."',
+              '2 × 50m 6-1-6 — "Eyes on the bottom of the pool the entire time. Feel the hip roll fully before the single stroke."',
+              '2 × 50m side kick — "Hips stacked, bottom arm long. If your legs sink here, it\'s the kick\'s job to fix it, not the arm\'s."',
+              '2 × 50m front sculling — "Palms down, small figure-8s — feel pressure build on the forearms before any actual swimming."'
+            ],
+            mainSet: '8 × 100m at 1:45–1:50/100m with 20s rest — comfortably easy, not race pace this week.',
+            coolDown: '200m easy, mixing strokes.',
+            focus: 'Technique rotation Week A. Easy effort throughout — this is recovery, not a swim session to push.',
+            paces: ['Easy/steady: 1:45–1:50 /100m'],
+            considerations: ['No pressure on pace this week — swim volume itself is the point, not intensity'],
+            importance: 'Low-impact way to stay active while running and bike both take a genuine rest.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '10 Sep',
+          name: 'Rest', meta: 'No structured training', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional gentle mobility or a walk.',
+            coolDown: '—',
+            focus: 'Sleep, hydration, food.',
+            paces: [],
+            considerations: [],
+            importance: 'Normal weekly rhythm, unaffected by the race.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '11 Sep',
+          name: 'Easy long run', meta: '9 km · 50 min',
+          sessions: [{
+            name: 'Easy long run — no tempo', meta: '9 km · 50 min',
+            headline: 'Long run returns, tempo doesn\'t — not yet',
+            warmUp: 'First 1–2 km deliberately slow.',
+            mainSet: '9 km continuous at easy aerobic pace — no quality finish this week.',
+            coolDown: 'Walk 5 min after.',
+            focus: 'Volume without intensity. Tempo comes back next week alongside the threshold progression.',
+            paces: ['4:45–5:00 /km', 'HR <150', 'RPE 3–4'],
+            considerations: [
+              'Deliberately no tempo this week — full quality return is next week',
+              'Wedding weekend starts after this — nothing to protect for, just genuinely easy'
+            ],
+            importance: 'Keeps the Friday long-run habit alive without asking anything hard of legs still recovering from Sunday.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '12 Sep',
+          name: 'Flexible — wedding weekend', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Flexible — wedding weekend', meta: 'Your call',
+            headline: 'Fully open, as flagged',
+            warmUp: '—',
+            mainSet: 'Whatever fits around the wedding. No prescription.',
+            coolDown: '—',
+            focus: 'Enjoy the weekend — nothing training-related is owed here.',
+            paces: [],
+            considerations: ['Log whatever happens, if anything'],
+            importance: 'A flexible weekend matches what you flagged — no point forcing a session into a day that\'s already spoken for.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '13 Sep',
+          name: 'Flexible — wedding weekend', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Flexible — wedding weekend', meta: 'Your call',
+            headline: 'Fully open — bike/SS progression resumes properly next week',
+            warmUp: '—',
+            mainSet: 'Whatever fits, or nothing at all. No prescription.',
+            coolDown: '—',
+            focus: 'Genuinely nothing owed today.',
+            paces: [],
+            considerations: ['Bike sweet-spot progression picks back up next week once the week is normal again'],
+            importance: 'The full standing template returns properly next week — this week was always meant to be a bridge, not a training block.'
+          }]
+        }
+      ]
     }
 
   ]
