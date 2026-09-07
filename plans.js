@@ -2871,8 +2871,178 @@ window.COACH_PLANS = {
             coolDown: '—',
             focus: 'Genuinely nothing owed today.',
             paces: [],
-            considerations: ['Bike sweet-spot progression picks back up next week once the week is normal again'],
-            importance: 'The full standing template returns properly next week — this week was always meant to be a bridge, not a training block.'
+            considerations: ['Sunday becomes a simple, easy/moderate ride from next week — no more structured sweet-spot blocks now tri season\'s over'],
+            importance: 'The standing template returns next week in its simplified form — this week was always meant to be a bridge, not a training block.'
+          }]
+        }
+      ]
+    },
+
+    // ================================================================
+    // WEEK 16 — EXAMPLE / DRAFT. First week of the v3 template
+    // (14–20 Sep 2026): 3 runs (easy/quality/long+tempo), 1 swim
+    // (maintenance, not race-prep), 1 simple ride (no SS blocks, no
+    // brick). This is a worked example to react to, not locked in —
+    // said to be iterable over the weekend before it's finalised.
+    // Resumes the long-delayed 6×1km @ 3:50–3:55/km threshold test
+    // (paused since before the triathlon detour) and restarts tempo
+    // at a modest 3km given how long it's been since it last landed.
+    // ================================================================
+    {
+      id: 'w16',
+      number: 16,
+      title: 'New template — example week',
+      dateRange: '14–20 September',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~29 km',
+        bikeKm: '~30 km',
+        swimM: '~2400m',
+        totalHours: '~5:30'
+      },
+      focusHtml: '<strong>Example week — draft, not locked in.</strong> First week of the simplified v3 structure: 3 runs, 1 swim (now genuinely maintenance, no race-prep pressure), 1 easy/moderate ride (no more sweet-spot blocks or mandatory brick). Tuesday finally gets the 6 × 1 km threshold test that\'s been delayed since before the triathlon — same target as before (3:50–3:55/km). Friday\'s tempo restarts at a modest 3 km given how long it\'s been since it last landed cleanly.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '14 Sep',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Standard easy Monday',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '7 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Nothing to prove — Tuesday carries the week\'s priority session.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Genuinely easy — save the legs for tomorrow'],
+            importance: 'Easy aerobic volume, feeding the quality session that follows it.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '15 Sep',
+          name: 'Run quality — 6 × 1 km threshold', meta: '11 km · 60 min',
+          sessions: [{
+            name: 'Threshold reps — 6 × 1 km', meta: '11 km · 60 min',
+            headline: 'The delayed test, finally — same target as before the triathlon detour',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km — deliberately slow first 5 min',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '1 km at 3:50–3:55/km — controlled hard, RPE 7',
+              '90s easy jog recovery — HR back under 145',
+              '1 km at 3:50–3:55/km — same effort',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — hold form',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — stay honest',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — hold the effort, not just the pace',
+              '90s easy jog recovery',
+              '1 km at 3:50–3:55/km — finish strong but controlled'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km — keep moving at least 5 min after the last rep.',
+            focus: 'This has been on the books since before the triathlon — the target hasn\'t changed, and neither has the reasoning: even effort across all 6, not a fast start fading out.',
+            paces: ['Reps: 3:50–3:55 /km', 'Recovery: 90s jog', 'HR 165–172'],
+            considerations: [
+              'Legs have had a proper recovery week plus the fitness boost from race week — no reason to expect this to feel harder than it did before the tri detour',
+              'Bail rule: 5 reps if the 6th feels like a genuine reach',
+              '3 × 2 km is the next step once this lands clean'
+            ],
+            importance: 'The priority session of the week, and of the template generally. This is where the 10K progression actually happens.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '16 Sep',
+          name: 'Swim — endurance', meta: '2400m · 60 min',
+          sessions: [{
+            name: 'Swim — endurance (Type B)', meta: '2400m · 60 min',
+            headline: 'Maintenance swim — no race-prep pressure anymore, just keeping the skill and fitness ticking over',
+            warmUp: [
+              '200m easy free',
+              '3 × 20s vertical kicking, 20s rest — "Ankles loose and pointed, not flexed. Kick from the hip — legs stay long, don\'t bicycle from the knee."',
+              '2 × 50m zipper drill — "Thumb brushes hip → ribs → armpit every recovery, hand drops in level with the shoulder."',
+              '2 × 50m early-catch drill — "Touch hands, then catch instantly — no floating, no counting to one."'
+            ],
+            mainSet: [
+              '3 × 400m at 1:46–1:50 /100m with 45s rest — steady, sustainable',
+              '4 × 50m at 1:38–1:42 /100m with 20s rest — sharp finish'
+            ],
+            coolDown: '200m easy, mixing strokes.',
+            focus: 'Technique rotation Week B. This session exists for its own sake now — genuine swim fitness and skill, not a race benchmark.',
+            paces: ['Long/endurance: 1:46–1:50 /100m', 'Speed: 1:38–1:42 /100m'],
+            considerations: ['No pressure on these numbers — land wherever feels right, this is maintenance not testing'],
+            importance: 'One weekly swim keeps the skill and a meaningful amount of fitness without asking much of the schedule — exactly the maintenance role it\'s meant to play now.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '17 Sep',
+          name: 'Rest', meta: 'Protects Friday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer between Tuesday\'s quality and Friday\'s tempo.',
+            paces: [],
+            considerations: [],
+            importance: 'Unchanged from the standing template — this day is what makes the Tue/Fri quality spacing work.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '18 Sep',
+          name: 'Long run + 3km tempo', meta: '12 km · 65 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
+            headline: 'Tempo restarts modest — it\'s been a while since this last landed cleanly',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              '9 km easy at 4:45–5:00 /km (HR <150) — settle in, no pace-chasing',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
+            ],
+            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
+            focus: 'Restarting at the same modest distance rather than assuming progression that was never actually validated recently — land it clean first.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy',
+              'Once this lands clean twice running, tempo extends to 4 km'
+            ],
+            importance: 'The week\'s second quality session — trains holding pace on tired legs, which Tuesday\'s fresh-legs reps don\'t.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '19 Sep',
+          name: 'Flexible', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Flexible — rest or easy movement', meta: 'Your call',
+            headline: 'Same as it\'s always been — genuinely open',
+            warmUp: '—',
+            mainSet: 'Rest, easy movement, or whatever fits. No prescription.',
+            coolDown: '—',
+            focus: 'Unchanged from the standing template.',
+            paces: [],
+            considerations: [],
+            importance: 'A flexible day matters — most weeks don\'t need a fixed session here.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '20 Sep',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'The new, simplified Sunday — no prescribed blocks, no mandatory brick',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day — genuinely easy, or a bit more if you\'re enjoying it. No sweet-spot blocks, no structure required.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'This exists to keep bike fitness and skill from disappearing, and because you enjoy it — not to build FTP.',
+            paces: ['Whatever feels right — no target'],
+            considerations: [
+              'No brick run needed anymore — no race to rehearse for',
+              'A short, light ride still counts — the point is presence, not volume',
+              'If you fancy pushing harder some weeks, that\'s completely fine too — "might do more some weeks" was your own words'
+            ],
+            importance: 'Keeping a light bike habit going now is what makes a future triathlon return cheap rather than starting from zero.'
           }]
         }
       ]
