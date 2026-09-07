@@ -7,9 +7,10 @@
 
 window.COACH_PLANS = {
 
-  // Your own email — used for the "Email a copy to myself" button on the check-in form.
+  // Your own email(s) — used for the "Email a copy to myself" button on the check-in form.
+  // Comma-separated list sends to all of them at once (standard mailto behaviour).
   // Change this when you move to a personal email post-Newton.
-  userEmail: 'alexander.field@newtoneurope.com',
+  userEmail: 'alexander.field@newtoneurope.com,alexander.field@newtonimpact.com',
 
   // The committed goal — shown in the sidebar with a live countdown.
   // Update raceWindow to the real date once a race is booked.

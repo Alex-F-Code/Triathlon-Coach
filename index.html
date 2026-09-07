@@ -3560,9 +3560,12 @@
   function sendCheckinToCoach() {
     const body = buildCheckinText();
     const subject = `Week ${currentPlan.number} check-in — ${currentPlan.dateRange}`;
-    const mailto = `mailto:${window.COACH_PLANS.userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    toast("Opening your email client...");
+    // Gmail's own web-compose URL, not a generic mailto: — this opens Gmail
+    // specifically (app or web view) rather than whatever the OS picks as
+    // its default mail handler, which was inconsistent on mobile.
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(window.COACH_PLANS.userEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = gmailUrl;
+    toast("Opening Gmail...");
   }
 
   function copyCheckinToClipboard() {
