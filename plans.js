@@ -16,7 +16,7 @@ window.COACH_PLANS = {
   // Update raceWindow to the real date once a race is booked.
   goal: {
     label: 'Sub-37 10K',
-    raceWindow: '2027-01-15',
+    raceWindow: '2027-01-10',
     racePace: '3:42 /km'
   },
 
