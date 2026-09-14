@@ -3560,12 +3560,24 @@
   function sendCheckinToCoach() {
     const body = buildCheckinText();
     const subject = `Week ${currentPlan.number} check-in — ${currentPlan.dateRange}`;
-    // Gmail's own web-compose URL, not a generic mailto: — this opens Gmail
-    // specifically (app or web view) rather than whatever the OS picks as
-    // its default mail handler, which was inconsistent on mobile.
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(window.COACH_PLANS.userEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = gmailUrl;
-    toast("Opening Gmail...");
+    // Gmail's web-compose URL, not a generic mailto: — opens Gmail specifically
+    // rather than whatever the OS picks, which was inconsistent on mobile.
+    // The body is NOT passed as a URL param here: a full week's check-in text
+    // (answers + swaps + status + logs) makes the encoded URL long enough that
+    // it silently failed to populate the compose draft in some in-app/embedded
+    // browser contexts. Instead, copy the body to the clipboard and only pass
+    // to/subject in the URL, which stays short and reliable.
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(window.COACH_PLANS.userEmail)}&su=${encodeURIComponent(subject)}`;
+    const openGmail = () => {
+      window.location.href = gmailUrl;
+      toast("Check-in copied — paste it into the email body");
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(body).then(openGmail).catch(openGmail);
+    } else {
+      fallbackCopy(body);
+      openGmail();
+    }
   }
 
   function copyCheckinToClipboard() {
