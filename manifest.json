@@ -1,0 +1,18 @@
+{
+  "name": "Triathlon Coach",
+  "short_name": "Coach",
+  "description": "Weekly training plan, swaps, and check-ins for the 10K/triathlon build.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0c0d0f",
+  "theme_color": "#ee5d27",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
