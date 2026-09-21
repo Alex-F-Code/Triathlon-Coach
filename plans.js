@@ -3047,6 +3047,152 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    {
+      id: 'w17',
+      number: 17,
+      title: 'Threshold steps up — protecting Mon/Fri this time',
+      dateRange: '21–27 September',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~31 km',
+        bikeKm: '~25 km',
+        swimM: '0m',
+        totalHours: '~4:30'
+      },
+      focusHtml: 'Tuesday\'s 6×1km at 3:41/km average (last rep 3:38) was well ahead of target — Tuesday\'s reps step up to 3×2km at a faster pace to match. No swim this week (life got in the way), so it\'s genuinely just running — the thing to protect this time is Monday and Friday, both missed last week while only Tue/Wed landed. Friday\'s tempo stays at 3km (not extending to 4km yet) since it hasn\'t actually landed once since before the triathlon — extend once it does, not on a fixed schedule regardless of whether it happened.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '21 Sep',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Same as always — this is the one to protect this week',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '7 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Nothing to prove — just needs to happen. Missed last week; no big deal once, but it\'s doing real work feeding Tuesday and Friday.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Genuinely easy — save the legs for tomorrow'],
+            importance: 'Easy aerobic volume, feeding the quality session that follows it.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '22 Sep',
+          name: 'Run quality — 3 × 2 km threshold', meta: '12 km · 60 min',
+          sessions: [{
+            name: 'Threshold reps — 3 × 2 km', meta: '12 km · 60 min',
+            headline: 'Stepping up off last week\'s strong 6×1km — pace pulled forward, not the original 3:55–4:00 draft',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km — deliberately slow first 5 min',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '2 km at 3:48–3:53/km — controlled hard, RPE 7–8',
+              '2–3 min easy jog recovery — HR back under 145',
+              '2 km at 3:48–3:53/km — same effort, hold form through the second km',
+              '2–3 min easy jog recovery',
+              '2 km at 3:48–3:53/km — finish strong but controlled, not a repeat of Tuesday\'s all-out last rep'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km — keep moving at least 5 min after the last rep.',
+            focus: 'Last week\'s 6×1km averaged 3:41/km (last rep 3:38) — well inside the original 3:50–3:55 target, so this pace is pulled forward to match. Reps are now twice as long, so there\'s real margin built in rather than just repeating that pace for longer.',
+            paces: ['Reps: 3:48–3:53 /km', 'Recovery: 2–3 min jog', 'HR 165–172'],
+            considerations: [
+              'This is a genuine step up in duration at speed, not just a pace bump — respect the longer rep, don\'t treat km 2 like km 1',
+              'Bail rule: 2 reps if the 3rd feels like a genuine reach',
+              'Hill reps rotation is the next step once this lands clean'
+            ],
+            importance: 'The priority session of the week. This is where the 10K progression actually happens.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '23 Sep',
+          name: 'Rest — no swim this week', meta: 'Life got in the way', rest: true,
+          sessions: [{
+            name: 'Rest — no swim this week', meta: 'One-off, not a new pattern',
+            headline: 'Swim paused this week only — back to normal next week',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility if you want it.',
+            coolDown: '—',
+            focus: 'One missed maintenance swim changes nothing — it\'s only a problem if it becomes the pattern.',
+            paces: [],
+            considerations: ['Wednesday swim resumes as normal next week'],
+            importance: 'Swim is maintenance, not the priority — skipping it once this week to fit life around it costs nothing structurally.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '24 Sep',
+          name: 'Rest', meta: 'Protects Friday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer between Tuesday\'s quality and Friday\'s tempo.',
+            paces: [],
+            considerations: [],
+            importance: 'Unchanged from the standing template — this day is what makes the Tue/Fri quality spacing work.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '25 Sep',
+          name: 'Long run + 3km tempo', meta: '12 km · 65 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
+            headline: 'Second attempt at this — missed last week, still held at 3km rather than extending on a fixed schedule',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              '9 km easy at 4:45–5:00 /km (HR <150) — settle in, no pace-chasing',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — marathon-pace effort, comfortably hard'
+            ],
+            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
+            focus: 'This is the session that actually got missed last week, not the one that\'s already progressing — protecting it matters more than progressing it right now.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy',
+              'Tempo extends to 4 km once this actually lands clean twice — hasn\'t happened yet'
+            ],
+            importance: 'The week\'s second quality session — trains holding pace on tired legs, which Tuesday\'s fresh-legs reps don\'t. This is the one that slipped last week.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '26 Sep',
+          name: 'Flexible', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Flexible — rest or easy movement', meta: 'Your call',
+            headline: 'Same as it\'s always been — genuinely open',
+            warmUp: '—',
+            mainSet: 'Rest, easy movement, or whatever fits. No prescription.',
+            coolDown: '—',
+            focus: 'Unchanged from the standing template.',
+            paces: [],
+            considerations: [],
+            importance: 'A flexible day matters — most weeks don\'t need a fixed session here.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '27 Sep',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'Kept as normal — say if this needs to drop too given the lighter week',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day — genuinely easy, or a bit more if you\'re enjoying it. No sweet-spot blocks, no structure required.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'This exists to keep bike fitness and skill from disappearing, and because you enjoy it — not to build FTP.',
+            paces: ['Whatever feels right — no target'],
+            considerations: [
+              'Assumed this is still on — you only flagged swim as out this week, not the bike. Say so if that assumption\'s wrong.',
+              'A short, light ride still counts — the point is presence, not volume'
+            ],
+            importance: 'Keeping a light bike habit going now is what makes a future triathlon return cheap rather than starting from zero.'
+          }]
+        }
+      ]
     }
 
   ]
