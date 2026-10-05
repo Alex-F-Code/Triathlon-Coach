@@ -3341,6 +3341,158 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    {
+      id: 'w19',
+      number: 19,
+      title: 'Confirming full volume before hills/VO2',
+      dateRange: '5–11 October',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~29 km',
+        bikeKm: '~20 km',
+        swimM: '~2000m',
+        totalHours: '~4:15'
+      },
+      focusHtml: 'Good week — 2×2km landed on the treadmill (working hard but done), easy run in, swim on Wednesday as prescribed, plus a 16km long run with a 3km surge around 4:30/km in the middle (slower than target, but that\'s the extra distance talking, not a fitness problem). Only the bike got skipped. Tuesday goes back to the full 3×2km at the same pace to confirm real volume before moving into hill reps/VO2 work — that step was due this week per the original phase table, but it\'s sliding to next week since 3×2km at full volume hasn\'t actually been confirmed yet (only 2 reps have). Friday holds at the prescribed 9km+3km-at-the-end shape rather than the 16km-with-a-middle-surge version — both are legitimate training, just different sessions; say if you\'d rather the plan built around what you\'re actually gravitating toward. You flagged weekends as the unreliable part and weekdays as solid, which tracks with how this is already structured — Sat/Sun are the flexible/discretionary days, Mon–Fri carry everything that actually needs to land.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '5 Oct',
+          name: 'Easy run', meta: '7 km · 40 min',
+          sessions: [{
+            name: 'Easy run', meta: '7 km · 40 min',
+            headline: 'Back to full volume — down week\'s over',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '7 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Nothing to prove — Tuesday carries the week\'s priority session.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Genuinely easy — save the legs for tomorrow'],
+            importance: 'Easy aerobic volume, feeding the quality session that follows it.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '6 Oct',
+          name: 'Run quality — 3 × 2 km threshold', meta: '12 km · 60 min',
+          sessions: [{
+            name: 'Threshold reps — 3 × 2 km', meta: '12 km · 60 min',
+            headline: 'Same pace, full volume — confirming before the next step',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '2 km at 3:48–3:53/km — controlled hard, RPE 7–8',
+              '2–3 min easy jog recovery — HR back under 145',
+              '2 km at 3:48–3:53/km — same effort, hold form through the second km',
+              '2–3 min easy jog recovery',
+              '2 km at 3:48–3:53/km — finish strong but controlled'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km.',
+            focus: 'Last week\'s 2×2km on the treadmill landed at this pace, working hard but controlled — this week adds the third rep back in. Once this lands clean, hill reps/VO2 work is next, not before.',
+            paces: ['Reps: 3:48–3:53 /km', 'Recovery: 2–3 min jog', 'HR 165–172'],
+            considerations: [
+              'Treadmill is fine for this if it suits the week better — good for locking in the exact pace',
+              'Bail rule: 2 reps if the 3rd feels like a genuine reach',
+              'Hill reps rotation is the next step once this lands clean at full volume'
+            ],
+            importance: 'The priority session of the week, and of the template generally.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '7 Oct',
+          name: 'Swim — technique + easy aerobic', meta: '2000m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + easy aerobic', meta: '2000m · 50 min',
+            headline: 'Technique rotation Week A — sinking legs + kick, properly alternated this time',
+            warmUp: [
+              '200m easy free',
+              '3 × 20s vertical kicking, 20s rest — "Ankles loose and pointed, not flexed. Kick from the hip — legs stay long, don\'t bicycle from the knee."',
+              '2 × 50m 6-1-6 — "Eyes on the bottom of the pool the entire time — not forward, not up to breathe. Feel the hip roll fully before the single stroke."',
+              '2 × 50m side kick — "Hips stacked, bottom arm long. If your legs sink here, it\'s the kick\'s job to fix it, not the arm\'s."',
+              '2 × 50m front sculling — "Palms down, small figure-8s — feel pressure build on the forearms before any actual swimming."'
+            ],
+            mainSet: [
+              '3 × 300m at 1:46–1:50 /100m with 45s rest — steady, sustainable',
+              '4 × 50m at 1:38–1:42 /100m with 20s rest — sharp finish'
+            ],
+            coolDown: '200m easy, mixing strokes.',
+            focus: 'Week A — sinking legs and weak kick. Last couple of Wednesdays both landed on Week B content; back on the proper A/B alternation from here.',
+            paces: ['Long/endurance: 1:46–1:50 /100m', 'Speed: 1:38–1:42 /100m'],
+            considerations: ['No pressure on these numbers — land wherever feels right, this is maintenance not testing'],
+            importance: 'One weekly swim keeps the skill and a meaningful amount of fitness without asking much of the schedule.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '8 Oct',
+          name: 'Rest', meta: 'Protects Friday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer between Tuesday\'s quality and Friday\'s tempo.',
+            paces: [],
+            considerations: [],
+            importance: 'Unchanged from the standing template.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '9 Oct',
+          name: 'Long run + 3km tempo', meta: '12 km · 65 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
+            headline: 'Held at the prescribed shape — tempo at the end of a shorter run, not mid-way through a longer one',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              '9 km easy at 4:45–5:00 /km (HR <150) — settle in, no pace-chasing',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — comfortably hard, on legs that have already done 9km'
+            ],
+            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
+            focus: 'Last week\'s 16km-with-a-mid-run-surge was good training, just a different session — this trains holding pace on genuinely tired legs at the end, which a mid-run surge doesn\'t.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy',
+              'Tempo extends to 4 km once this lands clean twice in this shape'
+            ],
+            importance: 'The week\'s second quality session — trains holding pace on tired legs, which Tuesday\'s fresh-legs reps don\'t.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '10 Oct',
+          name: 'Flexible', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Flexible — rest or easy movement', meta: 'Your call',
+            headline: 'Genuinely open — expected to be the tricky one this week',
+            warmUp: '—',
+            mainSet: 'Rest, easy movement, or whatever fits. No prescription.',
+            coolDown: '—',
+            focus: 'Unchanged from the standing template.',
+            paces: [],
+            considerations: [],
+            importance: 'A flexible day matters — most weeks don\'t need a fixed session here.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '11 Oct',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'No pressure if the weekend doesn\'t cooperate again',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day — genuinely easy, or a bit more if you\'re enjoying it.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'This exists to keep bike fitness and skill from disappearing, and because you enjoy it — not to build FTP.',
+            paces: ['Whatever feels right — no target'],
+            considerations: ['Skipping it one week costs nothing — it\'s only a problem if it becomes every week'],
+            importance: 'Keeping a light bike habit going now is what makes a future triathlon return cheap rather than starting from zero.'
+          }]
+        }
+      ]
     }
 
   ]
