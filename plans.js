@@ -3493,6 +3493,163 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    {
+      id: 'w20',
+      number: 20,
+      title: 'Into VO2 work — a genuinely new stimulus',
+      dateRange: '12–18 October',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~29 km',
+        bikeKm: '~25 km',
+        swimM: '~2000m',
+        totalHours: '~4:15'
+      },
+      focusHtml: 'Full 3×2km confirmed clean last week, plus a bonus Sunday session with Izzy — 2×10min (last minute building) at 3:50/km with 10 min recovery, basically 2×2.6km, felt strong throughout. That\'s a second confirmation the threshold pace is solid, so this week moves into VO2 work (6×800m) — a genuinely new stimulus, not just a repeat at a different pace. Monday\'s trimmed slightly given Sunday\'s effort, so Tuesday\'s new session arrives fresh. Friday\'s long+tempo is held at the same prescription again — but this is now several weeks running where it hasn\'t landed in this shape while a weekend long-run-with-tempo keeps happening organically instead, so it\'s worth actually deciding rather than re-flagging again: see the note on Friday\'s session.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '12 Oct',
+          name: 'Easy run', meta: '6 km · 35 min',
+          sessions: [{
+            name: 'Easy run', meta: '6 km · 35 min',
+            headline: 'Trimmed slightly — Sunday\'s session with Izzy was real work',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '6 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Genuinely easy today so tomorrow\'s new VO2 stimulus lands on fresh legs, not legs still carrying Sunday.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Shorten further if legs still feel Sunday\'s effort'],
+            importance: 'Easy aerobic volume, feeding the quality session that follows it.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '13 Oct',
+          name: 'Run quality — 6 × 800m VO2', meta: '11 km · 58 min',
+          sessions: [{
+            name: 'VO2 reps — 6 × 800m', meta: '11 km · 58 min',
+            headline: 'A new stimulus, not just a new pace — shorter, faster, full recovery',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '800m at 3:40–3:45/km (≈2:56–2:58) — hard, controlled, RPE 8',
+              '2–3 min full recovery jog — let HR properly settle, this isn\'t threshold-style short recovery',
+              '800m at 3:40–3:45/km — repeat, same effort',
+              '2–3 min full recovery',
+              '800m at 3:40–3:45/km',
+              '2–3 min full recovery',
+              '800m at 3:40–3:45/km',
+              '2–3 min full recovery',
+              '800m at 3:40–3:45/km',
+              '2–3 min full recovery',
+              '800m at 3:40–3:45/km — finish controlled, not a blow-up'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km.',
+            focus: 'Pulled forward from an original 3:45–3:50/km draft — every pace target this block has ended up a touch conservative once actually tested, and threshold work (including Sunday\'s bonus session) has consistently landed faster than planned. First time doing reps this short/fast this block, so treat the pace as a strong starting point, not gospel — adjust by feel on the day.',
+            paces: ['Reps: 3:40–3:45 /km', 'Recovery: 2–3 min full jog', 'HR 170+'],
+            considerations: [
+              'Genuinely new stimulus — don\'t judge it against how threshold reps feel, VO2 reps are meant to bite harder for less total volume',
+              'Bail rule: 4 reps if the 5th feels like a genuine reach',
+              'Hill reps rotation is the alternative version of this same step, if flat 800m reps don\'t suit a given week'
+            ],
+            importance: 'The priority session of the week — first Sharpen-phase VO2 session of the block.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '14 Oct',
+          name: 'Swim — technique + easy aerobic', meta: '2000m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + easy aerobic', meta: '2000m · 50 min',
+            headline: 'Technique rotation Week B — crossover + late catch',
+            warmUp: [
+              '200m easy free',
+              '2 × 50m zipper drill — "Thumb brushes hip → ribs → armpit every single recovery. Hand drops in level with the shoulder — if it feels too wide, that\'s about right."',
+              '2 × 50m early-catch drill (no-glide catch-up) — "Touch hands, then catch instantly — no floating, no counting to one. Zero gap between reach and pull."',
+              '2 × 50m single-arm freestyle — "Same rule as above on the working arm — the second it stops reaching, start bending the elbow."'
+            ],
+            mainSet: [
+              '3 × 300m at 1:46–1:50 /100m with 45s rest — steady, sustainable',
+              '4 × 50m at 1:38–1:42 /100m with 20s rest — sharp finish'
+            ],
+            coolDown: '200m easy, mixing strokes.',
+            focus: 'Week B — last week was Week A, properly alternating now. Felt strong last week — keep building on that.',
+            paces: ['Long/endurance: 1:46–1:50 /100m', 'Speed: 1:38–1:42 /100m'],
+            considerations: ['No pressure on these numbers — land wherever feels right, this is maintenance not testing'],
+            importance: 'One weekly swim keeps the skill and a meaningful amount of fitness without asking much of the schedule.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '15 Oct',
+          name: 'Rest', meta: 'Protects Friday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer between Tuesday\'s quality and Friday\'s tempo.',
+            paces: [],
+            considerations: [],
+            importance: 'Unchanged from the standing template.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '16 Oct',
+          name: 'Long run + 3km tempo', meta: '12 km · 65 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
+            headline: 'Held again — but this is the point to actually decide what Friday is, not just reprint the same session',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              '9 km easy at 4:45–5:00 /km (HR <150)',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — comfortably hard, on legs that have already done 9km'
+            ],
+            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
+            focus: 'This exact shape hasn\'t landed clean in weeks — a weekend long-run-with-tempo keeps happening instead (16km mid-run surge, then 2×2.6km with Izzy) and it\'s clearly good training. Worth just moving this session to the weekend officially rather than reprinting a Friday slot that isn\'t sticking — say the word and next week\'s plan reflects it.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy',
+              'Tempo extends to 4 km once this lands clean twice in this shape — still hasn\'t happened'
+            ],
+            importance: 'The week\'s second quality session — trains holding pace on tired legs. Currently the session most worth redesigning around reality.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '17 Oct',
+          name: 'Flexible', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Flexible — rest or easy movement', meta: 'Your call',
+            headline: 'Genuinely open',
+            warmUp: '—',
+            mainSet: 'Rest, easy movement, or whatever fits. No prescription.',
+            coolDown: '—',
+            focus: 'Unchanged from the standing template.',
+            paces: [],
+            considerations: [],
+            importance: 'A flexible day matters — most weeks don\'t need a fixed session here.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '18 Oct',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'Kept as normal — may become the long+tempo slot pending your answer on Friday',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day — genuinely easy, or a bit more if you\'re enjoying it.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'This exists to keep bike fitness and skill from disappearing, and because you enjoy it — not to build FTP.',
+            paces: ['Whatever feels right — no target'],
+            considerations: ['A short, light ride still counts — the point is presence, not volume'],
+            importance: 'Keeping a light bike habit going now is what makes a future triathlon return cheap rather than starting from zero.'
+          }]
+        }
+      ]
     }
 
   ]
