@@ -3537,17 +3537,8 @@ window.COACH_PLANS = {
               '4 × 100m strides — build to fast, not sprints'
             ],
             mainSet: [
-              '800m at 3:40–3:45/km (≈2:56–2:58) — hard, controlled, RPE 8',
-              '2–3 min full recovery jog — let HR properly settle, this isn\'t threshold-style short recovery',
-              '800m at 3:40–3:45/km — repeat, same effort',
-              '2–3 min full recovery',
-              '800m at 3:40–3:45/km',
-              '2–3 min full recovery',
-              '800m at 3:40–3:45/km',
-              '2–3 min full recovery',
-              '800m at 3:40–3:45/km',
-              '2–3 min full recovery',
-              '800m at 3:40–3:45/km — finish controlled, not a blow-up'
+              '6 x 800m at 3:40–3:45/km (≈2:56–2:58 per rep) — hard, controlled, RPE 8, same effort throughout — finish controlled, not a blow-up',
+              '2–3 min full recovery jog between each rep — let HR properly settle, this isn\'t threshold-style short recovery'
             ],
             coolDown: '10 min easy jog at 5:00–5:15/km.',
             focus: 'Pulled forward from an original 3:45–3:50/km draft — every pace target this block has ended up a touch conservative once actually tested, and threshold work (including Sunday\'s bonus session) has consistently landed faster than planned. First time doing reps this short/fast this block, so treat the pace as a strong starting point, not gospel — adjust by feel on the day.',
