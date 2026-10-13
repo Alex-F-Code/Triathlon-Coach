@@ -618,8 +618,8 @@ window.COACH_SWAPS = {
         reason: 'Drills + 8 × 100m',
         session: {
           name: 'Swim — technique + aerobic (Type A)',
-          meta: '1900m · 50 min',
-          headline: 'Drills-focused with 8 × 100m aerobic set',
+          meta: '2100m · 55 min',
+          headline: 'Drills-focused with 10 × 100m aerobic set',
           warmUp: [
             '200m easy freestyle',
             '100m kick with board',
@@ -629,7 +629,7 @@ window.COACH_SWAPS = {
             '2 × 50m front sculling with 20s rest',
             '2 × 50m single-arm freestyle with 20s rest',
             '2 × 50m catch-up drill with 20s rest',
-            '8 × 100m at 1:42–1:47 with 20s rest',
+            '10 × 100m at 1:42–1:47 with 20s rest',
             '4 × 50m at 1:38–1:42 with 30s rest'
           ],
           coolDown: '200m easy freestyle, mixing strokes.',
@@ -646,7 +646,7 @@ window.COACH_SWAPS = {
         reason: 'Longer chunks — 3 × 400m',
         session: {
           name: 'Swim — endurance (Type B)',
-          meta: '2400m · 60 min',
+          meta: '2800m · 65 min',
           headline: 'Longer continuous chunks — race-relevant',
           warmUp: [
             '200m easy freestyle',
@@ -654,13 +654,13 @@ window.COACH_SWAPS = {
             '4 × 50m as 25 drill / 25 swim'
           ],
           mainSet: [
-            '3 × 400m at 1:48–1:52 /100m with 45s rest',
+            '4 × 400m at 1:48–1:52 /100m with 45s rest',
             '4 × 50m at 1:38–1:42 /100m with 20s rest'
           ],
           coolDown: '200m easy freestyle.',
           focus: 'Long chunks train pace discipline. Stroke count stable across 400s.',
           paces: ['Long/endurance: 1:48–1:52 /100m', 'Speed: 1:38–1:42 /100m'],
-          considerations: ['Count strokes on first + last 25 of each 400', 'Alternative: 2 × 600m at 1:50 /100m'],
+          considerations: ['Count strokes on first + last 25 of each 400', 'Alternative: 3 × 600m at 1:50 /100m'],
           importance: 'Endurance swims build the aerobic ceiling and teach pace over long chunks.'
         }
       },
@@ -671,7 +671,7 @@ window.COACH_SWAPS = {
         reason: '50s + descending 100s',
         session: {
           name: 'Swim — speed/form (Type C)',
-          meta: '2100m · 55 min',
+          meta: '2300m · 60 min',
           headline: 'Sharper turnover work',
           warmUp: [
             '200m easy freestyle',
@@ -679,9 +679,9 @@ window.COACH_SWAPS = {
             '4 × 50m as 25 drill / 25 swim'
           ],
           mainSet: [
-            '10 × 50m at 1:38–1:42 with 20s rest',
+            '12 × 50m at 1:38–1:42 with 20s rest',
             '100m easy',
-            '4 × 100m descending (1:47 → 1:40) with 30s rest',
+            '5 × 100m descending (1:47 → 1:40) with 30s rest',
             '100m easy',
             '4 × 50m at 1:38–1:42 with 25s rest'
           ],
@@ -699,7 +699,7 @@ window.COACH_SWAPS = {
         reason: '800m TT + race pace intervals',
         session: {
           name: 'Swim — tri pace (Type D)',
-          meta: '2000m · 55 min',
+          meta: '2300m · 60 min',
           headline: 'Race-pace specificity',
           warmUp: [
             '200m easy freestyle',
@@ -709,7 +709,7 @@ window.COACH_SWAPS = {
           mainSet: [
             '800m time trial — steady sustained effort at 1:43–1:47/100m',
             '200m easy recovery',
-            '4 × 200m at race pace (1:43–1:47) with 30s rest'
+            '5 × 200m at race pace (1:43–1:47) with 30s rest'
           ],
           coolDown: '100m easy freestyle.',
           focus: 'Race-pace effort held over race-relevant distances.',
@@ -719,6 +719,62 @@ window.COACH_SWAPS = {
             'This is the hardest swim session in the rotation — recover accordingly'
           ],
           importance: 'Tri-pace sessions build race-day capacity. Do this closer to any tri races.'
+        }
+      },
+      {
+        id: 'swim-type-e',
+        label: 'Type E — Ladder/pyramid',
+        icon: 'swim',
+        reason: '100-200-300-400-300-200-100',
+        session: {
+          name: 'Swim — ladder/pyramid (Type E)',
+          meta: '2300m · 55 min',
+          headline: 'A genuinely different shape, not just reps at a pace',
+          warmUp: [
+            '200m easy freestyle',
+            '100m kick with board',
+            '4 × 50m as 25 drill / 25 swim'
+          ],
+          mainSet: [
+            '100m at 1:38–1:42/100m — sharp, 15s rest',
+            '200m at 1:42–1:46/100m — 15s rest',
+            '300m at 1:46–1:50/100m — 20s rest',
+            '400m at 1:48–1:52/100m — the top of the pyramid, steady and controlled, 20s rest',
+            '300m at 1:46–1:50/100m — mirror the way up, 15s rest',
+            '200m at 1:42–1:46/100m — 15s rest',
+            '100m at 1:38–1:42/100m — finish sharp'
+          ],
+          coolDown: '200m easy freestyle.',
+          focus: 'Pacing discipline across changing distances — hold form through the 400 rather than just surviving it.',
+          paces: ['Fast (100s): 1:38–1:42 /100m', 'Mid (200s/300s): 1:42–1:50 /100m', 'Peak (400): 1:48–1:52 /100m'],
+          considerations: ['The climb and the descent should feel different even at similar paces — fresher legs/arms on the way up'],
+          importance: 'Structural variety — same fitness demand as the other types, delivered differently so it stays interesting.'
+        }
+      },
+      {
+        id: 'swim-type-f',
+        label: 'Type F — Broken/negative split',
+        icon: 'swim',
+        reason: '1000m broken into chunks, second half faster',
+        session: {
+          name: 'Swim — broken/negative split (Type F)',
+          meta: '2200m · 55 min',
+          headline: 'A long swim broken into pieces, building pace through it',
+          warmUp: [
+            '200m easy freestyle',
+            '100m kick with board',
+            '4 × 50m as 25 drill / 25 swim'
+          ],
+          mainSet: [
+            '4 × 250m at 1:50–1:54/100m with 10s rest — first half, controlled',
+            '4 × 250m at 1:44–1:48/100m with 10s rest — second half, genuinely faster than the first',
+            '4 × 50m at 1:38–1:42 with 20s rest'
+          ],
+          coolDown: '200m easy, mixing strokes.',
+          focus: 'Negative split discipline — the back half needs to be faster, not just "not slower."',
+          paces: ['First half: 1:50–1:54 /100m', 'Second half: 1:44–1:48 /100m', 'Speed: 1:38–1:42 /100m'],
+          considerations: ['The 10s rest is just enough to check the clock, not enough to actually recover — this is meant to feel continuous'],
+          importance: 'Trains pacing judgement and finishing strong, rather than just raw endurance.'
         }
       },
       {

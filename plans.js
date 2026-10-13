@@ -3553,10 +3553,10 @@ window.COACH_PLANS = {
         },
         {
           id: 'wed', day: 'Wed', date: '14 Oct',
-          name: 'Swim — technique + easy aerobic', meta: '2000m · 50 min',
+          name: 'Swim — ladder/pyramid (Type E)', meta: '2300m · 55 min',
           sessions: [{
-            name: 'Swim — technique + easy aerobic', meta: '2000m · 50 min',
-            headline: 'Technique rotation Week B — crossover + late catch',
+            name: 'Swim — ladder/pyramid (Type E)', meta: '2300m · 55 min',
+            headline: 'New shape, not just a new pace — a pyramid set, and a bit longer since recent sessions have felt manageable',
             warmUp: [
               '200m easy free',
               '2 × 50m zipper drill — "Thumb brushes hip → ribs → armpit every single recovery. Hand drops in level with the shoulder — if it feels too wide, that\'s about right."',
@@ -3564,14 +3564,19 @@ window.COACH_PLANS = {
               '2 × 50m single-arm freestyle — "Same rule as above on the working arm — the second it stops reaching, start bending the elbow."'
             ],
             mainSet: [
-              '3 × 300m at 1:46–1:50 /100m with 45s rest — steady, sustainable',
-              '4 × 50m at 1:38–1:42 /100m with 20s rest — sharp finish'
+              '100m at 1:38–1:42/100m — sharp, 15s rest',
+              '200m at 1:42–1:46/100m — 15s rest',
+              '300m at 1:46–1:50/100m — 20s rest',
+              '400m at 1:48–1:52/100m — the top of the pyramid, steady and controlled, 20s rest',
+              '300m at 1:46–1:50/100m — mirror the way up, 15s rest',
+              '200m at 1:42–1:46/100m — 15s rest',
+              '100m at 1:38–1:42/100m — finish sharp'
             ],
             coolDown: '200m easy, mixing strokes.',
-            focus: 'Week B — last week was Week A, properly alternating now. Felt strong last week — keep building on that.',
-            paces: ['Long/endurance: 1:46–1:50 /100m', 'Speed: 1:38–1:42 /100m'],
-            considerations: ['No pressure on these numbers — land wherever feels right, this is maintenance not testing'],
-            importance: 'One weekly swim keeps the skill and a meaningful amount of fitness without asking much of the schedule.'
+            focus: 'First time doing the pool work as a pyramid rather than straight reps — same technique focus (Week B: crossover + late catch), genuinely different structure to keep it interesting, plus more total distance than recent weeks.',
+            paces: ['Fast (100s): 1:38–1:42 /100m', 'Mid (200s/300s): 1:42–1:50 /100m', 'Peak (400): 1:48–1:52 /100m'],
+            considerations: ['Pacing is the point here, not just distance — hold form through the 400 rather than surviving it', 'Rotation now includes this alongside the technique+aerobic/endurance/speed-form/tri-pace sessions — more variety week to week going forward'],
+            importance: 'One weekly swim keeps the skill and a meaningful amount of fitness without asking much of the schedule — now with more variation in how that\'s delivered.'
           }]
         },
         {
