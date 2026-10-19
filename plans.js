@@ -3646,6 +3646,155 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    {
+      id: 'w21',
+      number: 21,
+      title: 'Down week — VO2 pace pulled forward again',
+      dateRange: '19–25 October',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~22 km',
+        bikeKm: '~30 km',
+        swimM: '~2200m',
+        totalHours: '~4:00'
+      },
+      focusHtml: 'Really strong week — the VO2 session beat a brand-new target in bad conditions, swim landed well on the new ladder set, and the long ride was genuinely enjoyed. Only miss was Friday\'s long+tempo (busy, not a motivation issue) — worth naming plainly that this is now five weeks running it hasn\'t landed as written, even after saying you wanted to keep trying. Not re-proposing moving it again unless you want to — just flagging the pattern honestly. This is the scheduled down week: volume drops, but Tuesday\'s pace pulls forward again off last week\'s result (3:38/km average, beating a 3:40–3:45 target) to 3:35–3:40/km for 4×800m.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '19 Oct',
+          name: 'Easy run', meta: '6 km · 35 min',
+          sessions: [{
+            name: 'Easy run', meta: '6 km · 35 min',
+            headline: 'Down week — kept modest',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '6 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Down week — presence, not volume.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Genuinely easy — save the legs for tomorrow'],
+            importance: 'Easy aerobic volume, feeding the quality session that follows it.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '20 Oct',
+          name: 'Run quality — 4 × 800m VO2', meta: '8 km · 42 min',
+          sessions: [{
+            name: 'VO2 reps — 4 × 800m', meta: '8 km · 42 min',
+            headline: 'Down week volume, pace pulled forward again off last week\'s result',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '4 x 800m at 3:35–3:40/km (≈2:50–2:52 per rep) — hard, controlled, RPE 8',
+              '2–3 min full recovery jog between each rep'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km.',
+            focus: 'Last week averaged 3:38/km against a 3:40–3:45 target, negative split, in wind and feeling rough at the start — pulling the band forward again rather than repeating a target you\'ve already beaten.',
+            paces: ['Reps: 3:35–3:40 /km', 'Recovery: 2–3 min full jog', 'HR 170+'],
+            considerations: [
+              'Fewer reps this week (down week) — the point is confirming the faster pace holds, not grinding volume',
+              'Bail rule: 3 reps if the 4th feels like a genuine reach'
+            ],
+            importance: 'The priority session of the week.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '21 Oct',
+          name: 'Swim — broken/negative split (Type F)', meta: '2200m · 55 min',
+          sessions: [{
+            name: 'Swim — broken/negative split (Type F)', meta: '2200m · 55 min',
+            headline: 'Next in the expanded rotation — build pace through a long broken swim',
+            warmUp: [
+              '200m easy free',
+              '3 × 20s vertical kicking, 20s rest — "Ankles loose and pointed, not flexed. Kick from the hip — legs stay long, don\'t bicycle from the knee."',
+              '2 × 50m 6-1-6 — "Eyes on the bottom of the pool the entire time — not forward, not up to breathe. Feel the hip roll fully before the single stroke."',
+              '2 × 50m side kick — "Hips stacked, bottom arm long. If your legs sink here, it\'s the kick\'s job to fix it, not the arm\'s."',
+              '2 × 50m front sculling — "Palms down, small figure-8s — feel pressure build on the forearms before any actual swimming."'
+            ],
+            mainSet: [
+              '4 × 250m at 1:50–1:54/100m with 10s rest — first half, controlled',
+              '4 × 250m at 1:44–1:48/100m with 10s rest — second half, genuinely faster than the first',
+              '4 × 50m at 1:38–1:42 with 20s rest'
+            ],
+            coolDown: '200m easy, mixing strokes.',
+            focus: 'Week A technique — sinking legs and weak kick. Last week\'s ladder set landed well, keep the variety going.',
+            paces: ['First half: 1:50–1:54 /100m', 'Second half: 1:44–1:48 /100m', 'Speed: 1:38–1:42 /100m'],
+            considerations: ['The 10s rest is just enough to check the clock, not enough to actually recover — meant to feel continuous', 'Back half needs to be faster, not just "not slower"'],
+            importance: 'Maintenance swim with genuine variety now — keeps it interesting week to week.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '22 Oct',
+          name: 'Rest', meta: 'Protects Friday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer between Tuesday\'s quality and Friday\'s tempo.',
+            paces: [],
+            considerations: [],
+            importance: 'Unchanged from the standing template.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '23 Oct',
+          name: 'Long run + 3km tempo', meta: '11 km · 60 min',
+          sessions: [{
+            name: 'Long run + 3km tempo finish', meta: '11 km · 60 min',
+            headline: 'Down week — same shape, reduced distance',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: [
+              '8 km easy at 4:45–5:00 /km (HR <150)',
+              '3 km at 4:10–4:20 /km tempo (HR 155–165) — comfortably hard'
+            ],
+            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
+            focus: 'Five weeks running this hasn\'t landed in this shape — not changing anything about it unless you want to, just worth knowing honestly rather than quietly reprinting it forever.',
+            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy',
+              'Tempo extends to 4 km once this lands clean twice in this shape'
+            ],
+            importance: 'The week\'s second quality session — trains holding pace on tired legs.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '24 Oct',
+          name: 'Flexible', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Flexible — rest or easy movement', meta: 'Your call',
+            headline: 'Genuinely open',
+            warmUp: '—',
+            mainSet: 'Rest, easy movement, or whatever fits. No prescription.',
+            coolDown: '—',
+            focus: 'Unchanged from the standing template.',
+            paces: [],
+            considerations: [],
+            importance: 'A flexible day matters — most weeks don\'t need a fixed session here.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '25 Oct',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'Last week\'s long ride was genuinely enjoyed — great sign the bike habit is holding well',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day — genuinely easy, or a bit more if you\'re enjoying it.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'This exists to keep bike fitness and skill from disappearing, and because you enjoy it — not to build FTP.',
+            paces: ['Whatever feels right — no target'],
+            considerations: ['A short, light ride still counts — the point is presence, not volume'],
+            importance: 'Keeping a light bike habit going now is what makes a future triathlon return cheap rather than starting from zero.'
+          }]
+        }
+      ]
     }
 
   ]
