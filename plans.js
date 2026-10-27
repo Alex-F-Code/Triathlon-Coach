@@ -3801,17 +3801,17 @@ window.COACH_PLANS = {
     {
       id: 'w22',
       number: 22,
-      title: 'Easing back in after illness',
+      title: 'Easing back in, and the new split structure starts now',
       dateRange: '26 October–1 November',
       year: 2026,
       todayId: 'tue',
       stats: {
-        runKm: '~23 km',
+        runKm: '~36 km',
         bikeKm: '~25 km',
         swimM: '~2100m',
-        totalHours: '~4:00'
+        totalHours: '~4:30'
       },
-      focusHtml: 'Illness took most of last week — only the Tuesday VO2 session (felt good) plus two easy runs (6km Fri, 8km Sun) landed. Feeling better now, so this week\'s shifted a day later than usual to give one clean easy day first, and volume stays modest rather than jumping straight to the next build step — the pace work you\'ve done already shows fitness is intact, it\'s volume that needs easing back rather than being piled straight back on. Normal build resumes next week if this lands well. Days are shifted one slot later than the standing template just for this week (quality Wed, swim Thu, rest Fri, long+tempo Sat) — back to the normal Mon–Fri layout from next week.',
+      focusHtml: 'Illness took most of last week — only the Tuesday VO2 session (felt good) plus two easy runs (6km Fri, 8km Sun) landed. Feeling better now, so this week\'s shifted a day later than usual to give one clean easy day first. Agreed 27 Oct: Friday\'s long-run cap is reversed, and tempo/long run split into separate sessions from here (same shape as what worked for the half marathon block) — applied this week rather than waiting for next, so Friday is now a standalone tempo and Saturday a standalone long run, allowed to grow. Days are still shifted one slot later than the standing template just for this week (quality Wed, swim Thu, tempo Fri, long Sat) — back to the normal Mon–Fri layout from next week, now with the new 4-run shape.',
       days: [
         {
           id: 'mon', day: 'Mon', date: '26 Oct',
@@ -3892,38 +3892,35 @@ window.COACH_PLANS = {
         },
         {
           id: 'fri', day: 'Fri', date: '30 Oct',
-          name: 'Rest', meta: 'Protects Saturday this week', rest: true,
+          name: 'Tempo run', meta: '7 km · 38 min',
           sessions: [{
-            name: 'Rest', meta: 'Shifted from the usual Thursday slot',
-            headline: 'Standard rest day, just moved a day later this week',
-            warmUp: '—',
-            mainSet: 'No structured training. Optional 15 min mobility.',
-            coolDown: '—',
-            focus: 'The buffer between Wednesday\'s quality and Saturday\'s tempo, given the one-day shift this week.',
-            paces: [],
-            considerations: [],
-            importance: 'Unchanged in function — just moved a day later for this week only.'
+            name: 'Tempo run — standalone', meta: '7 km · 38 min',
+            headline: 'First time as its own session — no longer tacked onto the long run',
+            warmUp: '2 km easy, building gradually — let HR rise naturally.',
+            mainSet: '4 km at 4:10–4:20 /km (HR 155–165) — comfortably hard, sustained.',
+            coolDown: '1 km easy jog, then walk. Refuel within 20 min.',
+            focus: 'Structural change agreed 27 Oct — tempo and long run split into separate sessions from here, same as what worked for the half marathon block. A standalone session should be a much easier ask than one tacked onto 9km of easy running first, which hadn\'t landed in 6 weeks.',
+            paces: ['Easy: 5:00–5:15 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
+            considerations: [
+              'Bail rule: 1.5 km into the tempo and it feels wrong, run the rest easy',
+              'Distance grows gradually from here now it has its own slot'
+            ],
+            importance: 'The week\'s second quality session — now genuinely its own thing.'
           }]
         },
         {
           id: 'sat', day: 'Sat', date: '31 Oct',
-          name: 'Long run + 3km tempo', meta: '12 km · 65 min',
+          name: 'Long run', meta: '13 km · 65 min',
           sessions: [{
-            name: 'Long run + 3km tempo finish', meta: '12 km · 65 min',
-            headline: 'Shifted to Saturday this week — same prescription, held rather than extended',
+            name: 'Long run — standalone', meta: '13 km · 65 min',
+            headline: 'No longer carries a tempo finish — genuinely easier per-session, and now allowed to grow again',
             warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
-            mainSet: [
-              '9 km easy at 4:45–5:00 /km (HR <150)',
-              '3 km at 4:10–4:20 /km tempo (HR 155–165) — comfortably hard'
-            ],
-            coolDown: 'Do NOT stop at the end of the tempo — 5 min easy jog, then 5 min walk. Refuel within 20 min.',
-            focus: 'Still held at the same shape/pace rather than growing it — getting it to land at all matters more than extending it further right now, especially coming off a light week.',
-            paces: ['Easy: 4:45–5:00 /km', 'Tempo: 4:10–4:20 /km', 'Tempo HR: 155–165'],
-            considerations: [
-              'Bail rule: 2 km into the tempo and it feels wrong, run the rest easy',
-              'Tempo extends to 4 km once this lands clean twice in this shape'
-            ],
-            importance: 'The week\'s second quality session — trains holding pace on tired legs.'
+            mainSet: '13 km continuous at easy aerobic pace (HR <150) — steady, conversational, no pace-chasing.',
+            coolDown: 'Last 500m easy, then walk. Refuel within 20 min.',
+            focus: 'You said you\'re happy to let this grow again, and splitting it from tempo makes that easier to do safely. Starting at 13km (up from the old capped 9km easy portion) — grows by roughly 1km/week from here, illness-week caution aside.',
+            paces: ['Easy: 4:45–5:00 /km', 'HR <150'],
+            considerations: ['Purely aerobic — no tempo segment anymore, that\'s Friday\'s job now'],
+            importance: 'Builds the aerobic/durability side specifically — separated from speed work so each session does one job well.'
           }]
         },
         {
