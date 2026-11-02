@@ -3939,6 +3939,142 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    {
+      id: 'w23',
+      number: 23,
+      title: 'Football week — tempo recalibrated, long run restarts',
+      dateRange: '2–8 November',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~30 km',
+        bikeKm: '~25 km',
+        swimM: '0m',
+        totalHours: '~4:30'
+      },
+      focusHtml: 'Good week back from illness. Tuesday\'s VO2 on the treadmill (16.4–16.6 km/h, roughly 3:37–3:40/km) landed inside the band at RPE 9 — the first target this block met rather than beaten, which is exactly what a week after illness should look like, so the VO2 pace holds at 3:35–3:40 rather than pulling forward again. Saturday\'s tempo with Izzy (20 min at 3:55, then 10 min at 4:00, RPE 8) was well above the old 4:10–4:20 prescription — the tempo band moves up to match, and it\'s now a continuous time-based effort, the same kind of steady top-end tempo / low-threshold work that worked for the half marathon block. The standalone long run hasn\'t actually happened yet (swapped to Friday, then missed), so it restarts at 13km rather than growing. Football on Tuesday is this week\'s hard session — no VO2 stacked on top of it.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '2 Nov',
+          name: 'Easy run', meta: '6 km · 35 min',
+          sessions: [{
+            name: 'Easy run', meta: '6 km · 35 min',
+            headline: 'Genuinely easy — your own words were that Sunday\'s ride was hard on the legs after Saturday\'s run',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '6 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Keeps the legs moving ahead of football tomorrow, nothing more.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Shorten or skip if the legs still feel Sunday\'s ride'],
+            importance: 'Easy aerobic volume — no pressure on it this week.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '3 Nov',
+          name: 'Football', meta: '60 min',
+          sessions: [{
+            name: 'Football', meta: '60 min · casual game',
+            headline: 'This week\'s hard session — football covers it',
+            warmUp: 'Active warm-up before kick-off: skips, lateral shuffles, accelerations.',
+            mainSet: '60 min 5-a-side or casual game.',
+            coolDown: 'Walk 5 min, stretch calves and hamstrings.',
+            focus: 'Sprints and change of direction — real high-intensity work, so no VO2 session stacked on top of it this week.',
+            paces: ['RPE 6–8 in bursts'],
+            considerations: [
+              'No additional run quality today — this covers it',
+              'If the game falls through and legs are fresh, Wednesday can take the 5 × 3 min VO2 at 3:35–3:40/km instead (use Swap)'
+            ],
+            importance: 'Free anaerobic and agility work — and the reason Wednesday is a recovery day, not a quality one.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '4 Nov',
+          name: 'Rest — or a short easy swim', meta: 'Your call', rest: true,
+          sessions: [{
+            name: 'Rest — optional short easy swim', meta: 'Your call',
+            headline: 'Recovery day after football — swim is probably off this week, which is fine',
+            warmUp: '—',
+            mainSet: 'Rest. If the pool turns out to be reachable, 20–30 min easy (about 1000m, any stroke mix, no pace targets) is a good active-recovery touch after football.',
+            coolDown: '—',
+            focus: 'The last proper swim was 14 Oct. A light touch keeps the base without asking much of the week — not a requirement.',
+            paces: [],
+            considerations: ['No swim this week is fine — it just shouldn\'t become a habit'],
+            importance: 'Rest after football; swim is maintenance and optional this week.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '5 Nov',
+          name: 'Rest', meta: 'Protects Friday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer before Friday\'s tempo.',
+            paces: [],
+            considerations: [],
+            importance: 'Unchanged from the standing template.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '6 Nov',
+          name: 'Tempo run — 25 min continuous', meta: '11 km · 52 min',
+          sessions: [{
+            name: 'Tempo run — 25 min continuous', meta: '11 km · 52 min',
+            headline: 'Recalibrated off Saturday — faster band, and now continuous rather than distance-based',
+            warmUp: '2.5–3 km easy at 5:00–5:15/km, building gradually. 4 × 20s relaxed strides to finish.',
+            mainSet: '25 min continuous at 4:00–4:05/km (about 6.2 km) — top-end tempo, lower end of threshold, RPE 7–8. Steady, not a race.',
+            coolDown: '10 min easy jog at 5:00–5:15/km, then walk. Refuel within 20 min.',
+            focus: 'Saturday was 20 min at 3:55, a 3 min walk, then 10 min at 4:00 at RPE 8 — well above the old 4:10–4:20 band. This is set slightly under that because Saturday was run alongside Izzy, and this one has no walk break. Time-based because that is how the half marathon version worked for you.',
+            paces: ['Tempo: 4:00–4:05 /km', 'Tempo HR: 160–168', 'Easy: 5:00–5:15 /km'],
+            considerations: [
+              'If it feels like a race effort at the 12 minute mark, ease 5 sec/km rather than stopping',
+              'Duration grows before pace — 30 min at the same pace is the next step once this lands'
+            ],
+            importance: 'The week\'s main running quality (football was the other hard day) — sustained pace at the edge of threshold, the closest thing in the week to what a 10K actually asks.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '7 Nov',
+          name: 'Long run', meta: '13 km · 65 min',
+          sessions: [{
+            name: 'Long run — standalone', meta: '13 km · 65 min',
+            headline: 'Restarts at 13km — it hasn\'t happened yet, so it holds here before growing',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: '13 km continuous at easy aerobic pace (HR <150) — steady, conversational, no pace-chasing.',
+            coolDown: 'Last 500m easy, then walk. Refuel within 20 min.',
+            focus: 'This is the session meant to grow, but it has to land once before it does — same rule as the old Friday tempo.',
+            paces: ['Easy: 4:45–5:00 /km', 'HR <150'],
+            considerations: [
+              'Day after tempo — genuinely easy; drop to 11km if the legs are heavy',
+              'Grows by roughly 1km a week once it has landed'
+            ],
+            importance: 'Builds the aerobic base and durability on its own, with no speed work attached.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '8 Nov',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'Genuinely easy this week — last Sunday\'s 2 hours with the zone 3 blocks was a proper session',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day. No blocks needed.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'Keeps bike fitness and skill ticking over — it\'s the day after the long run, and last week\'s version was hard on the legs.',
+            paces: ['Whatever feels right — no target'],
+            considerations: [
+              'Weather allowing — shorten or skip freely if it\'s grim',
+              'Zone 3 blocks are fine occasionally, just not the day after a long run'
+            ],
+            importance: 'Keeping a light bike habit going keeps a future triathlon return cheap.'
+          }]
+        }
+      ]
     }
 
   ]
