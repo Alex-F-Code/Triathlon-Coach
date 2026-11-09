@@ -4075,6 +4075,155 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    {
+      id: 'w24',
+      number: 24,
+      title: 'Down week — tempo in two blocks, swim returns',
+      dateRange: '9–15 November',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~35 km',
+        bikeKm: '~25 km',
+        swimM: '~1900m',
+        totalHours: '~4:45'
+      },
+      focusHtml: 'Scheduled down week, and it lands at a good moment. The first standalone long run actually landed on Sunday — 13km easy, and you felt better by the end — so it grows again from next week. The tempo is the one that needs rethinking: you held 4:03 for 15 minutes, so the pace is right, but you weren\'t in it mentally. The sessions that have landed recently all had some structure around them (the treadmill, reps with a walk, running alongside Izzy), so the tempo becomes two blocks with a short break instead of one solo continuous effort — same kind of work, with a reset in the middle. Intensity holds, volume comes down. Next week is where the Peak phase and the race-pace reps start, so this week is about arriving there fresh.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '9 Nov',
+          name: 'Easy run', meta: '5 km · 30 min',
+          sessions: [{
+            name: 'Easy run', meta: '5 km · 30 min',
+            headline: 'Short and easy — you ran 13km yesterday',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '5 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Down week — presence, not volume.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Skip it if the legs feel flat after yesterday'],
+            importance: 'Easy aerobic volume feeding tomorrow\'s quality session.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '10 Nov',
+          name: 'Run quality — 4 × 800m VO2', meta: '8 km · 42 min',
+          sessions: [{
+            name: 'VO2 reps — 4 × 800m', meta: '8 km · 42 min',
+            headline: 'Down-week volume, same pace band — football covered last Tuesday so this is the first VO2 since 27 Oct',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '4 x 800m at 3:35–3:40/km (≈2:50–2:52 per rep) — hard, controlled, RPE 8',
+              '2 min walk recovery between each rep'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km.',
+            focus: 'Fewer reps for the down week, not a faster band — the pace holds at 3:35–3:40 after a tougher week.',
+            paces: ['Reps: 3:35–3:40 /km', 'Recovery: 2 min walk', 'HR 170+'],
+            considerations: [
+              'Bail rule: 3 reps if the 4th feels like a genuine reach',
+              'Treadmill is fine — set 1% incline so it matches outdoor effort'
+            ],
+            importance: 'The priority session of the week.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '11 Nov',
+          name: 'Swim — technique + aerobic (Type A)', meta: '1900m · 50 min',
+          sessions: [{
+            name: 'Swim — technique + aerobic (Type A)', meta: '1900m · 50 min',
+            headline: 'First swim since 14 Oct — easing back in, a little shorter than the recent longer sessions',
+            warmUp: [
+              '200m easy free',
+              '3 × 20s vertical kicking, 20s rest — "Ankles loose and pointed, not flexed. Kick from the hip — legs stay long, don\'t bicycle from the knee."',
+              '2 × 50m 6-1-6 — "Eyes on the bottom of the pool the entire time — not forward, not up to breathe. Feel the hip roll fully before the single stroke."',
+              '2 × 50m side kick — "Hips stacked, bottom arm long. If your legs sink here, it\'s the kick\'s job to fix it, not the arm\'s."',
+              '2 × 50m front sculling — "Palms down, small figure-8s — feel pressure build on the forearms before any actual swimming."'
+            ],
+            mainSet: [
+              '8 x 100m at 1:42–1:47/100m with 20s rest — aerobic, technique-focused',
+              '4 x 50m at 1:38–1:42/100m with 30s rest — sharp finish'
+            ],
+            coolDown: '200m easy freestyle, mixing strokes.',
+            focus: 'Week A technique — sinking legs and weak kick. Last swim you actually did was Week B, so this carries the alternation on.',
+            paces: ['Main: 1:42–1:47 /100m', 'Speed: 1:38–1:42 /100m'],
+            considerations: ['Nearly four weeks out of the water — ease into the 100s if the first few feel heavy'],
+            importance: 'Maintenance — keeps the skill and fitness ticking over.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '12 Nov',
+          name: 'Rest', meta: 'Protects Friday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Standard rest day',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer before Friday\'s tempo.',
+            paces: [],
+            considerations: [],
+            importance: 'Unchanged from the standing template.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '13 Nov',
+          name: 'Tempo run — 2 × 10 min', meta: '10 km · 48 min',
+          sessions: [{
+            name: 'Tempo run — 2 × 10 min', meta: '10 km · 48 min',
+            headline: 'Same pace, split into two blocks — the continuous solo version is where it went wrong last time',
+            warmUp: '2.5–3 km easy at 5:00–5:15/km, building gradually. 4 × 20s relaxed strides to finish.',
+            mainSet: [
+              '2 x 10 min at 4:00–4:05/km — top-end tempo, lower end of threshold, RPE 7–8',
+              '2 min easy jog or walk between the two blocks'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km, then walk. Refuel within 20 min.',
+            focus: 'You held 4:03 for 15 minutes last Saturday, so the pace is right — it was the flat, solo, continuous format that stopped it. Two blocks with a break matches the session with Izzy that went well (20 min, a short walk, then 10). Down week, so 20 minutes of work rather than 25.',
+            paces: ['Tempo: 4:00–4:05 /km', 'Tempo HR: 160–168', 'Easy: 5:00–5:15 /km'],
+            considerations: [
+              'If the first block feels like a race effort, ease 5 sec/km in the second rather than stopping',
+              'Blocks lengthen before they rejoin: 2 × 12, then 3 × 10, then back to one continuous effort once it feels easy',
+              'If you\'re flat again, a shorter session that finishes beats a long one that doesn\'t'
+            ],
+            importance: 'The week\'s second quality run — sustained pace at the edge of threshold.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '14 Nov',
+          name: 'Long run', meta: '12 km · 60 min',
+          sessions: [{
+            name: 'Long run — standalone', meta: '12 km · 60 min',
+            headline: 'Down-week trim after landing 13km — grows again from next week',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: '12 km continuous at easy aerobic pace (HR <150) — steady, conversational, no pace-chasing.',
+            coolDown: 'Last 500m easy, then walk. Refuel within 20 min.',
+            focus: 'It landed once, so the rule is satisfied — it grows by roughly 1km a week from W25.',
+            paces: ['Easy: 4:45–5:00 /km', 'HR <150'],
+            considerations: ['Day after tempo — genuinely easy; drop to 10km if the legs are heavy'],
+            importance: 'Builds the aerobic base and durability on its own, with no speed work attached.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '15 Nov',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'No ride last week — easy, weather permitting, skip freely if it\'s grim',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day. No blocks needed.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'Keeps bike fitness and skill ticking over, and the last day before Peak starts.',
+            paces: ['Whatever feels right — no target'],
+            considerations: ['A short, light ride still counts — the point is presence, not volume'],
+            importance: 'Keeping a light bike habit going keeps a future triathlon return cheap.'
+          }]
+        }
+      ]
     }
 
   ]
