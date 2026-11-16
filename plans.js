@@ -4235,12 +4235,12 @@ window.COACH_PLANS = {
       year: 2026,
       todayId: 'mon',
       stats: {
-        runKm: '~34 km',
+        runKm: '~40 km',
         bikeKm: '~25 km',
         swimM: '0m',
-        totalHours: '~4:00'
+        totalHours: '~4:30'
       },
-      focusHtml: 'Peak phase starts this week, after two broken weeks — only Tuesday\'s VO2 landed last week and nothing since. Your idea is the better way in: the missed tempo comes first today as a re-entry, then a rest day, then the first race-pace reps on Wednesday, so they don\'t arrive on cold legs. It\'s the same amount of hard running as a normal week, just reordered. Volume stays modest (three runs, with a short optional one on Friday) because last week was close to empty. The first race-pace session starts slightly under 3:42 so it can land: 3 x 2km at 3:44–3:48, building to 4 x 2km at 3:42–3:45 next week if it goes well. With eight weeks to race day I think consistency is the lever now rather than fitness — these sessions are the evidence for whether 3:42 holds.',
+      focusHtml: 'Peak phase starts this week, after two broken weeks — only Tuesday\'s VO2 landed last week and nothing since. Your idea is the better way in: the missed tempo comes first today as a re-entry, then a rest day, then the first race-pace reps on Wednesday, so they don\'t arrive on cold legs. It\'s the same amount of hard running as a normal week, just reordered. Volume stays modest (three runs, with a short optional one on Friday) because last week was close to empty. The first race-pace session starts slightly under 3:42 so it can land: 3 x 2km at 3:44–3:48, building to 4 x 2km at 3:42–3:45 next week if it goes well. With eight weeks to race day I think consistency is the lever now rather than fitness — these sessions are the evidence for whether 3:42 holds. You\'ve asked to put the mileage up, so Friday is now a short easy run rather than an optional rest, and short easy runs go into the free slots from here on — built up gradually rather than in one jump, with Thursday kept as the one full rest day.',
       days: [
         {
           id: 'mon', day: 'Mon', date: '16 Nov',
@@ -4320,17 +4320,17 @@ window.COACH_PLANS = {
         },
         {
           id: 'fri', day: 'Fri', date: '20 Nov',
-          name: 'Rest — or a short easy run', meta: 'Your call', rest: true,
+          name: 'Easy run', meta: '5 km · 30 min',
           sessions: [{
-            name: 'Rest — optional short easy run', meta: 'Your call',
-            headline: 'Keeps Saturday\'s long run fresh — Friday\'s usual tempo was done on Monday this week',
-            warmUp: '—',
-            mainSet: 'Rest. If the legs feel good, 4–5km very easy is fine — nothing prescribed.',
-            coolDown: '—',
-            focus: 'Last week was nearly empty, so the priority is arriving at the long run fresh rather than adding volume.',
-            paces: [],
-            considerations: ['Skipping it costs nothing'],
-            importance: 'Protects Saturday.'
+            name: 'Easy run', meta: '5 km · 30 min',
+            headline: 'Short and easy — the first of the extra mileage you asked for',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '5 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Friday\'s usual tempo was done on Monday this week, so this slot takes an easy run instead. It sits the day before the long run, so it has to stay genuinely easy.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Drop it if the legs are heavy after Wednesday — Saturday matters more'],
+            importance: 'Easy aerobic volume, building the weekly mileage up gradually.'
           }]
         },
         {
@@ -4353,7 +4353,7 @@ window.COACH_PLANS = {
           name: 'Easy ride', meta: 'Your distance/effort', rest: true,
           sessions: [{
             name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
-            headline: 'Easy, weather permitting — skip freely if it\'s grim',
+            headline: 'Easy ride, weather permitting — or a 4–5km easy run instead if you\'d rather the mileage. Skip freely if it\'s grim.',
             warmUp: 'However you\'d normally start.',
             mainSet: 'Ride at whatever distance and effort suits the day. No blocks needed.',
             coolDown: 'Easy spin to finish.',
