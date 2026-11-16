@@ -4237,8 +4237,8 @@ window.COACH_PLANS = {
       stats: {
         runKm: '~34 km',
         bikeKm: '~25 km',
-        swimM: '~1900m',
-        totalHours: '~4:45'
+        swimM: '0m',
+        totalHours: '~4:00'
       },
       focusHtml: 'Peak phase starts this week, after two broken weeks — only Tuesday\'s VO2 landed last week and nothing since. Your idea is the better way in: the missed tempo comes first today as a re-entry, then a rest day, then the first race-pace reps on Wednesday, so they don\'t arrive on cold legs. It\'s the same amount of hard running as a normal week, just reordered. Volume stays modest (three runs, with a short optional one on Friday) because last week was close to empty. The first race-pace session starts slightly under 3:42 so it can land: 3 x 2km at 3:44–3:48, building to 4 x 2km at 3:42–3:45 next week if it goes well. With eight weeks to race day I think consistency is the lever now rather than fitness — these sessions are the evidence for whether 3:42 holds.',
       days: [
@@ -4305,26 +4305,17 @@ window.COACH_PLANS = {
         },
         {
           id: 'thu', day: 'Thu', date: '19 Nov',
-          name: 'Swim — technique + aerobic (Type A)', meta: '1900m · 50 min',
+          name: 'Rest', meta: 'Protects Saturday', rest: true,
           sessions: [{
-            name: 'Swim — technique + aerobic (Type A)', meta: '1900m · 50 min',
-            headline: 'The swim that slipped last week — nothing in the water since 14 Oct',
-            warmUp: [
-              '200m easy free',
-              '3 × 20s vertical kicking, 20s rest — "Ankles loose and pointed, not flexed. Kick from the hip — legs stay long, don\'t bicycle from the knee."',
-              '2 × 50m 6-1-6 — "Eyes on the bottom of the pool the entire time — not forward, not up to breathe. Feel the hip roll fully before the single stroke."',
-              '2 × 50m side kick — "Hips stacked, bottom arm long. If your legs sink here, it\'s the kick\'s job to fix it, not the arm\'s."',
-              '2 × 50m front sculling — "Palms down, small figure-8s — feel pressure build on the forearms before any actual swimming."'
-            ],
-            mainSet: [
-              '8 x 100m at 1:42–1:47/100m with 20s rest — aerobic, technique-focused',
-              '4 x 50m at 1:38–1:42/100m with 30s rest — sharp finish'
-            ],
-            coolDown: '200m easy freestyle, mixing strokes.',
-            focus: 'Week A technique — sinking legs and weak kick. Moved to Thursday because Wednesday carries the quality this week; a non-impact day after the reps.',
-            paces: ['Main: 1:42–1:47 /100m', 'Speed: 1:38–1:42 /100m'],
-            considerations: ['Five weeks out of the water — ease into the 100s if the first few feel heavy'],
-            importance: 'Maintenance — keeps the skill and fitness ticking over.'
+            name: 'Rest', meta: 'Usual rest day',
+            headline: 'Swim is off the plan — if you ever can get to the pool, it\'s a bonus, not a requirement',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The buffer after Wednesday\'s reps and ahead of the weekend.',
+            paces: [],
+            considerations: [],
+            importance: 'Recovery between the race-pace reps and Saturday\'s long run.'
           }]
         },
         {
