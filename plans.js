@@ -4364,6 +4364,149 @@ window.COACH_PLANS = {
           }]
         }
       ]
+    },
+
+    // ================================================================
+    {
+      id: 'w26',
+      number: 26,
+      title: 'Race-pace reps outdoors, tempo moves to Thursday',
+      dateRange: '23–29 November',
+      year: 2026,
+      todayId: 'mon',
+      stats: {
+        runKm: '~40 km',
+        bikeKm: '~25 km',
+        swimM: '0m',
+        totalHours: '~4:30'
+      },
+      focusHtml: 'Good week. The tempo blocks ran 3:58 and 3:55 against a 4:00–4:05 target, and Saturday\'s 30 minutes at 3:53 was a strong threshold run — a long way from the 4:10–4:20 tempo of September. Two things to correct. The reps on the treadmill didn\'t land (2.5 of 3), and you feel much better outside, so this week\'s race-pace session is outdoors at the same 3:44–3:48 — pace and volume hold until it lands. And Saturday became a threshold run, which made three hard sessions in a week plus hill repeats on Sunday; this week the long run is easy again and the tempo gets its own day. Friday is the one slot that hasn\'t been landing, so it becomes the rest day and the tempo moves to Thursday: Tuesday and Thursday are the quality days, Monday and Wednesday easy, Saturday long. Next week is the down week.',
+      days: [
+        {
+          id: 'mon', day: 'Mon', date: '23 Nov',
+          name: 'Easy run', meta: '5 km · 30 min',
+          sessions: [{
+            name: 'Easy run', meta: '5 km · 30 min',
+            headline: 'Shake-out — you said the legs were rough after Sunday',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '5 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'Keeps the legs moving ahead of tomorrow\'s race-pace reps — nothing to prove today.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Skip it or cut it to 3km if the legs are still heavy'],
+            importance: 'Easy aerobic volume feeding tomorrow\'s quality session.'
+          }]
+        },
+        {
+          id: 'tue', day: 'Tue', date: '24 Nov',
+          name: 'Run quality — 3 × 2 km race pace', meta: '12 km · 55 min',
+          sessions: [{
+            name: 'Race-pace reps — 3 × 2 km', meta: '12 km · 55 min',
+            headline: 'Race-pace reps again, outdoors this time — the treadmill version stopped at 2.5 reps',
+            warmUp: [
+              '15 min easy jog at 5:00–5:15/km',
+              '4 × 100m strides — build to fast, not sprints'
+            ],
+            mainSet: [
+              '3 x 2km at 3:44–3:48/km — controlled hard, RPE 8, even pace across all three',
+              '2–3 min walk or easy jog between each rep'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km.',
+            focus: 'Last week\'s attempt was on the treadmill and you\'ve said you feel much better outside, so this is the real test of the pace. Same volume and pace until it lands clean — 4 x 2km at 3:42–3:45 is the step after, in W28.',
+            paces: ['Reps: 3:44–3:48 /km', 'Recovery: 2–3 min walk or jog', 'HR 165–172'],
+            considerations: [
+              'Outdoors if at all possible — if it has to be the treadmill, set 1% incline',
+              'Bail rule: 2 reps if the 3rd feels like a genuine reach',
+              'Note each rep\'s pace for the check-in — last week\'s splits are missing, and the pace can only be set properly from evidence'
+            ],
+            importance: 'The key session of the Peak phase — this is where "can you hold 3:42" gets answered.'
+          }]
+        },
+        {
+          id: 'wed', day: 'Wed', date: '25 Nov',
+          name: 'Easy run', meta: '4 km · 25 min',
+          sessions: [{
+            name: 'Easy run', meta: '4 km · 25 min',
+            headline: 'Short recovery run between the two quality days — optional if the legs are flat',
+            warmUp: 'First km deliberately slow.',
+            mainSet: '4 km continuous at easy aerobic pace, conversational throughout.',
+            coolDown: 'Last 500m drop to walk.',
+            focus: 'The extra mileage you asked for, in the slot where it costs least.',
+            paces: ['4:50–5:10 /km', 'HR <150', 'RPE 3'],
+            considerations: ['Skip it rather than run it tired — Thursday matters more'],
+            importance: 'Easy aerobic volume, building the weekly mileage up gradually.'
+          }]
+        },
+        {
+          id: 'thu', day: 'Thu', date: '26 Nov',
+          name: 'Tempo run — 2 × 12 min', meta: '11 km · 52 min',
+          sessions: [{
+            name: 'Tempo run — 2 × 12 min', meta: '11 km · 52 min',
+            headline: 'Tempo moves here from Friday — Friday is the rest day now',
+            warmUp: '2.5–3 km easy at 5:00–5:15/km, building gradually. 4 × 20s relaxed strides to finish.',
+            mainSet: [
+              '2 x 12 min at 3:55–4:00/km — threshold-adjacent, RPE 7–8',
+              '2 min easy jog between the two blocks'
+            ],
+            coolDown: '10 min easy jog at 5:00–5:15/km, then walk. Refuel within 20 min.',
+            focus: 'Last Monday\'s blocks ran 3:58 and 3:55 and Saturday\'s 30 minutes averaged 3:53, so the tempo band moves up to 3:55–4:00. 2 x 12 is the planned step up from 2 x 10; it\'s two days after the reps, so same band rather than faster.',
+            paces: ['Tempo: 3:55–4:00 /km', 'Tempo HR: 162–170', 'Easy: 5:00–5:15 /km'],
+            considerations: [
+              'Outdoors if possible',
+              'If the legs are flat after Tuesday, drop to 2 x 10 min'
+            ],
+            importance: 'The week\'s second quality session — sustained pace at the edge of threshold.'
+          }]
+        },
+        {
+          id: 'fri', day: 'Fri', date: '27 Nov',
+          name: 'Rest', meta: 'Protects Saturday', rest: true,
+          sessions: [{
+            name: 'Rest', meta: 'Full rest day',
+            headline: 'Friday is the rest day now — it\'s the slot that hasn\'t been landing',
+            warmUp: '—',
+            mainSet: 'No structured training. Optional 15 min mobility.',
+            coolDown: '—',
+            focus: 'The one genuinely full rest day, and the buffer before Saturday\'s long run.',
+            paces: [],
+            considerations: [],
+            importance: 'Putting rest where the week keeps breaking means nothing is missed.'
+          }]
+        },
+        {
+          id: 'sat', day: 'Sat', date: '28 Nov',
+          name: 'Long run', meta: '13 km · 65 min',
+          sessions: [{
+            name: 'Long run — standalone', meta: '13 km · 65 min',
+            headline: 'Easy again — last week\'s threshold run was good, but this slot is the aerobic one',
+            warmUp: 'First 1–2 km deliberately slow — let HR rise naturally.',
+            mainSet: '13 km continuous at easy aerobic pace (HR <150) — steady, conversational, no pace-chasing.',
+            coolDown: 'Last 500m easy, then walk. Refuel within 20 min.',
+            focus: 'Tempo has its own day now, so this one can do its own job: aerobic volume, which is what the extra mileage is for. Holding at 13km rather than growing, because the last Saturday wasn\'t an easy run.',
+            paces: ['Easy: 4:45–5:00 /km', 'HR <150'],
+            considerations: [
+              'A long threshold run is Thursday\'s job, not this one\'s',
+              'Drop to 11km if the legs are heavy'
+            ],
+            importance: 'Builds the aerobic base and durability, with no speed work attached.'
+          }]
+        },
+        {
+          id: 'sun', day: 'Sun', date: '29 Nov',
+          name: 'Easy ride', meta: 'Your distance/effort', rest: true,
+          sessions: [{
+            name: 'Easy/moderate ride — your call', meta: 'Distance and effort flexible',
+            headline: 'Genuinely easy — hill repeats are a quality session, and the legs were already rough last Sunday',
+            warmUp: 'However you\'d normally start.',
+            mainSet: 'Ride at whatever distance and effort suits the day. No blocks — or a 4–5km easy run instead if you\'d rather the mileage.',
+            coolDown: 'Easy spin to finish.',
+            focus: 'Keeps bike fitness ticking over without adding to a hard week.',
+            paces: ['Whatever feels right — no target'],
+            considerations: ['Skip or shorten freely — next week is the down week'],
+            importance: 'Keeping a light bike habit going keeps a future triathlon return cheap.'
+          }]
+        }
+      ]
     }
 
   ]
